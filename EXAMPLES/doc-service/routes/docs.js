@@ -1,4 +1,5 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const app = express.Router();
 module.exports = app;
 
@@ -11,14 +12,19 @@ app.get('/', (req, res, next) => {
 });
 
 app.post('/', (req, res, next) => {
-  const data = req.body;
-  const query = req.query;
-  const headers = req.headers;
-  const params = req.params;
+  const data = Object.assign(req.body, {$type: 'default'});
+  if(data.foo === 'bar') data.$type = 'bar';
+  
+  fetch(process.env.MYAPP_COUCHDB_DOCS_URL, {
+    method: 'POST',
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(newDoc => {
+    const newKeyAndRevDataFromDB = { id: newDoc.id, rev: newDoc.rev };
+    const dataMerge = Object.assign(newDoc, newKeyAndRevDataFromDB);
+    res.status(201).send(dataMerge);
+  });
 
-  // console.log(data, query, headers, params);
-
-  res.status(201).send(data);
 }); 
-
-

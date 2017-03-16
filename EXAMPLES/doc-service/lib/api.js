@@ -1,3 +1,5 @@
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const expressBodyParser = require('body-parser');
 const expressAuth = require('./auth-middleware');
@@ -20,10 +22,12 @@ app.use((req, res, next) => {
 app.get('/', (req, res, next) => res.send({msg: 'foo', user1: req.database.get('user1')}));
 app.use('/docs', expressAuth.basicAuth(), docsApi);
 
-let server = undefined;
+let httpsServer = undefined;
 module.exports = () => {
   return {
-    start: ({ port }) => new Promise(resolve => server = app.listen(port, () => resolve(server))),
-    stop: () => new Promise(resolve => (server || {}).close(resolve)),
+    start: ({ port }) => new Promise(resolve => {       
+      httpsServer = https.createServer({ key: fs.readFileSync('psx').toString(), cert: fs.readFileSync('psx.cert').toString()}, app).listen(port, () => resolve(httpsServer));
+    }),
+    stop: () => new Promise(resolve => (httpsServer || {}).close(resolve)),
   };
 };

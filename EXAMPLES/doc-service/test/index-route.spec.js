@@ -8,7 +8,8 @@ describe('Index route should', () => {
   after(() => api.stop());
 
   it('yield some data', () => {
-    return fetch(`http://localhost:9090/docs`, { 
+    return fetch(`https://localhost:9090/docs`, { 
+      rejectUnauthorized: false,
       headers: { 
         'Content-Type': 'application/json',
         authorization: `Basic ${Buffer.from('admin:admin').toString('base64')}`,
@@ -22,7 +23,8 @@ describe('Index route should', () => {
   });
 
   it('post some data', () => {
-    return fetch(`http://localhost:9090/docs`, {
+    return fetch(`https://localhost:9090/docs`, {
+      rejectUnauthorized: false,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,6 +34,7 @@ describe('Index route should', () => {
     })
     .then(response => response.json())
     .then(actual => {
+      console.log(actual)
       // const expected = require('./fixtures/index.response.json');
       // assert.deepEqual(actual, expected);
     });

@@ -6,7 +6,6 @@ function basicAuth () {
   return (req, res, next) => {
     if(!req.headers.authorization) return res.status(401).send({error: 'Login please'});
 
-    // Basic username:password (base64)
     const authSignature = Buffer.from(req.headers.authorization.replace('Basic', '').trim(), 'base64').toString('utf-8');
     const authSplit = authSignature.split(':');
 
