@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "doc-service",
+  "version": "1.0.1",
+  "description": "A simple document service.",
+  "scripts": {
+    "start": "dotenv -e .env-production node bin/server",
+    "dev": "dotenv -e .env-development nodemon bin/server",
+    "test": "mocha",
+    "test:watch": "mocha --watch --recursive --watch-extensions js,json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "dotenv-cli": "^1.1.1",
+    "express": "^4.15.2",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0"
+  }
+}
