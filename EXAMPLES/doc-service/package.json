@@ -6,7 +6,7 @@
   "scripts": {
     "start": "dotenv -e .env-production node bin/server",
     "dev": "dotenv -e .env-development nodemon bin/server",
-    "test": "mocha",
+    "test": "dotenv -e .env-development mocha",
     "test:watch": "mocha --watch --recursive --watch-extensions js,json"
   },
   "author": "",
@@ -18,6 +18,8 @@
     "node-fetch": "^1.6.3"
   },
   "devDependencies": {
+    "concurrently": "^3.4.0",
+    "dotenv": "^4.0.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0"
   }

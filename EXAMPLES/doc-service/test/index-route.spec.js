@@ -1,5 +1,6 @@
 const assert = require('assert');
 const fetch = require('node-fetch');
+require('dotenv').config({path: '.env-development'});
 
 describe('Index route should', () => {
   const api = require('../lib/api')();
@@ -7,7 +8,12 @@ describe('Index route should', () => {
   after(() => api.stop());
 
   it('yield some data', () => {
-    return fetch(`http://localhost:9090`)
+    return fetch(`http://localhost:9090/docs`, { 
+      headers: { 
+        'Content-Type': 'application/json',
+        authorization: `Basic ${Buffer.from('admin:admin').toString('base64')}`,
+      },
+    })
     .then(response => response.json())
     .then(actual => {
       const expected = require('./fixtures/index.response.json');
@@ -16,10 +22,16 @@ describe('Index route should', () => {
   });
 
   it('post some data', () => {
-    return fetch(`http://localhost:9090/docs`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({foo: 'bar'})})
+    return fetch(`http://localhost:9090/docs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Basic ${Buffer.from('admin:admin').toString('base64')}`,
+      },
+      body: JSON.stringify({foo: 'bar'}),
+    })
     .then(response => response.json())
     .then(actual => {
-      console.log(actual);
       // const expected = require('./fixtures/index.response.json');
       // assert.deepEqual(actual, expected);
     });
