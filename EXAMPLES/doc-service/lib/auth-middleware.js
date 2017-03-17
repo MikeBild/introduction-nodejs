@@ -5,6 +5,7 @@ const keyFile = fs.readFileSync('./psx').toString();
 module.exports = {
   basicAuth: basicAuth,
   jwtAuth: jwtAuth,
+  jwtSign: jwtSign,
 };
 
 function basicAuth () {
