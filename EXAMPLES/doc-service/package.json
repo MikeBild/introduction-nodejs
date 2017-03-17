@@ -7,7 +7,8 @@
     "start": "dotenv -e .env-production node bin/server",
     "dev": "dotenv -e .env-development nodemon bin/server",
     "test": "dotenv -e .env-development mocha",
-    "test:watch": "mocha --watch --recursive --watch-extensions js,json"
+    "test:watch": "mocha --watch --recursive --watch-extensions js,json",
+    "debug": "dotenv -e .env-development node-debug bin/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -51,8 +51,8 @@ app.get('/:id/pdf', (req, res, next) => {
   .then(response => response.json())
   .then(data => data.docs.map(x => mapToDocInfo(x)))
   .then(data => data[0] || {})
-  .then(data => `<h1>Hello ${data.foo}</h1>`)
-  .then(data => prince(data))
+  .then(document => `<h1>Hello ${document.foo}</h1>`)
+  .then(data => prince(data, {}))
   .then(data => res.send(data))
   .catch(err => next(err));
 });
