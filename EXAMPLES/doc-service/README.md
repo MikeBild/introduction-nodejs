@@ -51,4 +51,3 @@ curl -u admin --basic --insecure -XPOST https://localhost:8080/login
 ```bash
 curl -H 'authorization: Bearer ...your token from basic auth...' --insecure https://localhost:8080/docs
 ```
-
