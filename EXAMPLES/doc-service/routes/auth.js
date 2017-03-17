@@ -5,6 +5,6 @@ const app = express.Router();
 module.exports = app;
 
 app.post('/login', expressAuth.basicAuth(), (req, res, next) => {
-  const jwtToken = expressAuth.jwtSign({username: req.currentUser.username});
+  const jwtToken = expressAuth.jwtSign({username: req.user.username});
   res.send({token: jwtToken});
 });

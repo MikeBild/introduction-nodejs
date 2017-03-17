@@ -4,10 +4,10 @@ const app = express.Router();
 module.exports = app;
 
 app.get('/', (req, res, next) => {
-  if(req.currentUser.role === 'admin') console.log(req.currentUser);
+  if(req.user.role === 'admin') console.log(req.user);
 
   res.send({
-    msg: `Hello ${req.currentUser.username}`,
+    msg: `Hello ${req.user.username}`,
   });
 });
 

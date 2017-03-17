@@ -20,7 +20,7 @@ function basicAuth () {
     if(!(username && password)) return res.status(401).send({error: 'Username or password missing'});
     if(!(username === process.env.MYAPP_USERNAME && password === process.env.MYAPP_PASSWORD)) return res.status(401).send({error: 'Username or password wrong'});
 
-    req.currentUser = {
+    req.user = {
       username: username,
       role: 'admin',
       profile: {
@@ -42,7 +42,7 @@ function jwtAuth () {
     const authSignature = req.headers.authorization.replace('Bearer', '').trim();
     try {
       const decoded = jwt.verify(authSignature, keyFile);
-      req.currentUser = { username: decoded.username, role: decoded.role };
+      req.user = { username: decoded.username, role: decoded.role };
       next();
     } catch(err) {
       return res.status(401).send({error: 'Token invalid'});
