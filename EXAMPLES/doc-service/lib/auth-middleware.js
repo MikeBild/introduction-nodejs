@@ -1,5 +1,10 @@
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const keyFile = fs.readFileSync('./psx').toString();
+
 module.exports = {
   basicAuth: basicAuth,
+  jwtAuth: jwtAuth,
 };
 
 function basicAuth () {
@@ -26,4 +31,31 @@ function basicAuth () {
     // db.query(username).then(data => data.password === PASSWORD).then(data => data ? next() : res.sendStatus(401)))
     next();
   };
+}
+
+function jwtAuth () {
+  // authorization: Baerer ...token...
+
+  return (req, res, next) => {
+    if(!req.headers.authorization) return res.status(401).send({error: 'Login please'});
+
+    const authSignature = req.headers.authorization.replace('Bearer', '').trim();
+    try {
+      const decoded = jwt.verify(authSignature, keyFile);
+      req.currentUser = { username: decoded.username, role: decoded.role };
+      next();
+    } catch(err) {
+      return res.status(401).send({error: 'Token invalid'});
+    }
+  };
+}
+
+function jwtSign ({username}) {
+  const role = { role: 'user' };  
+  if(username === 'admin') role.role = 'admin';
+  
+  return jwt.sign({
+    role: role.role,
+    username: username,
+  }, keyFile);
 }

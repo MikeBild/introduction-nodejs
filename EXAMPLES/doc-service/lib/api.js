@@ -5,6 +5,7 @@ const expressBodyParser = require('body-parser');
 const RateLimit = require('express-rate-limit');
 const expressAuth = require('./auth-middleware');
 const docsApi = require('../routes/docs');
+const authApi = require('../routes/auth');
 const app = express();
 
 const limiter = new RateLimit({
@@ -29,7 +30,9 @@ app.use((req, res, next) => {
   next();
 });
 app.get('/', (req, res, next) => res.send({msg: 'foo', user1: req.database.get('user1')}));
-app.use('/docs', expressAuth.basicAuth(), docsApi);
+
+app.use('/', authApi);
+app.use('/docs', expressAuth.jwtAuth(), docsApi);
 
 let httpsServer = undefined;
 module.exports = () => {
