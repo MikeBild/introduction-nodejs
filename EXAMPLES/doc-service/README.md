@@ -35,3 +35,20 @@ openssl req -new -key psx -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey psx -out psx.cert
 rm csr.pem
 ```
+
+## API Documentation
+
+### How to get verified
+
+#### Login to get a JW-Token via username and password (basic auth)
+
+```bash
+curl -u admin --basic --insecure -XPOST https://localhost:8080/login
+```
+
+#### Auth via JW-Token
+
+```bash
+curl -H 'authorization: Bearer ...your token from basic auth...' --insecure https://localhost:8080/docs
+```
+
