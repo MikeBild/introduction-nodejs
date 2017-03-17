@@ -5,13 +5,16 @@ const app = express.Router();
 module.exports = app;
 
 app.get('/', (req, res, next) => {
+  const skip = parseInt(req.query.skip) || 0;
+  const limit = parseInt(req.query.limit) || 10;
+
   if(req.user.role === 'admin') console.log(req.user);
   const findQuery = {
     selector: {
       '\\$type': 'foo',
     },
-    skip: parseInt(req.query.skip),
-    limit: parseInt(req.query.limit),
+    skip: skip,
+    limit: limit,
   };
 
   fetch(`${process.env.MYAPP_COUCHDB_DOCS_URL}/_find`, {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(findQuery)})
@@ -57,7 +60,6 @@ app.get('/:id/pdf', (req, res, next) => {
   .catch(err => next(err));
 });
 
-
 app.post('/', (req, res, next) => {
   const data = Object.assign(req.body, {$type: 'default'});
   if(data.foo === 'bar') data.$type = 'bar';
@@ -75,7 +77,6 @@ app.post('/', (req, res, next) => {
   });
 
 }); 
-
 
 function mapToDocInfo(doc) {
   const docInfo = Object.assign({}, doc);
