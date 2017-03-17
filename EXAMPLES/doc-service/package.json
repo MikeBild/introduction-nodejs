@@ -17,7 +17,8 @@
     "express": "^4.15.2",
     "express-rate-limit": "^2.6.0",
     "jsonwebtoken": "^7.3.0",
-    "node-fetch": "^1.6.3"
+    "node-fetch": "^1.6.3",
+    "prince-promise": "^0.2.3"
   },
   "devDependencies": {
     "concurrently": "^3.4.0",

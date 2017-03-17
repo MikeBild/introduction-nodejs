@@ -51,3 +51,9 @@ curl -u admin --basic --insecure -XPOST https://localhost:8080/login
 ```bash
 curl -H 'authorization: Bearer ...your token from basic auth...' --insecure https://localhost:8080/docs
 ```
+
+### Document to PDF
+
+```bash
+curl -s -H 'authorization: Bearer ...your token from basic auth...' --insecure https://localhost:8080/docs/f44ff1e9417b6b037abedbb77400efab/pdf > f44ff1e9417b6b037abedbb77400efab.pdf
+```
