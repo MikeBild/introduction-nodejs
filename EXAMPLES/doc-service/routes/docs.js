@@ -1,3 +1,4 @@
+const jsonSchemaValidation = require('../lib/json-schema-validation')();
 const express = require('express');
 const fetch = require('node-fetch');
 const prince = require('prince-promise');
@@ -8,7 +9,8 @@ app.get('/', (req, res, next) => {
   const skip = parseInt(req.query.skip) || 0;
   const limit = parseInt(req.query.limit) || 10;
 
-  if(req.user.role === 'admin') console.log(req.user);
+  // if(req.user.role === 'admin') console.log(req.user);
+  
   const findQuery = {
     selector: {
       '\\$type': 'foo',
@@ -61,6 +63,10 @@ app.get('/:id/pdf', (req, res, next) => {
 });
 
 app.post('/', (req, res, next) => {
+  const isJSONValid = jsonSchemaValidation.validateSync({"type":"object","$schema": "http://json-schema.org/draft-03/schema","id": "http://jsonschema.net","required":true,"properties":{ "foo": { "type":"string", "required":true } }}, req.body);
+  if(!isJSONValid.valid) return res.status(400).send({errors: isJSONValid.errors});
+
+
   const data = Object.assign(req.body, {$type: 'default'});
   if(data.foo === 'bar') data.$type = 'bar';
   
