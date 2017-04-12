@@ -9,9 +9,10 @@
 * [EJS](#ejs)
 * [Routes](#routes)
 * [Error Handling](#error-handling)
-* [Web-Sockets](#socketio)
 * [RESTful / Hypermedia](#restful-routing)
+* [HTTP2 / SPDY](#http2)
 * [Web-Events / Feeds](#event-streams)
+* [Web-Sockets](#socketio)
 
 ## Examples
 
@@ -200,6 +201,32 @@ app.get('/', (req, res, next) => {
 });
 ```
 
+## HTTP2
+
+> Next generation of HTTP Protocol
+
+* HTTPS by default
+* Duplex communication with pushing resource support
+* SPDY2/3, HTTP/1.1/1.0 fallback support
+
+```javascript
+const spdy = require('spdy')
+const express = require('express')
+const fs = require('fs')
+const app = express()
+
+spdy
+.createServer({
+  key: fs.readFileSync(__dirname + '/server.key'),
+  cert:  fs.readFileSync(__dirname + '/server.crt'),
+}, app)
+.listen(8443, error => {
+  if (error) console.error(error)
+  if (error) return process.exit(1)
+  console.log(`Listen on ${SERVICE_PORT}`)
+})
+```
+
 ## Event Streams
 
 > Works like a continuous data __feed__
@@ -233,6 +260,7 @@ wss.on('connection', function connection(ws) {
 ```
 
 ### Client
+
 ```javascript
   window.onload = function() {
     var socket = new WebSocket('ws://localhost:3000');

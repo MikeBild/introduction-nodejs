@@ -61,6 +61,7 @@
 ## Examples
 
 * [ExpressJS-EJS](/EXAMPLES/EXPRESSJS/SSR/README.md)
+* [ExpressJS-SPDY/HTTP2 Server-Side Events](/EXAMPLES/HTTP2/EXPRESSJS-SPDY/README.md)
 
 ## Issue Reporting
 

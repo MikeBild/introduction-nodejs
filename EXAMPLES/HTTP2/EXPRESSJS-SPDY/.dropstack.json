@@ -1,0 +1,10 @@
+{
+  "variables": [
+    "SERVICE_PORT=443"
+  ],
+  "alias": "http2-express.services.dropstack.run",
+  "type": "npm",
+  "https": "true",
+  "name": "zgmnmfct",
+  "serviceUrl": "zgmnmfct.services.dropstack.run"
+}
