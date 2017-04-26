@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // enable inplace transpile
-require('babel-register')({presets: [ 'es2015', 'stage-0' ]})
+require('babel-register')({presets: ['es2015', 'stage-0']})
 
 // supports async/await
 require('babel-polyfill')

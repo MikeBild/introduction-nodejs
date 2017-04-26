@@ -52,7 +52,7 @@
 
 ## ECMA
 
-* [ECMA](21-ECMA.md)
+* [ECMA with Babel](21-ECMA.md)
 
 ## Functional JS
 

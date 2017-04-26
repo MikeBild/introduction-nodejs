@@ -6,9 +6,17 @@
 
 * `babel-node app.js`
 
-## Build
+## Build to Node6
 
-* `babel -p -o server.js index.js`
+* Build one file use `babel index.js -o server.js`
+* Build ES2015 + Stage-0 in `src` to `dist` folder use `babel src -d dist --presets=es2015,stage-0 --plugins=transform-runtime`
+* Run with `babel-node` use `babel-node src/index.js --presets=es2015,stage-0 --plugins=transform-runtime`
+* Inplace via Babel/Register `require('babel-register')({presets: ['es2015', 'stage-0']})` and `require('babel-polyfill')`
+
+## Examples
+
+* [ECMA build to NodeJS6 with Babel](EXAMPLES/ECMA/BABEL-NODE/README.md)
+* [ECMA with Babel/Register in NodeJS6](EXAMPLES/ECMA/BABEL-REGISTER/README.md)
 
 ## Block-Scope
 
@@ -130,7 +138,7 @@ console.log(newObj)
 
 ```javascript
 var myArray = ['shoulders', 'knees']
-var myNewArray = ['head', ...parts, 'and', 'toes']
+var myNewArray = ['head', ...myArray, 'and', 'toes']
 console.log(myNewArray)
 ```
 
