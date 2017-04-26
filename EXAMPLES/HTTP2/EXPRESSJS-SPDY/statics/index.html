@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP/2 + EventSource JSON push notifications</title>
+  </head>
+  <body>
+    <h1>HTTP/2 + EventSource JSON push notifications</h1>
+    <script>
+      var source = new EventSource('/event-stream')
+      source.onmessage = function(e) {
+        document.body.innerHTML += 'SSE notification: ' + e.data + '<hr/>'
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', e.data)
+        xhr.onload = function() {
+          document.body.innerHTML += 'Message: ' + this.response + '<hr/>'
+        }
+        xhr.send()
+      }
+    </script>
+  </body>
+</html>
