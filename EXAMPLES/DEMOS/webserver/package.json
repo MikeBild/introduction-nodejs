@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "node-fetch": "^1.7.0",
     "nodemon": "^1.11.0"
   }
 }
