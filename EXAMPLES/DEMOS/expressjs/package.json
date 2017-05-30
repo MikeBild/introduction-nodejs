@@ -4,15 +4,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "ffg-server": "bin/server.js"
+  },
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "node": "0.0.0",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "mocha": "^3.4.2",
     "node-fetch": "^1.7.0"
   },
   "scripts": {
-    "start": "node server",
+    "start": "SERVICE_PORT=3000 NODE_ENV=production node bin/server",
     "dev": "mocha --watch",
     "test": "mocha"
   },
