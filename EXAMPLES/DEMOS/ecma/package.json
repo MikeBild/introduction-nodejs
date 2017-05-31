@@ -1,0 +1,27 @@
+{
+  "name": "ecma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demos.js",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "isomorphic-fetch": "^2.2.1",
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "dev": "babel-node demos.js",
+    "build": "babel -d dist demos.js",
+    "serve": "npm run build && npm start",
+    "start": "node --require babel-polyfill dist/demos.js",
+    "local": "nodemon --ignore dist --exec npm run serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

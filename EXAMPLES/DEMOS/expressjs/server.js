@@ -29,7 +29,7 @@ module.exports = {
   stop,
 };
 
-function start ({port}) {
+function start ({port = 80}) {
   return new Promise(resolve => {
     instance = app.listen(port, resolve);
   });
