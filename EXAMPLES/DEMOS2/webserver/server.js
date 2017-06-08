@@ -23,11 +23,11 @@ const server = http.createServer((req, res) => {
       res.end();
       break;
     case '/file':
-      fs.createReadStream('server.js').pipe(res);
+      fs.createReadStream('index.html').pipe(res);
       break;
     case '/subscribe':
       res.setHeader('Content-Type', 'text/event-stream');
-      const myHandler =  msg => res.write(JSON.stringify(msg));
+      const myHandler =  msg => res.write(`data: ${JSON.stringify(msg)}\n\n`);
       em1.on('my-push', myHandler);
       req.connection.once('close', () => {
         em1.removeListener('my-push', myHandler);
