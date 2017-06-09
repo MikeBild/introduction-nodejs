@@ -10,11 +10,11 @@ app.get('/kontos/:id', (req, res) => {
   res.send({balance: 0, id: req.params.id});
 });
 
-module.exports = settings => {
+module.exports = ({port = null}) => {
   return {
     start: () => {
       return new Promise(resolve => {
-        instance = app.listen(settings.port || null, () => resolve({
+        instance = app.listen(port, () => resolve({
           server: instance,
           url: `http://localhost:${instance.address().port}`,
         }));
