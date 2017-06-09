@@ -17,6 +17,6 @@ module.exports = settings => {
         instance = app.listen(settings.port, () => resolve({server: instance}));
       });
     },
-    stop: () => new Promise(instance.close),
+    stop: () => new Promise(resolve => instance.close(() => resolve())),
   }
 }
