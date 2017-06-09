@@ -1,13 +1,16 @@
 {
-  "name": "konto",
+  "name": "api-konto",
   "version": "1.0.0",
   "description": "Konto Project",
-  "main": "index.js",
+  "main": "server.js",
+  "bin":{
+    "api-konto": "./bin/server.js"
+  },
   "scripts": {
-    "start": "NODE_ENV=production SERVICE_PORT=80 node server",
+    "start": "NODE_ENV=production SERVICE_PORT=80 ./bin/server.js",
     "test": "mocha",
     "ct": "mocha --watch",
-    "dev": "NODE_ENV=development SERVICE_PORT=8080 nodemon server"
+    "dev": "NODE_ENV=development SERVICE_PORT=8080 nodemon ./bin/server.js"
   },
   "author": "",
   "license": "ISC",
