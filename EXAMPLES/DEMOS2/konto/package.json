@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Konto Project",
   "main": "server.js",
-  "bin":{
+  "bin": {
     "api-konto": "./bin/server.js"
   },
   "scripts": {

@@ -14,7 +14,10 @@ module.exports = settings => {
   return {
     start: () => {
       return new Promise(resolve => {
-        instance = app.listen(settings.port, () => resolve({server: instance}));
+        instance = app.listen(settings.port || null, () => resolve({
+          server: instance,
+          url: `http://localhost:${instance.address().port}`,
+        }));
       });
     },
     stop: () => new Promise(resolve => instance.close(() => resolve())),
