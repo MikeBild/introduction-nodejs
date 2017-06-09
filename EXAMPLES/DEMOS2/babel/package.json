@@ -5,12 +5,16 @@
   "main": "./dist/async-await.js",
   "scripts": {
     "start": "node --require babel-polyfill ./dist/async-await.js",
-    "dev": "babel-node src/async-await.js",
-    "build": "babel -d dist src",
+    "dev": "npm run lint || true && babel-node src/async-await.js",
+    "lint": "eslint ./src",
+    "build": "npm run lint && babel -d dist src",
     "serve": "npm run build && npm start"
   },
   "babel": {
-    "presets": ["stage-0", "es2015"]
+    "presets": [
+      "stage-0",
+      "es2015"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
@@ -19,7 +23,10 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0"
   },
   "keywords": [],
   "author": "",

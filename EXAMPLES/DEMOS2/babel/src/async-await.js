@@ -1,21 +1,21 @@
-import {readFile} from 'fs';
-import Foo, {Bar} from './classes';
-import {withdraw, balance, add} from './konto-transactions'
+import { readFile } from 'fs';
+import Foo, { Bar } from './classes';
+import { withdraw, balance, add } from './konto-transactions';
 
-function load({path}) {
+function load({ path }) {
   return new Promise((resolve, reject) => {
     readFile(path, (err, data) => {
-      if(err) {
+      if (err) {
         reject(err);
         return;
       }
-      resolve({fileContent: data.toString()});
+      resolve({ fileContent: data.toString() });
     });
   });
 }
 
 function hello(a, b, ...values) {
-  console.log(a, b, Array.prototype.slice.call(arguments), values)
+  console.log(a, b, Array.prototype.slice.call(arguments), values);
 }
 
 (async () => {
@@ -24,34 +24,32 @@ function hello(a, b, ...values) {
   const a = {
     foo: 'bar',
     a: '1',
-  }
+  };
 
   const b = {
     bar: 'foo',
     a: '2',
-  }
+  };
 
   const all = {
     all: 'foo + bar',
     ...a,
     ...b,
-  }
+  };
   // console.log(all)
 
-const myArray = ['shoulders', 'knees']
-const myNewArray = ['head', ...myArray, 'and', 'toes']
+  const myArray = ['shoulders', 'knees'];
+  const myNewArray = ['head', ...myArray, 'and', 'toes'];
 // console.log(myNewArray)
 
-const allKeys = Object.keys(all).map(x => all[x])
+  const allKeys = Object.keys(all).map(x => all[x]);
 // console.log(allKeys)
 
 // ['A', 'B', 'C'].forEach(x => console.log(x))
 
-const results = [1, 2, 3, 4]
+  const results = [1, 2, 3, 4]
   .filter(x => x % 2 === 0)
-  .map((x, i) => {
-    return x + x + i
-  })
+  .map((x, i) => x + x + i)
   .reduce((state, element) => {
     state += element;
     return state;
@@ -64,18 +62,18 @@ const results = [1, 2, 3, 4]
   add(60);
   console.log(balance());
 
-  Foo.bar()
+  Foo.bar();
   const f1 = new Foo('1234');
-  f1.foo()
+  f1.foo();
   const b1 = new Bar();
   // console.log(b1, f1)
 
   try {
-    const {fileContent} = await load({path: '123.txt'});
-    const gg = await load({path: '123.txt'});
+    const { fileContent } = await load({ path: '123.txt' });
+    const gg = await load({ path: '123.txt' });
 
     // console.log(fileContent);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
 })();
