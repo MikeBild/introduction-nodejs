@@ -1,8 +1,9 @@
-const fs = require('fs');
+import {readFile} from 'fs';
+import {Foo} from './classes';
 
 function load({path}) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, (err, data) => {
+    readFile(path, (err, data) => {
       if(err) {
         reject(err);
         return;
@@ -13,8 +14,11 @@ function load({path}) {
 }
 
 (async () => {
+  const f1 = new Foo();
+  console.log(f1)
+
   try {
-    const {fileContent} = await load({path: '1234.txt'});
+    const {fileContent} = await load({path: '123.txt'});
     const gg = await load({path: '123.txt'});
 
     console.log(fileContent);
