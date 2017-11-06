@@ -8,22 +8,22 @@
 
 ## Create an uninitiated Buffer of 10 octets
 
-`const buf = new Buffer(10);`
+`const buf = Buffer.from(10);`
 
 ## Create a Buffer from a given array
 
-`const buf = new Buffer([10, 20, 30, 40, 50]);`
+`const buf = Buffer.from([10, 20, 30, 40, 50]);`
 
 ## Buffer from a given string and optionally encoding type
 
-`const buf = new Buffer('Simply Easy Learning', 'utf-8');`
+`const buf = Buffer.from('Simply Easy Learning', 'utf-8');`
 
 ## Write into a Node Buffer
 
 `buf.write(string[, offset][, length][, encoding])`
 
 ```javascript
-const buf = new Buffer(256);
+const buf = Buffer.from(256);
 const len = buf.write('Simply Easy Learning');
 
 console.log(`Octets written ${len}`);
@@ -34,7 +34,7 @@ console.log(`Octets written ${len}`);
 `buf.toString([encoding][, start][, end])`
 
 ```javascript
-const buf = new Buffer(26);
+const buf = Buffer.from(26);
 for (let i = 0 ; i < 26 ; i++) {
   buf[i] = i + 97;
 }
@@ -45,12 +45,12 @@ console.log(buf.toString('utf8',0,5));    // outputs: abcde
 console.log(buf.toString(undefined,0,5)); // encoding defaults to 'utf8', outputs abcde
 ```
 
-## Convert Buffer to JSON
+## Convert Buffer to JSON representation of a Buffer
 
 `buf.toJSON()`
 
 ```javascript
-const buf = new Buffer('Simply Easy Learning');
+const buf = Buffer.from('Simply Easy Learning');
 const json = buf.toJSON(buf);
 
 console.log(json);
@@ -61,8 +61,8 @@ console.log(json);
 `Buffer.concat(list[, totalLength])`
 
 ```javascript
-const buffer1 = new Buffer('TutorialsPoint ');
-const buffer2 = new Buffer('Simply Easy Learning');
+const buffer1 = Buffer.from('TutorialsPoint ');
+const buffer2 = Buffer.from('Simply Easy Learning');
 const buffer3 = Buffer.concat([buffer1,buffer2]);
 console.log("buffer3 content: " + buffer3.toString());
 ```
@@ -72,8 +72,8 @@ console.log("buffer3 content: " + buffer3.toString());
 `buf.compare(otherBuffer);`
 
 ```javascript
-const buffer1 = new Buffer('ABC');
-const buffer2 = new Buffer('ABCD');
+const buffer1 = Buffer.from('ABC');
+const buffer2 = Buffer.from('ABCD');
 const result = buffer1.compare(buffer2);
 
 if(result < 0) {
@@ -90,10 +90,10 @@ if(result < 0) {
 `buf.copy(targetBuffer[, targetStart][, sourceStart][, sourceEnd])`
 
 ```javascript
-const buffer1 = new Buffer('ABC');
+const buffer1 = Buffer.from('ABC');
 
 //copy a buffer
-const buffer2 = new Buffer(3);
+const buffer2 = Buffer.from(3);
 buffer1.copy(buffer2);
 console.log("buffer2 content: " + buffer2.toString());
 ```
@@ -103,10 +103,9 @@ console.log("buffer2 content: " + buffer2.toString());
 `buf.slice([start][, end])`
 
 ```javascript
-const buffer1 = new Buffer('TutorialsPoint');
+const buffer1 = Buffer.from('TutorialsPoint');
 
 //slicing a buffer
-const buffer2 = buffer1.slice(0,9);
+const buffer2 = buffer1.slice(0, 9);
 console.log("buffer2 content: " + buffer2.toString());
 ```
-

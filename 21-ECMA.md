@@ -1,5 +1,21 @@
 # Babel and ECMAScript
 
+* [Block-Scope](#block-scope)
+* [Template Strings](#template-strings)
+* [Destructing](#destructing)
+* [Classes](#classes)
+* [Statics](#statics)
+* [Object-Literal Extentions](#object-literal-extentions)
+* [Modules, Exports and Imports](#modules-exports-and-imports)
+* [Arrow Functions](#arrow-functions)
+* [Default Parameter](#default-parameter)
+* [Rest Parameters](#rest-parameters)
+* [Spread Operator for Objects](#spread-operator-for-objects)
+* [Spread Operator for Arrays](#spread-operator-for-arrays)
+* [Promises](#promises)
+* [Async and Await](#async-and-await)
+* [Generator Function](#generator-function)
+
 [ECMA compatibility table](https://kangax.github.io/compat-table/es6/)
 
 ## Babel-Node
@@ -46,9 +62,16 @@ console.log(foo, bar)
 ## Classes
 
 ```javascript
+class Bar {
+  constructor (value) {
+    this.value = value
+  }
+}
+
 class Foo extends Bar {
   constructor (value) {
-    console.log(`Foo extends Bar with argument ${value}`)
+    super(value)
+    console.log(`Foo extends Bar with argument ${value} - ${this.value}`)
   }
 }
 
@@ -62,6 +85,7 @@ const foo2 = new Foo('foo 2')
 class Foo extends Bar {
   static do = () => console.log('done')
   constructor () {
+    super()
     console.log('Foo extends Bar')
   }
 }
@@ -101,7 +125,7 @@ export default ...
 import Module from './module'
 ```
 
-## Arrow-Functions
+## Arrow Functions
 
 ```javascript
 const fn = value => `Hello World ${value}`
@@ -115,7 +139,7 @@ function myFunc(a = 'A', b = {bar: 'bar'}) {
 }
 ```
 
-## Rest-Parameters
+## Rest Parameters
 
 ```javascript
 function(a, b, ...theArgs) {
@@ -123,7 +147,7 @@ function(a, b, ...theArgs) {
 }
 ```
 
-## Spread-Operator for Objects
+## Spread Operator for Objects
 
 ```javascript
 const myObj = {foo: 'foo'}
@@ -134,11 +158,11 @@ const newObj = {
 console.log(newObj)
 ```
 
-## Spread-Operator for Arrays
+## Spread Operator for Arrays
 
 ```javascript
-var myArray = ['shoulders', 'knees']
-var myNewArray = ['head', ...myArray, 'and', 'toes']
+const myArray = ['shoulders', 'knees']
+const myNewArray = ['head', ...myArray, 'and', 'toes']
 console.log(myNewArray)
 ```
 
@@ -160,10 +184,45 @@ Promise.all([
 .catch(console.error)
 ```
 
-## Async/Await
+## Async and Await
 
 ```javascript
 function async doAsync(){
   return await domeAsync()
+}
+```
+
+## Generator Function
+
+```javascript
+function *counter(){
+  let index = 0;
+  while(true)
+    yield index++;
+}
+
+const gen = counter();
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+```
+
+### for..of
+
+> Iterator pattern at the syntactic level
+
+```javascript
+function *foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (const v of foo()) {
+  console.log(v);
 }
 ```

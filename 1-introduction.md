@@ -4,13 +4,13 @@
 * Google Chrome's JavaScript V8 Engine
 * Develop I/O intensive web applications
 
-# Features
+## Features
 
 * Asynchronous and Event Driven
 * Very Fast
 * Single Threaded, but Highly Scalable
 
-# Where to use
+## Where to use
 
 * I/O bound Applications
 * Data Streaming Applications
@@ -18,7 +18,7 @@
 * JSON APIs based Applications
 * Single Page Applications
 
-# Where not to use
+## Where not to use
 
 * CPU intensive applications
 
@@ -34,5 +34,12 @@
 
 ## NodeJS Versions
 
+**2017-06-06**
+
 * Long Term Version v6.9.2 (LTS)
-* Current Version v7.2.1 (stable)
+* Current Version v7.2.1 (Current)
+
+**2017-31-10**
+
+* Long Term Version v8.9.0 (LTS)
+* Current Version v9.0.0 (Current)

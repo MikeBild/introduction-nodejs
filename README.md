@@ -5,7 +5,7 @@
 * [Introduction](1-introduction.md)
 * [Setup and Basics](2-setup-basics.md)
 * [Buffers](9-buffers.md)
-* [File Syetem](11-file-system.md)
+* [File System](11-file-system.md)
 * [Error-Handling](12-errors-and-globals.md)
 * [Globals](12-errors-and-globals.md)
 * [Utils](13-utilities.md)
@@ -18,6 +18,12 @@
 * [NPM & Yarn](5-npm-yarn.md)
 * [Event-Loop](7-event-loop.md)
 * [Quality Tools](19-quality-tools.md)
+  * [Nodemon](19-quality-tools.md#nodemon)
+  * [ESLint](19-quality-tools.md#es-lint)
+  * [Process Manager and Supervisor](19-quality-tools.md#process-manager-and-supervisor)
+  * [Node-Inspector as Debugger](19-quality-tools.md#node-inspector)
+  * [Debug as logging tool](19-quality-tools.md#debug-as-logging-tool)
+  * [Code Style with Prettier](19-quality-tools.md#code-style-with-prettier)
 
 ## Web Development
 
@@ -53,6 +59,21 @@
 ## ECMA
 
 * [ECMA with Babel](21-ECMA.md)
+  * [Block-Scope](21-ECMA.md#block-scope)
+  * [Template Strings](21-ECMA.md#template-strings)
+  * [Destructing](21-ECMA.md#destructing)
+  * [Classes](21-ECMA.md#classes)
+  * [Statics](21-ECMA.md#statics)
+  * [Object-Literal Extentions](21-ECMA.md#object-literal-extentions)
+  * [Modules, Exports and Imports](21-ECMA.md#modules-exports-and-imports)
+  * [Arrow Functions](21-ECMA.md#arrow-functions)
+  * [Default Parameter](21-ECMA.md#default-parameter)
+  * [Rest Parameters](21-ECMA.md#rest-parameters)
+  * [Spread Operator for Objects](21-ECMA.md#spread-operator-for-objects)
+  * [Spread Operator for Arrays](21-ECMA.md#spread-operator-for-arrays)
+  * [Promises](21-ECMA.md#promises)
+  * [Async and Await](21-ECMA.md#async-and-await)
+  * [Generator Function](21-ECMA.md#generator-function)
 
 ## Functional JS
 

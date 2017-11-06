@@ -21,3 +21,6 @@ console.log('Synchronous read: ' + data.toString());
 console.log('Done');
 ```
 
+## Tools
+
+* [fs-extra](https://www.npmjs.com/package/fs-extra)
