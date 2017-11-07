@@ -1,12 +1,39 @@
 const plants = {};
 
 module.exports = {
-  all: () => Promise.resolve(Object.keys(plants).map(x => plants[x])),
-  byName: name => Promise.resolve(plants.find(x => x.name === name)),
-  insert: name => Promise.resolve((plants[name] = { name, biostatus: 0 })),
-  update: plant => Promise.resolve((plants[name] = plant)),
-  update: name => {
-    delete plants[name];
-    return Promise.resolve();
-  }
+  all,
+  byName,
+  insert,
+  update,
+  delete: remove,
+  remove
 };
+
+function all() {
+  return Promise.resolve(Object.keys(plants).map(x => plants[x]));
+}
+
+function byName(name) {
+  return new Promise((resolve, reject) => {
+    if (!plants[name]) return reject(new Error("not found"));
+    resolve(plants[name]);
+  });
+}
+
+function insert(plant) {
+  return new Promise((resolve, reject) => {
+    Promise.resolve(plants[plant.name]).then(data => {
+      if (data) return reject(new Error("name already exist"));
+      resolve((plants[plant.name] = plant));
+    });
+  });
+}
+
+function update(plant) {
+  return Promise.resolve((plants[name] = plant));
+}
+
+function remove(name) {
+  delete plants[name];
+  return Promise.resolve();
+}
