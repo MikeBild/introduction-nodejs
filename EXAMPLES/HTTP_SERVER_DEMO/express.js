@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const util = require("util");
 const plantsRepo = require("./lib/plants-repo");
 
 app.use(express.json());
@@ -31,4 +32,29 @@ app.post("/plants/:name", (req, res) => {
     .catch(error => res.status(409).send({ error: error.message }));
 });
 
-app.listen(8080, () => console.log(`Listen on 8080`));
+module.exports = config => {
+  let server = null;
+  return {
+    start: () =>
+      start(config)
+        .then(srv => {
+          server = srv;
+          return true;
+        })
+        .catch(error => false),
+    stop: () => stop(server),
+    server
+  };
+};
+
+function start({ port = 8080 } = {}) {
+  return new Promise(resolve => {
+    const srv = app.listen(port, () => resolve(srv));
+  });
+}
+
+function stop(server) {
+  return new Promise(resolve => {
+    server.close(() => resolve());
+  });
+}
