@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const PORT = process.env.PORT || 8080;
+
+const express = require("../express");
+const server = express({port: PORT})
+
+server.start().then(_ => {
+  console.log(`Listen on ${server.server().address().port}`)
+})
+
+process.on('SIGINT', () => {
+  setTimeout(() => {
+    console.log("Graceful shutdown in ... ");
+    process.exit(0);
+  }, 0);
+})

@@ -7,7 +7,7 @@
     "test": "mocha",
     "test:watch": "mocha --watch",
     "dev": "nodemon express.js",
-    "start": "node server.js"
+    "start": "PORT=9090 ./bin/server"
   },
   "author": "",
   "license": "ISC",
