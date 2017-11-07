@@ -43,13 +43,16 @@ module.exports = config => {
         })
         .catch(error => false),
     stop: () => stop(server),
-    server
+    server: () => server
   };
 };
 
-function start({ port = 8080 } = {}) {
-  return new Promise(resolve => {
-    const srv = app.listen(port, () => resolve(srv));
+function start({ port } = {}) {
+  return new Promise((resolve, reject) => {
+    const srv = app.listen(
+      port,
+      () => (srv ? resolve(srv) : reject(new Error("can not start server")))
+    );
   });
 }
 
