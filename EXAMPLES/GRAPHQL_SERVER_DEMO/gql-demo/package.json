@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "name": "gql-demo",
+  "description": "My gql-demo GraphQL-API",
+  "engines": {
+    "node": "^6"
+  },
+  "dependencies": {
+    "subkit": "latest"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.1"
+  },
+  "babel": {
+    "presets": ["env"]
+  },
+  "scripts": {
+    "dev":
+      "nodemon --ext  gql,sdl,sdle,js --exec subkit serve --port 8080 --graphiql --analysis 15 --extentions",
+    "dev:mocked":
+      "nodemon --ext  gql,sdl,sdle,js --exec subkit serve --port 8080 --mocked --graphiql --analysis 1000 --extentions",
+    "start":
+      "NODE_ENV=production subkit serve --port 80 --graphiql --analysis 1000",
+    "start:jwt":
+      "NODE_ENV=production subkit serve --port 80 --secret SuperSecret --silent --analysis 1000",
+    "test": "mocha --require babel-polyfill --require babel-register"
+  }
+}

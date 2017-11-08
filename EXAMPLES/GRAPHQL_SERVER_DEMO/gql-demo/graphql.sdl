@@ -1,0 +1,34 @@
+type Plant {
+  name: ID!
+  biostatus: Int
+  genoType: GenoType
+}
+
+type GenoType {
+  name: ID!
+  plants: [Plant]
+  foo: String
+}
+
+type Query {
+  plant(name: ID!): Plant
+  plants(take: Int!, skip: Int!): [Plant]
+  genoType(name: ID!): GenoType
+  genoTypes: [GenoType]
+}
+
+input PlantInput {
+  name: ID!
+  biostatus: Int
+  genoTypeName: ID
+}
+
+input GenoTypeInput {
+  name: ID!
+  foo: String
+}
+
+type Mutation {
+  insertPlant(input: PlantInput): Plant
+  insertGenoType(input: GenoTypeInput): GenoType
+}
