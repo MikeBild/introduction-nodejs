@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const util = require("util");
+const morgan = require("morgan");
 const plantsRepo = require("./lib/plants-repo");
 
+app.use(morgan("combined"));
 app.use(express.json());
 
 app.get("/helloworld", (req, res) => {
