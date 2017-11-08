@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const fs = require("fs");
+const uuid = require("node-uuid");
+const path = require("path");
 const util = require("util");
 const morgan = require("morgan");
 
@@ -10,8 +13,23 @@ app.use(morgan("combined"));
 app.use(express.json());
 // custom middleware
 app.use(responseTime());
+
+app.use(express.static("./statics"));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.get("/index", (req, res) => {
+  res.render("index", {
+    title: "Title",
+    genSomeUUID: () => uuid.v1(),
+    plants: [{ id: "ddmee" }, { id: "ddmee2" }]
+  });
+});
+
 app.use("/plants", plants);
 app.use("/genotypes", genotypes);
+app.get("/file", (req, res) => {
+  fs.createReadStream("./statics/foo.json").pipe(res);
+});
 
 app.use((error, req, res, next) => {
   res.status(500).send({ msg: error.message });
