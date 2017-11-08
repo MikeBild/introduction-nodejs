@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const plantsRepo = require("../lib/repos/plants-repo");
 
 module.exports = router;
 
 router.get("/", async (req, res) => {
-  // console.log(req.__meinFeld());
-  const data = await plantsRepo.all();
+  const limit = Math.min(parseInt(req.query.limit) || 10, 100);
+  const data = await req.__repos.plantsRepo.all(limit);
   res.send(data);
 });
 

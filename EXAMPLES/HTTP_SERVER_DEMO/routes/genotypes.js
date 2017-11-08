@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const genotypesRepo = require("../lib/repos/genotypes-repo");
 
 module.exports = router;
 

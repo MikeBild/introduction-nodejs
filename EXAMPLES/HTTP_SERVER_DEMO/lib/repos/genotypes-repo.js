@@ -1,13 +1,13 @@
 const genotypes = {};
 
-module.exports = {
+module.exports = client => ({
   all,
   byName,
   insert,
   update,
   delete: remove,
   remove
-};
+});
 
 function all() {
   return Promise.resolve(Object.keys(genotypes).map(x => genotypes[x]));

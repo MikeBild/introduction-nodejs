@@ -12,12 +12,25 @@ const morgan = require("morgan");
 
 const plants = require("./routes/plants");
 const genotypes = require("./routes/genotypes");
+const mysql = require("promise-mysql");
+const repos = require("./lib/repos");
 const responseTime = require("./lib/reponsetime-middleware");
 app.use(morgan("combined"));
 app.use(express.json());
 // custom middleware
 app.use(responseTime());
+app.use((req, res, next) => {
+  const client = mysql.createConnection({
+    host: "gsa.npz.de",
+    port: 8805,
+    user: "mike",
+    password: process.env.MYSQL_PW,
+    database: "gsa_wb_crosssearch"
+  });
 
+  req.__repos = repos(client);
+  next();
+});
 app.use(express.static("./statics"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

@@ -1,15 +1,33 @@
 const plants = {};
 
-module.exports = {
-  all,
-  byName,
-  insert,
-  update,
-  delete: remove,
-  remove
+module.exports = client => {
+  return {
+    all: limit => all(client, limit),
+    byName,
+    insert,
+    update,
+    delete: remove,
+    remove
+  };
 };
 
-function all() {
+function all(client, limit) {
+  return client
+    .then(conn =>
+      conn.query("select * from m_plantmat_plant_materials limit ?;", [
+        parseInt(limit)
+      ])
+    )
+    .then(data =>
+      data.map(x => ({
+        id: x.id,
+        name: x.mat_name,
+        biostatus: x.fk_m_plantmat_bio_status
+      }))
+    )
+    .then(data => ({
+      data
+    }));
   return Promise.resolve(Object.keys(plants).map(x => plants[x]));
 }
 
