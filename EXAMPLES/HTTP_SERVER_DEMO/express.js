@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
+const childProcess = require("child_process");
 const fs = require("fs");
+const through2 = require("through2");
+const es = require("event-stream");
+const JSONStream = require("JSONStream");
 const uuid = require("node-uuid");
 const path = require("path");
 const util = require("util");
@@ -29,6 +33,34 @@ app.use("/plants", plants);
 app.use("/genotypes", genotypes);
 app.get("/file", (req, res) => {
   fs.createReadStream("./statics/foo.json").pipe(res);
+});
+
+app.get("/scripts/demo", (req, res, next) => {
+  const demo = childProcess.spawn(`./scripts/demo.sh`);
+
+  demo.stdout
+    .pipe(JSONStream.parse())
+    .pipe(
+      es.mapSync(function(data) {
+        return JSON.stringify({
+          ...data,
+          fsss: "sdsk",
+          timeStamp: new Date()
+        });
+      })
+    )
+    // .pipe(
+    //   through2(function(chunk, enc, callback) {
+    //     const toJSON = JSON.stringify({ foo: chunk.toString() });
+    //     this.push(toJSON);
+    //     callback();
+    //   })
+    // )
+    .pipe(res);
+
+  demo.on("close", exitCode => {
+    console.log(exitCode);
+  });
 });
 
 app.use((error, req, res, next) => {
