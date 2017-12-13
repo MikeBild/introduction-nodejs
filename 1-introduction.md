@@ -25,7 +25,7 @@
 ## Requirements
 
 * NodeJS / NPM
-* Sublime Text / Atom / VS Code
+* Sublime Text / Atom / VS Code / WebStorm
 * Nice to have
   * NVM
   * Unix tools
