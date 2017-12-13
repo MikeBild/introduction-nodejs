@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "expressjs1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.6"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha",
+    "test:dev": "mocha --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
