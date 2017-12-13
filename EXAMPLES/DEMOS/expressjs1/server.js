@@ -19,6 +19,7 @@ app.post("/", (req, res) => {
 
 let server = null;
 module.exports = {
+  port: () => server && server.address().port,
   start,
   stop: callback => {
     server.close(callback);
