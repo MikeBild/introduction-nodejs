@@ -21,6 +21,7 @@
 ## Where not to use
 
 * CPU intensive applications
+* Strong numerical algorithms / calculations
 
 ## Requirements
 
