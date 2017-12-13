@@ -12,6 +12,21 @@ describe("Server intergation tests", () => {
     });
   });
 
+  it("POST /users should add insert an user", () => {
+    return fetch(`http://localhost:${server.port()}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "foo" })
+    })
+      .then(response => {
+        assert.equal(response.status, 200);
+        return response.json();
+      })
+      .then(data => {
+        assert.deepEqual(data, { name: "foo" });
+      });
+  });
+
   it("/ should return 'Hello World'", () => {
     return fetch(`http://localhost:${server.port()}`)
       .then(response => response.text())
