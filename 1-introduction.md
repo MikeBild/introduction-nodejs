@@ -43,3 +43,9 @@
 
 * Long Term Version v8.9.0 (LTS)
 * Current Version v9.0.0 (Current)
+
+
+**2017-12-12**
+
+* Long Term Version v8.9.3 (LTS)
+* Current Version v9.3.0 (Current)
