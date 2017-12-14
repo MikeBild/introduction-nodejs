@@ -12,7 +12,9 @@ app.use((req, res, next) => {
   req.on("end", () => {
     try {
       req.body = JSON.parse(req.body);
-    } catch (e) {}
+    } catch (e) {
+      next(e);
+    }
     next();
   });
 });
