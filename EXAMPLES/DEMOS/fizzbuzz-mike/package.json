@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "fizzbuzz-mike",
   "version": "1.0.0",
   "description": "",
