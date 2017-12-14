@@ -1,18 +1,21 @@
 const express = require("express");
 const app = express();
-app.use(express.json({ limit: "10mb" }));
-app.use(express.static("./public"));
+// app.use(express.json({ limit: "10mb" }));
+// app.use(express.static("./public"));
 
-// app.use((req, res, next) => {
-//   req.body = "";
-//   req.on("data", raw => {
-//     req.body += raw;
-//   });
-//   req.on("end", () => {
-//     req.body = JSON.parse(req.body);
-//     next();
-//   });
-// });
+app.use((req, res, next) => {
+  req.body = "";
+  req.on("data", raw => {
+    req.body += raw;
+  });
+
+  req.on("end", () => {
+    try {
+      req.body = JSON.parse(req.body);
+    } catch (e) {}
+    next();
+  });
+});
 
 app.use((req, res, next) => {
   req.conn = { close: () => ({}) };
@@ -39,6 +42,7 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  console.log(req.body);
   res.send("Foo Bar");
 });
 
