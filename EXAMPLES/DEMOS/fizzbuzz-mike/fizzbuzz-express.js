@@ -1,6 +1,9 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 const fizzbuzz = require("./fizzbuzz");
+
+app.use(morgan({ format: "tiny" }));
 
 app.get("/fizzbuzz", (req, res) => {
   res.send(fizzbuzz());

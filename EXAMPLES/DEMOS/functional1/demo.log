@@ -1,0 +1,5 @@
+GET / 404 139 - 2.859 ms
+GET / 404 139 - 0.339 ms
+GET /fizzbuzz 304 - - 2.242 ms
+GET /fizzbuzzssdsd 404 152 - 0.294 ms
+GET /fizzbuzz 304 - - 0.412 ms
