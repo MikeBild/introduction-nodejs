@@ -61,6 +61,47 @@ const add1 = curriedAdd(1)
 console.log(add1(5))
 ```
 
+## Higher Order Functions
+
+```javascript
+const users = [
+  { name: 'Mike', age: 27, pets : ['Bao'], title : 'Consultant' },
+  { name: 'John', age: 19, pets : ['Civelek', 'Muazzam'] },
+  { name: 'Julika', age: 52, title : 'Engineer'}
+];
+```
+
+**Without Higher Order Functions**
+
+```javascript
+const result = users
+  .filter(x => x.hasOwnProperty('pets'))
+  .sort((a, b) => a.age > b.age);
+```
+
+**With Higher Order Functions**
+
+```javascript
+const has = p => o => o.hasOwnProperty(p);
+const sortBy = p => (a, b) => a[p] > b[p];
+
+const result = users
+  .filter(has('pets'))
+  .sort(sortBy('age'));
+ ```
+ 
+ **Reuse**
+ 
+ ```javascript
+const hasPets = has('pets');
+const isEmployed = has('title');
+const byAge = sortBy('age');
+
+const workers = users.filter(isEmployed);
+const petOwningWorkers = workers.filter(hasPets);
+const workersByAge = workers.sort(byAge);
+ ```
+
 ## Either / Promise
 
 * Control flow in a functional way
