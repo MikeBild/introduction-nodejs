@@ -5,7 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "node server",
     "start": "node index",
+    "start:20": "node index 20",
     "test": "mocha",
     "test:dev": "mocha --watch"
   },
@@ -14,5 +16,9 @@
   "license": "ISC",
   "devDependencies": {
     "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "node-fetch": "^1.7.3"
   }
 }
