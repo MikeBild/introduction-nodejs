@@ -1,19 +1,30 @@
-const express = require("express");
-const morgan = require("morgan");
+const {join} = require('path');
+const express = require('express');
+const morgan = require('morgan');
 const app = express();
-const fizzbuzz = require("./fizzbuzz");
+const fizzbuzz = require('./fizzbuzz');
+app.use(express.static('public'));
+app.use(morgan({format: 'tiny'}));
+app.set('views', join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.use(morgan({ format: "tiny" }));
+app.get('/', (req, res) => {
+  res.render('index', {title: 'Hello World from ExpressJS', data: ' dkdjdk '});
+});
 
-app.get("/fizzbuzz", (req, res) => {
+app.get('/demo', (req, res) => {
+  res.render('demo', {title: 'Demo WebSite', data: ' Hello '});
+});
+
+app.get('/fizzbuzz', (req, res) => {
   res.send(fizzbuzz());
 });
 
-app.get("/fizzbuzz/:count", (req, res) => {
+app.get('/fizzbuzz/:count', (req, res) => {
   const count = parseInt(req.params.count);
   const output = fizzbuzz(count);
 
-  if (req.query.format === "object") {
+  if (req.query.format === 'object') {
     const asObject = output.reduce((s, n, i) => {
       i += 1;
       s[i] = n;

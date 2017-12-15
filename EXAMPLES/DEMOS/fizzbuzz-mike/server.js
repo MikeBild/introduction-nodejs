@@ -10,7 +10,7 @@ function init() {
     setTimeout(() => {
       console.log('Lade Daten');
       resolve({port: process.env.SERVICE_PORT});
-    }, 5000);
+    }, 1000);
   });
 }
 
@@ -23,7 +23,7 @@ process.on('SIGINT', () => {
   setTimeout(() => {
     console.log('done...');
     process.exit(0);
-  }, 5000);
+  }, 1000);
 });
 
 setInterval(() => {
