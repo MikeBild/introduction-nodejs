@@ -25,6 +25,7 @@ app.get("/fizzbuzz/:count", (req, res) => {
 });
 
 let server = null;
+
 module.exports = {
   port: () => server.address().port,
   start: (port, callback) => (server = app.listen(port, callback)),

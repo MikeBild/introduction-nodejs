@@ -1,3 +1,4 @@
+const config = require("./config");
 module.exports = fizzbuzz;
 
 function fizzbuzz(count = 100) {

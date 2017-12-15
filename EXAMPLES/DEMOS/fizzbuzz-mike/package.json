@@ -4,10 +4,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "ocConfig": {
+    "DEMO": "dlsdjks"
+  },
   "scripts": {
-    "server": "node server",
-    "start": "node index",
-    "start:20": "node index 20",
+    "server": "SERVICE_PORT=80 node server",
+    "server:dev": "SERVICE_PORT=8080 nodemon node server",
+    "start": "npm run server",
+    "dev": "npm run server:dev",
+    "cli": "node index",
+    "cli:20": "node index 20",
     "test": "mocha",
     "test:dev": "mocha --watch"
   },
@@ -15,7 +21,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "nodemon": "^1.13.0"
   },
   "dependencies": {
     "express": "^4.16.2",
