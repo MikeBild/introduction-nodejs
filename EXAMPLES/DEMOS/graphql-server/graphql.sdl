@@ -1,0 +1,20 @@
+type User {
+  id: ID!
+  name: String
+  pets: [Pet]
+}
+
+type Pet {
+  #ID of Pet
+  id: ID!
+  name: String
+  age: Int
+  user: User
+}
+
+type Query {
+  user(id: ID!): User
+  users: [User]
+  pet(id: ID!): Pet
+  petByName(name: String!): Pet
+}
