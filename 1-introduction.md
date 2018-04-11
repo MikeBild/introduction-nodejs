@@ -32,6 +32,13 @@
   * [Git](https://git-scm.com/) / [GitHub Desktop](https://desktop.github.com/)
   * [GitHub Account](https://github.com/)
   * Unix tools
+  
+## Side Notes
+
+Ensure access to:
+
+* [https://npmjs.com/](https://npmjs.com/)
+* [https://github.com/](https://github.com/)
 
 ## NodeJS Versions
 
