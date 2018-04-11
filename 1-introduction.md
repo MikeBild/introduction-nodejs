@@ -25,28 +25,32 @@
 
 ## Requirements
 
-* NodeJS / NPM
-* Sublime Text / Atom / VS Code / WebStorm
+* [NodeJS / NPM](https://nodejs.org) 
+* [Sublime Text](https://www.sublimetext.com) / [VS Code](https://code.visualstudio.com/)
 * Nice to have
-  * NVM
+  * [NVM](https://github.com/creationix/nvm)
+  * [Git](https://git-scm.com/) / [GitHub Desktop](https://desktop.github.com/)
+  * [GitHub Account](https://github.com/)
   * Unix tools
-  * Git
-  * GitHub Account
 
 ## NodeJS Versions
 
-**2017-06-06**
+**2018-11-04**
 
-* Long Term Version v6.9.2 (LTS)
-* Current Version v7.2.1 (Current)
+* Long Term Version v8.11.1 (LTS)
+* Current Version v9.11.1 (Current)
+
+**2017-12-12**
+
+* Long Term Version v8.9.3 (LTS)
+* Current Version v9.3.0 (Current)
 
 **2017-31-10**
 
 * Long Term Version v8.9.0 (LTS)
 * Current Version v9.0.0 (Current)
 
+**2017-06-06**
 
-**2017-12-12**
-
-* Long Term Version v8.9.3 (LTS)
-* Current Version v9.3.0 (Current)
+* Long Term Version v6.9.2 (LTS)
+* Current Version v7.2.1 (Current)
