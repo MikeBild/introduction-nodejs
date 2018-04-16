@@ -31,7 +31,7 @@
   * [NVM](https://github.com/creationix/nvm)
   * [Git](https://git-scm.com/) / [GitHub Desktop](https://desktop.github.com/)
   * [GitHub Account](https://github.com/)
-  * Unix tools
+  * [Cygwin](https://www.cygwin.com/) (Unix tools for Windows)
   
 ## Side Notes
 
