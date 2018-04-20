@@ -1,0 +1,22 @@
+{
+  "name": "data-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha",
+    "test:ci": "mocha --watch",
+    "start": "node main.js",
+    "deploy": "echo 'deployed'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.9",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.1.1",
+    "node-fetch": "^2.1.2"
+  }
+}
