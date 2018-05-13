@@ -6,17 +6,26 @@
   "scripts": {
     "test": "mocha",
     "test:ci": "mocha --watch",
-    "start": "node main.js",
+    "dev": "nodemon main.js",
+    "start": "NODE_ENV=production forever start main.js",
     "deploy": "echo 'deployed'"
   },
   "author": "",
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": true
+  },
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.5.9",
     "express": "^4.16.3",
+    "forever": "^0.15.3",
+    "morgan": "^1.9.0",
     "sqlite": "^2.9.1"
   },
   "devDependencies": {
+    "nodemon": "^1.17.3",
     "mocha": "^5.1.1",
     "node-fetch": "^2.1.2"
   }
