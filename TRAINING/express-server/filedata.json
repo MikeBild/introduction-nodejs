@@ -1,0 +1,8 @@
+{
+  "cluster-1": {
+    "name": "demo1"
+  },
+  "cluster-2": {
+    "name": "demo2"
+  }
+}
