@@ -1,7 +1,4 @@
 const express = require("express");
-const { readFile } = require("fs");
-// const { promisify } = require("util");
-
 const { loadFile } = require("./lib/file-repository");
 
 const app = express();
@@ -23,9 +20,7 @@ app.get("/hello-world", (req, res) => {
 });
 
 app.get("/filedata", (req, res, next) => {
-  const p1 = loadFile("./filedata.json");
-
-  p1
+  loadFile("./filedata.json")
     .then(data => {
       res.setHeader("Content-Type", "application/json");
       res.send(data.toString());
@@ -45,28 +40,3 @@ const server = app.listen(8080, () =>
 );
 
 console.log("Hello ExpressJS");
-
-// 1. refactoring (Zwischenergebniss)
-function readFilePromise(path) {
-  return new Promise((resolve, reject) => {
-    readFile(path, (error, data) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-
-      resolve(data.toString());
-    });
-  });
-}
-
-function promisify(func) {
-  return arg1 => {
-    return new Promise((resolve, reject) => {
-      func(arg1, (error, data) => {
-        if (error) return reject(error);
-        resolve(data);
-      });
-    });
-  };
-}
