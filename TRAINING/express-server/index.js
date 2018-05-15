@@ -26,7 +26,6 @@ app.get("/filedata", (req, res, next) => {
 
   p1
     .then(data => {
-      console.log(p1);
       res.setHeader("Content-Type", "application/json");
       res.send(data.toString());
     })
@@ -38,8 +37,6 @@ app.get("/filedata", (req, res, next) => {
         .status(500)
         .send({ message: `Fehler beim lesen der Datei. ${error.message}` });
     });
-
-  console.log(p1);
 });
 
 const server = app.listen(8080, () =>
