@@ -1,6 +1,6 @@
 const express = require("express");
 const { readFile } = require("fs");
-const { promisify } = require("util");
+// const { promisify } = require("util");
 
 const app = express();
 
@@ -21,10 +21,12 @@ app.get("/hello-world", (req, res) => {
 });
 
 app.get("/filedata", (req, res, next) => {
-  const readFilePromise = promisify(readFile);
+  const readFilePromiseSelf = promisify(readFile);
+  const p1 = readFilePromiseSelf("./filedata.json");
 
-  readFilePromise("./filedata.json")
+  p1
     .then(data => {
+      console.log(p1);
       res.setHeader("Content-Type", "application/json");
       res.send(data.toString());
     })
@@ -36,6 +38,8 @@ app.get("/filedata", (req, res, next) => {
         .status(500)
         .send({ message: `Fehler beim lesen der Datei. ${error.message}` });
     });
+
+  console.log(p1);
 });
 
 const server = app.listen(8080, () =>
@@ -43,3 +47,28 @@ const server = app.listen(8080, () =>
 );
 
 console.log("Hello ExpressJS");
+
+// 1. refactoring (Zwischenergebniss)
+function readFilePromise(path) {
+  return new Promise((resolve, reject) => {
+    readFile(path, (error, data) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      resolve(data.toString());
+    });
+  });
+}
+
+function promisify(func) {
+  return arg1 => {
+    return new Promise((resolve, reject) => {
+      func(arg1, (error, data) => {
+        if (error) return reject(error);
+        resolve(data);
+      });
+    });
+  };
+}
