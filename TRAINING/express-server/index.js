@@ -43,13 +43,38 @@ app.get("/filedata", (req, res, next) => {
 });
 
 app.get("/filedata-parallel", (req, res) => {
-  Promise.all([
-    loadJSONFile("./filedata.json"),
-    loadJSONFile("./filedata2.json"),
-    loadJSONFile("./filedata3.json")
-  ])
+  const fileNames = [
+    "./filedata.json",
+    "./filedata4.csv",
+    "./filedata2.json",
+    "./filedata3.json"
+  ];
+  const loadJSONFilePromises = fileNames
+    .filter(fileName => fileName.includes(".json"))
+    .map(fileName => {
+      console.log(fileName);
+      return fileName;
+    })
+    .map(fileName => loadJSONFile(fileName));
+
+  Promise.all(loadJSONFilePromises)
     .then(data => {
-      res.send(data);
+      const result = data.reduce(
+        (state, item) => Object.assign(state, item),
+        {}
+      );
+
+      // Übung
+      // if (6 === [1, 2, 3].reduce) {
+      //   console.log("YEAH");
+      // }
+
+      // let state = {};
+      // for (let i = 1; i <= data.length; i++) {
+      //   state;
+      // }
+
+      res.send(result);
     })
     .catch(error => {
       res.status(500).send({ message: error.message });
