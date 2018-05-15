@@ -1,5 +1,8 @@
 const express = require("express");
-const { loadFile } = require("./lib/file-repository");
+const {
+  loadJSONFile,
+  loadJSONFileAndMergeWith
+} = require("./lib/file-repository");
 
 const app = express();
 
@@ -20,10 +23,14 @@ app.get("/hello-world", (req, res) => {
 });
 
 app.get("/filedata", (req, res, next) => {
-  loadFile("./filedata.json")
+  loadJSONFile("./filedata.json")
+    .then(data => loadJSONFileAndMergeWith("./filedata2.json", data))
+    .then(data => loadJSONFileAndMergeWith("./filedata3.json", data))
     .then(data => {
       res.setHeader("Content-Type", "application/json");
-      res.send(data.toString());
+
+      res.send(data);
+      console.log(`Content size: ${res.get("content-length")}`);
     })
     .catch(error => {
       console.error(`Fehler beim lesen der Datei. ${error.message}`);
@@ -32,6 +39,20 @@ app.get("/filedata", (req, res, next) => {
       res
         .status(500)
         .send({ message: `Fehler beim lesen der Datei. ${error.message}` });
+    });
+});
+
+app.get("/filedata-parallel", (req, res) => {
+  Promise.all([
+    loadJSONFile("./filedata.json"),
+    loadJSONFile("./filedata2.json"),
+    loadJSONFile("./filedata3.json")
+  ])
+    .then(data => {
+      res.send(data);
+    })
+    .catch(error => {
+      res.status(500).send({ message: error.message });
     });
 });
 
