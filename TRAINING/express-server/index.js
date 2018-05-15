@@ -2,6 +2,8 @@ const express = require("express");
 const { readFile } = require("fs");
 // const { promisify } = require("util");
 
+const { loadFile } = require("./lib/file-repository");
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -21,8 +23,7 @@ app.get("/hello-world", (req, res) => {
 });
 
 app.get("/filedata", (req, res, next) => {
-  const readFilePromiseSelf = promisify(readFile);
-  const p1 = readFilePromiseSelf("./filedata.json");
+  const p1 = loadFile("./filedata.json");
 
   p1
     .then(data => {
