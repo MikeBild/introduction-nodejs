@@ -64,16 +64,6 @@ app.get("/filedata-parallel", (req, res) => {
         {}
       );
 
-      // Übung
-      // if (6 === [1, 2, 3].reduce) {
-      //   console.log("YEAH");
-      // }
-
-      // let state = {};
-      // for (let i = 1; i <= data.length; i++) {
-      //   state;
-      // }
-
       res.send(result);
     })
     .catch(error => {
