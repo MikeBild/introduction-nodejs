@@ -7,4 +7,15 @@ module.exports = class Order {
     this.end = end;
     this.status = status || "INITIAL";
   }
+
+  static validStatusList() {
+    return [
+      "INITIAL",
+      "STARTED",
+      "DEPLOYING",
+      "UNDEPLOYING",
+      "ARCHIVED",
+      "ERROR"
+    ];
+  }
 };
