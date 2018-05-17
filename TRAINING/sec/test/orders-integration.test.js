@@ -19,4 +19,25 @@ describe("Order integration tests", () => {
       }
     );
   });
+
+  it("GET /orders should return a list", () => {
+    return fetch(`http://localhost:${instance.address().port}/orders`)
+      .then(response => response.json())
+      .then(actual => {
+        equal(Array.isArray(actual), true);
+      });
+  });
+
+  it("POST /orders should return a new order", () => {
+    return fetch(`http://localhost:${instance.address().port}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(actual => {
+        equal(false, true);
+      });
+  });
 });
