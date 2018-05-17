@@ -6,18 +6,25 @@ const samples = require("./routes/samples");
 const orders = require("./routes/orders");
 const ordersRepository = require("./lib/repositories/orders");
 
-app.use(bodyParser.json({ limit: "5mb" }));
-app.use((req, res, next) => {
-  req.ordersRepository = ordersRepository;
-  next();
-});
-app.use("/samples", samples);
-app.use("/orders", orders);
+module.exports = server;
 
-module.exports = async ({ port = 8080 } = {}) => {
-  const dbConnection = await sqlite.open("./sec.db");
+async function server({ port = 8080 } = {}) {
+  app.use(async (req, res, next) => {
+    const dbConnection = await sqlite.open("./sec.db");
+    req.ordersRepository = ordersRepository({ dbConnection });
+    req.connection.on("close", async () => {
+      if (req.headers["Connection"] !== "keep-alive") {
+        await dbConnection.close();
+      }
+    });
+    next();
+  });
+
+  app.use(bodyParser.json({ limit: "5mb" }));
+  app.use("/samples", samples);
+  app.use("/orders", orders);
 
   return new Promise(resolve => {
     const instance = app.listen(port, () => resolve(instance));
   });
-};
+}

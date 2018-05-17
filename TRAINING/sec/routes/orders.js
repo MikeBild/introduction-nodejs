@@ -3,13 +3,13 @@ const Order = require("../lib/models/order");
 
 module.exports = router;
 
-router.get("/", (req, res) => {
-  res.send(req.ordersRepository.loadAll());
+router.get("/", async (req, res) => {
+  res.send(await req.ordersRepository.loadAll());
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const orderId = req.params.id;
-  const order = req.ordersRepository.loadById(orderId);
+  const order = await req.ordersRepository.loadById(orderId);
 
   if (!order) return res.sendStatus(404);
 

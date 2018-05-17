@@ -24,21 +24,23 @@ const result = [
   )
 ];
 
-module.exports = {
-  loadAll,
-  loadById,
-  create,
-  update,
-  // remove,
-  archive
+module.exports = ({ dbConnection }) => {
+  return {
+    loadAll: () => loadAll(dbConnection),
+    loadById: id => loadById(id, dbConnection),
+    create,
+    update,
+    // remove,
+    archive
+  };
 };
 
-function loadAll() {
-  return result;
+async function loadAll(dbConnection) {
+  return await dbConnection.all("select * from orders");
 }
 
-function loadById(id) {
-  return result.find(x => x.id === id);
+async function loadById(id, dbConnection) {
+  return await dbConnection.get("select * from orders where id = ?", [id]);
 }
 
 function create({ sampleId, dns, start, end, status }) {
