@@ -4,6 +4,7 @@ const Order = require("../lib/models/order");
 module.exports = router;
 
 router.get("/", async (req, res) => {
+  console.log(req.user);
   res.send(await req.ordersRepository.loadAll());
 });
 
