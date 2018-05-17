@@ -14,7 +14,10 @@ app.use((req, res, next) => {
 app.use("/samples", samples);
 app.use("/orders", orders);
 
-module.exports = async ({ port = 8080 } = {}, callback) => {
+module.exports = async ({ port = 8080 } = {}) => {
   const dbConnection = await sqlite.open("./sec.db");
-  return app.listen(port, callback);
+
+  return new Promise(resolve => {
+    const instance = app.listen(port, () => resolve(instance));
+  });
 };

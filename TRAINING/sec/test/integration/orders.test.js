@@ -4,12 +4,12 @@ const server = require("../../server");
 
 describe("Order integration tests", () => {
   let instance = null;
-  before(done => {
-    instance = server({ port: null }, () => done());
+  before(async () => {
+    instance = await server({ port: null });
   });
 
   after(done => {
-    instance.close(() => done());
+    instance.close(done);
   });
 
   it("GET /orders should return a 200 status code", async () => {
