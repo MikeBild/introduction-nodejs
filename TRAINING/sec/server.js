@@ -1,3 +1,4 @@
+const { createReadStream } = require("fs");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -10,6 +11,10 @@ const ordersRepository = require("./lib/repositories/orders");
 module.exports = server;
 
 async function server({ port = 8080 } = {}) {
+  app.get("/filedata", (req, res) => {
+    createReadStream("./data.csv").pipe(res);
+  });
+
   app.use(async (req, res, next) => {
     const dbConnection = await sqlite.open("./sec.db");
     const accountHeader = (req.headers["authorization"] || "").replace(
