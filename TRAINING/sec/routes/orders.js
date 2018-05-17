@@ -16,11 +16,11 @@ router.get("/:id", async (req, res) => {
   res.send(order);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const orderToCreate = req.body;
   //TODO: Validate order to create
 
-  const createdOrder = req.ordersRepository.create(orderToCreate);
+  const createdOrder = await req.ordersRepository.create(orderToCreate);
   res.status(201).send(createdOrder);
 });
 
