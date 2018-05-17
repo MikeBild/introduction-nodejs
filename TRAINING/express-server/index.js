@@ -3,6 +3,7 @@ const {
   loadJSONFile,
   loadJSONFileAndMergeWith
 } = require("./lib/file-repository");
+const foo = require("./routes/foo");
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use((req, res, next) => {
   console.log("Check Auth!");
   next();
 });
+
+app.use("/foo", foo);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
