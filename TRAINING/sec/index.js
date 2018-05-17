@@ -1,16 +1,5 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const samples = require("./routes/samples");
-const orders = require("./routes/orders");
-const ordersRepository = require("./lib/repositories/orders");
+const server = require("./server");
 
-app.use(bodyParser.json({ limit: "5mb" }));
-app.use((req, res, next) => {
-  req.ordersRepository = ordersRepository;
-  next();
-});
-app.use("/samples", samples);
-app.use("/orders", orders);
-
-app.listen(8080, () => console.log(`Listen on 8080`));
+const instance = server({ port: 9090 }, () =>
+  console.log(`Listen on ${instance.address().port}`)
+);
