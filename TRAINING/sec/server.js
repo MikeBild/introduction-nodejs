@@ -1,4 +1,5 @@
 const { createReadStream } = require("fs");
+const { spawn } = require("child_process");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -13,6 +14,11 @@ module.exports = server;
 async function server({ port = 8080 } = {}) {
   app.get("/filedata", (req, res) => {
     createReadStream("./data.csv").pipe(res);
+  });
+
+  app.get("/ls", (req, res) => {
+    const ls = spawn("ls", ["-lha", "./"]);
+    ls.stdout.pipe(res);
   });
 
   app.use(async (req, res, next) => {
