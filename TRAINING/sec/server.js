@@ -8,10 +8,16 @@ const sqlite = require("sqlite");
 const samples = require("./routes/samples");
 const orders = require("./routes/orders");
 const ordersRepository = require("./lib/repositories/orders");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
 
 module.exports = server;
 
 async function server({ port = 8080 } = {}) {
+  const swaggerDocument = YAML.load("./swagger.yaml");
+
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
   app.get("/filedata", (req, res) => {
     createReadStream("./data.csv").pipe(res);
   });
