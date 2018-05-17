@@ -1,6 +1,6 @@
 const { equal } = require("assert");
 const fetch = require("node-fetch");
-const server = require("../server");
+const server = require("../../server");
 
 describe("Order integration tests", () => {
   let instance = null;

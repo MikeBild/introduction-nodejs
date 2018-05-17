@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "mocha",
-    "test:ct": "mocha --watch"
+    "test": "mocha --recursive",
+    "test:ct": "mocha --watch --recursive"
   },
   "author": "",
   "license": "ISC",
