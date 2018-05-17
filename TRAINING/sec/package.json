@@ -3,21 +3,30 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "sec": {
+    "production": {
+      "port": 8090
+    },
+    "development": {
+      "port": 8080
+    }
+  },
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
     "test": "mocha --recursive",
     "test:ct": "mocha --watch --recursive"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "sqlite": "^2.9.2"
+    "body-parser": "1.18.3",
+    "express": "4.16.3",
+    "sqlite": "2.9.2"
   },
   "devDependencies": {
-    "mocha": "^5.1.1",
-    "node-fetch": "^2.1.2",
-    "nodemon": "^1.17.4"
+    "mocha": "5.1.1",
+    "node-fetch": "2.1.2",
+    "nodemon": "1.17.4"
   }
 }
