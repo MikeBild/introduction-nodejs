@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
   //TODO: Validate order to create
 
   const createdOrder = req.ordersRepository.create(orderToCreate);
-  res.send(createdOrder);
+  res.status(201).send(createdOrder);
 });
 
 router.put("/:id", (req, res) => {

@@ -28,17 +28,13 @@ describe("Order integration tests", () => {
       });
   });
 
-  it("POST /orders should return a new order", () => {
+  it("POST /orders should return 201 status code", () => {
     return fetch(`http://localhost:${instance.address().port}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({})
-    })
-      .then(response => response.json())
-      .then(actual => {
-        equal(false, true);
-      });
+    }).then(response => equal(response.status, 201));
   });
 });
