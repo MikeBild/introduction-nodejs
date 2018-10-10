@@ -2,7 +2,7 @@ const Writable = require('stream').Writable;
 const util = require('util');
 
 const WriteStream = function() {
-  Writable.call(this, {objectMode: true});
+  Writable.call(this, { objectMode: true });
 };
 util.inherits(WriteStream, Writable);
 

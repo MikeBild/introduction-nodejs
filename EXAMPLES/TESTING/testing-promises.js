@@ -12,21 +12,18 @@ function asPromiseReject() {
   });
 }
 
-describe('Group 1', function () {
+describe('Group 1', function() {
   this.timeout(4000);
 
   it('positive test', () => {
-    return asPromiseSuccess()
-      .then(actual => {
-        assert.equal(actual, 2);
-      });
+    return asPromiseSuccess().then(actual => {
+      assert.equal(actual, 2);
+    });
   });
 
   it('negative test', () => {
-    return asPromiseReject()
-      .catch(actual => {
-        assert.equal(actual.message, 'an error');
-      });
+    return asPromiseReject().catch(actual => {
+      assert.equal(actual.message, 'an error');
+    });
   });
-
 });

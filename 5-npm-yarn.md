@@ -37,11 +37,11 @@ npm publish
 
 ## Ignore files
 
-* add `.npmignore`
+- add `.npmignore`
 
 # YARN
 
-* the "new" JS Package Manager
-* Backward compatible
-* `yarn install`
-* `yarn add ...`
+- the "new" JS Package Manager
+- Backward compatible
+- `yarn install`
+- `yarn add ...`

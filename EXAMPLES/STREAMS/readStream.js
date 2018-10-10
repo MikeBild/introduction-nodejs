@@ -2,8 +2,8 @@ const data = require('./dataSource.json');
 const Readable = require('stream').Readable;
 const util = require('util');
 
-const ReadStream = function () {
-  Readable.call(this, {objectMode: true});
+const ReadStream = function() {
+  Readable.call(this, { objectMode: true });
   this.data = data;
   this.curIndex = 0;
 };

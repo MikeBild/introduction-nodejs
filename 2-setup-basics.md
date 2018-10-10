@@ -1,7 +1,7 @@
 # Setup
 
-* Available for SunOS, Linux, Mac OS X, and Windows 32/64 bit
-* `node -v`, `npm -v`
+- Available for SunOS, Linux, Mac OS X, and Windows 32/64 bit
+- `node -v`, `npm -v`
 
 ```javascript
 console.log('Hello, World!');
@@ -14,18 +14,20 @@ console.log('Hello, World!');
 ## Types
 
 ### Primitives
-* Boolean
-* Number
-* String
-* undefined
-* null
+
+- Boolean
+- Number
+- String
+- undefined
+- null
 
 ### Non-Primitives
-* Object
-* Regex
-* Function
-* Array
-* Date
+
+- Object
+- Regex
+- Function
+- Array
+- Date
 
 ## Comparison
 
@@ -43,8 +45,8 @@ foo = foo || 'default';
 ## Scope - Constructor-Function
 
 ```javascript
-function MyObj () {
-  this.foo = 'foo'
+function MyObj() {
+  this.foo = 'foo';
 }
 
 const myObj = new MyObj();
@@ -53,15 +55,14 @@ const myObj = new MyObj();
 ## Scope - Bind / Call / Apply
 
 ```javascript
-function myFunc () {
+function myFunc() {
   console.log(arguments);
   console.log(this.execAs);
 }
 
-console.log(myFunc.call({execAs: 'call'}, 'a', 'b'));
-console.log(myFunc.apply({execAs: 'apply'}, ['a', 'b']));
+console.log(myFunc.call({ execAs: 'call' }, 'a', 'b'));
+console.log(myFunc.apply({ execAs: 'apply' }, ['a', 'b']));
 
-const myFuncBind = myFunc.bind({execAs: 'bind'});
+const myFuncBind = myFunc.bind({ execAs: 'bind' });
 console.log(myFuncBind('a', 'b'));
 ```
-

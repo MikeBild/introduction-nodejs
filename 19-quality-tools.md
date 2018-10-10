@@ -1,11 +1,11 @@
 # Quality Tools
 
-* [Nodemon](#nodemon)
-* [ESLint](#es-lint)
-* [Process Manager and Supervisor](#process-manager-and-supervisor)
-* [Node-Inspector as Debugger](#node-inspector)
-* [Debug as logging tool](#debug-as-logging-tool)
-* [Code Style with Prettier](#code-style-with-prettier)
+- [Nodemon](#nodemon)
+- [ESLint](#es-lint)
+- [Process Manager and Supervisor](#process-manager-and-supervisor)
+- [Node-Inspector as Debugger](#node-inspector)
+- [Debug as logging tool](#debug-as-logging-tool)
+- [Code Style with Prettier](#code-style-with-prettier)
 
 ## Nodemon
 
@@ -15,7 +15,7 @@
 npm install nodemon --save-dev
 ```
 
-__package.json__
+**package.json**
 
 ```json
 "scripts": {
@@ -32,7 +32,7 @@ npm install eslint --save-dev
 ./node_modules/.bin/eslint --init
 ```
 
-__package.json__
+**package.json**
 
 ```json
 "scripts": {
@@ -66,7 +66,7 @@ npm install debug --save
 
 ## Code Style with Prettier
 
-__.prettierrc__
+**.prettierrc**
 
 ```json
 {

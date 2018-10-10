@@ -5,4 +5,4 @@ const RxNode = require('rx-node');
 RxNode.fromStream(spawn('ls', ['-lha']).stdout)
   .map(x => x.toString())
   .do(console.log)
-  .subscribe()
+  .subscribe();
