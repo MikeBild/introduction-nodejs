@@ -1,11 +1,11 @@
 # Testing
 
-* [Arrange-Act-Assert](#arrange-act-assert)
-* [Mocha](#mocha)
-* [Assert](#asserts)
-* [Negative Tests](#negative-tests)
-* [Async](#async-tests)
-* [Integration Tests](#integration-tests)
+- [Arrange-Act-Assert](#arrange-act-assert)
+- [Mocha](#mocha)
+- [Assert](#asserts)
+- [Negative Tests](#negative-tests)
+- [Async](#async-tests)
+- [Integration Tests](#integration-tests)
 
 ## Examples
 
@@ -15,7 +15,7 @@
 
 ## Arrange Act Assert
 
-* Structural pattern to test requirements
+- Structural pattern to test requirements
 
 ```javascript
 // Arrange
@@ -23,7 +23,7 @@ const sut = 'ABC';
 // Act
 const actual = sut.split('').reverse();
 // Assert
-assert.deepEqual(actual, [ 'C', 'B', 'A' ]);
+assert.deepEqual(actual, ['C', 'B', 'A']);
 ```
 
 ## Mocha
@@ -31,7 +31,9 @@ assert.deepEqual(actual, [ 'C', 'B', 'A' ]);
 ```bash
 npm install mocha --save-dev
 ```
-__package.json__
+
+**package.json**
+
 ```json
 "scripts": {
 	"test": "mocha --watch ./tests"
@@ -42,11 +44,9 @@ __package.json__
 const assert = require('assert');
 
 describe('Group 1', () => {
-
-	it('test 1', () => {
-		assert.equal(1, 2);
-	});
-
+  it('test 1', () => {
+    assert.equal(1, 2);
+  });
 });
 ```
 
@@ -65,7 +65,7 @@ assert(false);
 // throws "AssertionError: false == true"
 assert(0);
 // throws "AssertionError: 0 == true"
-assert(false, 'it\'s false');
+assert(false, "it's false");
 // throws "AssertionError: it's false"
 ```
 
@@ -73,22 +73,20 @@ assert(false, 'it\'s false');
 
 ## Negative Tests
 
-* Test errors
-* Test the right error
+- Test errors
+- Test the right error
 
 ```javascript
 const assert = require('assert');
 
-function thatThrowAnError(){
+function thatThrowAnError() {
   throw new Error('my error');
 }
 
 describe('Group 1', () => {
-
   it('test 1 should throw', () => {
     assert.throws(thatThrowAnError, Error);
   });
-
 });
 ```
 
@@ -99,16 +97,15 @@ describe('Group 1', () => {
 ```javascript
 const assert = require('assert');
 
-describe('Group 1', function () {
+describe('Group 1', function() {
   this.timeout(4000);
 
   it('test 1', done => {
     setTimeout(() => {
       assert.equal(1, 2);
-      done()
+      done();
     }, 3000);
   });
-
 });
 ```
 
@@ -123,26 +120,24 @@ function asPromise() {
   });
 }
 
-describe('Group 1', function () {
+describe('Group 1', function() {
   this.timeout(4000);
 
   it('test 1', () => {
-    return asPromise()
-      .then(actual => {
-        assert.equal(actual, 2);
-      });
+    return asPromise().then(actual => {
+      assert.equal(actual, 2);
+    });
   });
-
 });
 ```
 
 ## Integration Tests
 
-* Testing more than functions
-* Prepare environment(s)
-  * Use module exports/require
-  * before, after
-  * beforeEach, afterEach
-* Multiple asserts
+- Testing more than functions
+- Prepare environment(s)
+  - Use module exports/require
+  - before, after
+  - beforeEach, afterEach
+- Multiple asserts
 
 [Example](EXAMPLES/TESTING/testing-integration.js)

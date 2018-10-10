@@ -32,7 +32,7 @@ socket.emit('send', {msg: 'foo bar 2'});
 setTimeout(() => socket.disconnect(), 2000);
 */
 
-const WebSocketServer = require('ws').Server
+const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({ port: 3000 });
 
 wss.on('connection', function connection(ws) {

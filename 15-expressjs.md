@@ -2,24 +2,24 @@
 
 ## Overview
 
-* [Basics](#setup)
-* [Environment & Practices](#environment-and-practices)
-* [Middleware](#middleware)
-* [Render Views with Templates](#render-views-with-templates)
-* [EJS](#ejs)
-* [Routes](#routes)
-* [Error Handling](#error-handling)
-* [RESTful / Hypermedia](#restful-routing)
-* [HTTP2 / SPDY](#http2)
-* [Web-Events / Feeds](#event-streams)
-* [Web-Sockets](#socketio)
+- [Basics](#setup)
+- [Environment & Practices](#environment-and-practices)
+- [Middleware](#middleware)
+- [Render Views with Templates](#render-views-with-templates)
+- [EJS](#ejs)
+- [Routes](#routes)
+- [Error Handling](#error-handling)
+- [RESTful / Hypermedia](#restful-routing)
+- [HTTP2 / SPDY](#http2)
+- [Web-Events / Feeds](#event-streams)
+- [Web-Sockets](#socketio)
 
 ## Examples
 
-* [Express Server-Side-Render](EXAMPLES/EXPRESSJS/SSR/README.md)
-* [Hypermedia](EXAMPLES/EXPRESSJS/HYPERMEDIA/README.md)
-* [Events / Hooks](EXAMPLES/EXPRESSJS/EVENTS/README.md)
-* [Socket.IO](EXAMPLES/EXPRESSJS/SOCKETS/README.md)
+- [Express Server-Side-Render](EXAMPLES/EXPRESSJS/SSR/README.md)
+- [Hypermedia](EXAMPLES/EXPRESSJS/HYPERMEDIA/README.md)
+- [Events / Hooks](EXAMPLES/EXPRESSJS/EVENTS/README.md)
+- [Socket.IO](EXAMPLES/EXPRESSJS/SOCKETS/README.md)
 
 ## Setup
 
@@ -33,33 +33,35 @@ const app = express();
 
 app.get('/', (req, res) => res.send('Hello World'));
 
-const server = app.listen(3000,  () => {
-   const address = server.address() || {};
-   console.log(`Example app listening at http://${address.host}:${address.port}`);
+const server = app.listen(3000, () => {
+  const address = server.address() || {};
+  console.log(
+    `Example app listening at http://${address.host}:${address.port}`,
+  );
 });
 ```
 
 ## Environment & Practices
 
-* Use the "right" logging
-* Use Process-Manager (forever / PM2)
-* Use `NODE_ENV=production` || `NODE_ENV=development`
-* Use Compression & Caching
-* Handle exception with (try/catch) / Promise-Catch and prefer Fail-Fail (avoid handling 'uncaughtException')
-* Use ENVIRONMENT VARIABLES
-* Use SIGNALS (SIGTERM / SIGHUB) for graceful shutdowns
+- Use the "right" logging
+- Use Process-Manager (forever / PM2)
+- Use `NODE_ENV=production` || `NODE_ENV=development`
+- Use Compression & Caching
+- Handle exception with (try/catch) / Promise-Catch and prefer Fail-Fail (avoid handling 'uncaughtException')
+- Use ENVIRONMENT VARIABLES
+- Use SIGNALS (SIGTERM / SIGHUB) for graceful shutdowns
 
 ## Middleware
 
-* Static Files
-* Compression
-* Body-Parser
-* Cookie-Parser
-* CORS
-* Multi-Part
-* Request/Response Time
-* Session
-* Authentication (Passport)
+- Static Files
+- Compression
+- Body-Parser
+- Cookie-Parser
+- CORS
+- Multi-Part
+- Request/Response Time
+- Session
+- Authentication (Passport)
 
 ## Service Static Files
 
@@ -85,42 +87,44 @@ app.use(morgan());
 
 ## Render Views with Templates
 
-* `npm install ejs --save`
-* [EJS](http://www.embeddedjs.com/)
+- `npm install ejs --save`
+- [EJS](http://www.embeddedjs.com/)
 
 ```javascript
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get('/index.html', (req, res) => res.render('index', {title: 'Title'}));
+app.get('/index.html', (req, res) => res.render('index', { title: 'Title' }));
 ```
 
 ## EJS
 
 ### Tags
-* `<%`   'Scriptlet' tag, for control-flow, no output
-* `<%=`  Outputs the value into the template (escaped)
-* `<%-`  Outputs the unescaped value into the template
-* `<%#`  Comment tag, no execution, no output
-* `-%>`  Trim-mode ('newline slurp') tag, trims following newline
+
+- `<%` 'Scriptlet' tag, for control-flow, no output
+- `<%=` Outputs the value into the template (escaped)
+- `<%-` Outputs the unescaped value into the template
+- `<%#` Comment tag, no execution, no output
+- `-%>` Trim-mode ('newline slurp') tag, trims following newline
 
 ### Includes
 
-* use `<%- include('common/footer') %>`
+- use `<%- include('common/footer') %>`
 
 ### Master-Layouts
 
-* [ejs-locals](https://github.com/RandomEtc/ejs-locals)
+- [ejs-locals](https://github.com/RandomEtc/ejs-locals)
 
 ## Routes
 
 ### Chaining Routes
 
 ```javascript
-app.route('/books')
+app
+  .route('/books')
   .get((req, res) => res.send('Get a random book'))
   .post((req, res) => res.send('Add a book'))
-  .put((req, res) => res.send('Update the book'))
+  .put((req, res) => res.send('Update the book'));
 ```
 
 ### Router-Object
@@ -166,8 +170,10 @@ app.delete('/del_user', (req, res) => res.send('Hello DELETE'));
 app.get('/ab*cd', (req, res) => res.send('Page Pattern Match'));
 
 const server = app.listen(3000, () => {
-   const address = server.address() || {};
-   console.log(`Example app listening at http://${address.host}:${address.port}`);
+  const address = server.address() || {};
+  console.log(
+    `Example app listening at http://${address.host}:${address.port}`,
+  );
 });
 ```
 
@@ -205,37 +211,40 @@ app.get('/', (req, res, next) => {
 
 > Next generation of HTTP Protocol
 
-* HTTPS by default
-* Duplex communication with pushing resource support
-* SPDY2/3, HTTP/1.1/1.0 fallback support
+- HTTPS by default
+- Duplex communication with pushing resource support
+- SPDY2/3, HTTP/1.1/1.0 fallback support
 
 ```javascript
-const spdy = require('spdy')
-const express = require('express')
-const fs = require('fs')
-const app = express()
+const spdy = require('spdy');
+const express = require('express');
+const fs = require('fs');
+const app = express();
 
 spdy
-.createServer({
-  key: fs.readFileSync(__dirname + '/server.key'),
-  cert:  fs.readFileSync(__dirname + '/server.crt'),
-}, app)
-.listen(8443, error => {
-  if (error) console.error(error)
-  if (error) return process.exit(1)
-  console.log(`Listen on ${SERVICE_PORT}`)
-})
+  .createServer(
+    {
+      key: fs.readFileSync(__dirname + '/server.key'),
+      cert: fs.readFileSync(__dirname + '/server.crt'),
+    },
+    app,
+  )
+  .listen(8443, error => {
+    if (error) console.error(error);
+    if (error) return process.exit(1);
+    console.log(`Listen on ${SERVICE_PORT}`);
+  });
 ```
 
 ## Event Streams
 
-> Works like a continuous data __feed__
+> Works like a continuous data **feed**
 
 ```javascript
 app.get('/subscribe/:feedName', (req, res) => {
   res.set('Transfer-Encoding', 'chunked');
-  stream.on(req.params.feedName || 'progress', (data) => {
-    res.write(JSON.stringify(data)+'\n');
+  stream.on(req.params.feedName || 'progress', data => {
+    res.write(JSON.stringify(data) + '\n');
   });
 });
 ```
@@ -247,7 +256,7 @@ app.get('/subscribe/:feedName', (req, res) => {
 ### Server
 
 ```javascript
-const WebSocketServer = require('ws').Server
+const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({ port: 3000 });
 
 wss.on('connection', function connection(ws) {
@@ -262,27 +271,26 @@ wss.on('connection', function connection(ws) {
 ### Client
 
 ```javascript
-  window.onload = function() {
-    var socket = new WebSocket('ws://localhost:3000');
+window.onload = function() {
+  var socket = new WebSocket('ws://localhost:3000');
 
-    socket.onopen = function(event) {
-      console.log(event)
-      // Send an initial message
-      socket.send('I am the client and I\'m listening!');
+  socket.onopen = function(event) {
+    console.log(event);
+    // Send an initial message
+    socket.send("I am the client and I'm listening!");
 
-      // Listen for messages
-      socket.onmessage = function(event) {
-        console.log('Client received a message',event);
-      };
+    // Listen for messages
+    socket.onmessage = function(event) {
+      console.log('Client received a message', event);
+    };
 
-      // Listen for socket closes
-      socket.onclose = function(event) {
-        console.log('Client notified socket has closed', event);
-      };
+    // Listen for socket closes
+    socket.onclose = function(event) {
+      console.log('Client notified socket has closed', event);
+    };
 
-      // To close the socket....
-      //socket.close()
-
-    }
-  }
+    // To close the socket....
+    //socket.close()
+  };
+};
 ```
