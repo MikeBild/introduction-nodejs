@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "todo-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "PORT=80 NODE_ENV=production node app",
+    "dev": "PORT=8080 nodemon app"
+  },
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
