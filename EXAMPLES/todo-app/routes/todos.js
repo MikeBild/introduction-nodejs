@@ -13,10 +13,14 @@ app.get('/', async (req, res) => {
   res.send(data.rows.map(row => ({ ...row.doc, id: row.doc._id })));
 });
 
-app.post('/', (req, res) => {
-  const newTodo = { ...req.body, id: req.todoList.length + 1 };
-  req.todoList.push(newTodo);
-  res.send(newTodo);
+app.post('/', async (req, res) => {
+  const response = await fetch(req.todoDBBaseUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req.body),
+  });
+  const data = await response.json();
+  res.send({ ...req.body, ...data });
 });
 
 app.get('/:id', (req, res) => {});

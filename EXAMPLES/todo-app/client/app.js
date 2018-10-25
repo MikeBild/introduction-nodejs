@@ -28,7 +28,6 @@ class App extends Component {
       });
       const newTodo = await response.json();
       this.setState({ todos: this.state.todos.concat([newTodo]) });
-      // await this.refetch();
     };
 
     return (
@@ -38,6 +37,7 @@ class App extends Component {
           <input type="text" ref={descInput} />
           <button onClick={() => addTodo()}>Add</button>
         </div>
+        <button onClick={() => this.refetch()}>Refresh</button>
         <ul>
           {this.state.todos.map(x => {
             return <li key={x.id}>{x.description}</li>;
