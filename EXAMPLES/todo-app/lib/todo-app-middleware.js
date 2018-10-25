@@ -9,6 +9,8 @@ setInterval(() => {
 
 module.exports = (req, res, next) => {
   req.baseUrl = process.env.BASEURL;
+  req.todoDBBaseUrl =
+    process.env.TODO_DB_BASE_URL || 'http://34.247.50.10/todos';
   req.eventemitter = eventemitter1;
   req.todoList = todoList;
   console.log(`${new Date()}: ${req.method}`);

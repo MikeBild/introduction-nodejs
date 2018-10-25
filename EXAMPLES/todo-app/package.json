@@ -3,14 +3,24 @@
   "name": "todo-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "PORT=80 NODE_ENV=production node app",
-    "dev": "PORT=8080 nodemon app"
+    "start": "npm run build && PORT=8080 NODE_ENV=production node app",
+    "dev": "PORT=8080 concurrently \"nodemon app\" \"parcel client/index.html\"",
+    "build": "NODE_ENV=production parcel build client/index.html"
   },
   "dependencies": {
+    "cors": "^2.8.4",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4",
+    "parcel": "^1.10.3",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }
