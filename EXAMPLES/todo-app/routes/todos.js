@@ -5,11 +5,11 @@ const app = express.Router();
 module.exports = app;
 
 app.get('/', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  const outputFile = createWriteStream('./backup.json');
-  const inputFile = createReadStream('./todo-list.json');
-  inputFile.pipe(outputFile);
-  inputFile.pipe(res);
+  req.todoList ....
+});
+
+app.get('/:id', (req, res) => {
+  req.todoList ....
 });
 
 app.get('/changedStream', (req, res) => {
