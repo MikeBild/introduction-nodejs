@@ -17,6 +17,11 @@ app.use(todosAppMiddleware);
 app.use('/html', htmlRoutes);
 app.use('/api/todos', todosRoutes);
 
+app.use((error, req, res, next) => {
+  console.log('ERROR');
+  next(error);
+});
+
 const server = app.listen(PORT, () =>
   console.log(`Listen on ${server.address().port}`),
 );
