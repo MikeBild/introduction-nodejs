@@ -1,27 +1,14 @@
-const PORT = process.env.PORT;
-const express = require('express');
-const cors = require('cors');
-const app = express();
+const { start, stop } = require('./server');
+let server = null;
 
-const todosAppMiddleware = require('./lib/todo-app-middleware');
-const todosRoutes = require('./routes/todos');
-const htmlRoutes = require('./routes/html');
-
-app.set('view engine', 'ejs');
-
-app.use(cors());
-app.use('/', express.static('dist'));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ extended: true }));
-app.use(todosAppMiddleware);
-app.use('/html', htmlRoutes);
-app.use('/api/todos', todosRoutes);
-
-app.use((error, req, res, next) => {
-  console.log('ERROR');
-  next(error);
+start({}).then(({ server: instance }) => {
+  server = instance;
+  console.log(`Listen on ${instance.address().port}`);
 });
 
-const server = app.listen(PORT, () =>
-  console.log(`Listen on ${server.address().port}`),
-);
+process.on('SIGINT', async () => {
+  console.log('Stopping Server');
+  await stop({ server });
+  console.log('Server stopped');
+  process.exit(0);
+});
