@@ -1,0 +1,12 @@
+{
+  "name": "hello-world-examples",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "atomics index.js",
+    "dev": "atomics dev index.js"
+  },
+  "dependencies": {
+    "atomics-template": "file:../.."
+  }
+}

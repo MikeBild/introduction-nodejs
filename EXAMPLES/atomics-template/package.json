@@ -1,0 +1,20 @@
+{
+  "name": "atomics-template",
+  "version": "1.0.0",
+  "description": "WAFIOS Zero-Configuration Micro-Service Template",
+  "main": "index.js",
+  "bin": {
+    "atomics": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node-dev index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "node-dev": "^3.1.3"
+  }
+}
