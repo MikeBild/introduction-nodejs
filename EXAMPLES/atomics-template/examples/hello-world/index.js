@@ -1,7 +1,11 @@
 const express = require('express');
-const atomics = require('atomics-template');
+const { log, servicebus } = require('atomics-template');
 
-atomics.logger.info('FOO!');
+log.info(`Starting MicroService ...`);
+
+servicebus.on('connected', () =>
+  log.info(`ServiceBus State: ${servicebus.state}`)
+);
 
 const app = express.Router();
 
@@ -11,6 +15,12 @@ app.get('/', (_, res) => {
   res.send('Hello World');
 });
 
-app.get('/users', (req, res) => {
-  res.send([{ id: 1 }]);
+app.get('/users', async (req, res) => {
+  const data = await servicebus.subscribeOnce('topic');
+  res.send(data);
+});
+
+app.post('/users', (req, res) => {
+  const data = req.body;
+  servicebus.publish('topic', data);
 });

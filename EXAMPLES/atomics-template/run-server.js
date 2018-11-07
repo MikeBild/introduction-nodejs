@@ -1,13 +1,13 @@
-const PORT = process.env.PORT || 8080;
 const express = require('express');
 const { ensureMain } = require('./lib/utils');
 
-module.exports = ({ modulePath, log }) => {
+module.exports = ({ modulePath, log, port }) => {
   return new Promise(resolve => {
     const main = ensureMain(modulePath);
     const app = express();
+    app.use(express.json({ extended: true }));
     app.use(main);
-    log.info(`Try starting server on ${PORT}`);
-    const instance = app.listen(PORT, () => resolve({ instance }));
+    log.info(`Try starting server on ${port}`);
+    const instance = app.listen(port, () => resolve({ instance }));
   });
 };

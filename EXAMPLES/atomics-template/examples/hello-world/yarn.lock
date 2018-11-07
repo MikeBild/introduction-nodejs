@@ -55,6 +55,7 @@ async@^2.6.0:
 "atomics-template@file:../..":
   version "1.0.0"
   dependencies:
+    dotenv "^6.1.0"
     express "4.16.4"
     service-bus "1.0.6-24"
     wafios-logger "2.0.2"
@@ -296,6 +297,11 @@ diff@^3.1.0:
   version "3.5.0"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
+
+dotenv@^6.1.0:
+  version "6.1.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/dotenv/-/dotenv-6.1.0.tgz#9853b6ca98292acb7dec67a95018fa40bccff42c"
+  integrity sha512-/veDn2ztgRlB7gKmE3i9f6CmDIyXAy6d5nBq+whO9SLX+Zs1sXEgFLPi+aSuWqUuusMfbi84fT8j34fs1HaYUw==
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
