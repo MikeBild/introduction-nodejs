@@ -39,6 +39,8 @@ async function main({
         port: config.PORT,
       });
 
+      if (!instance) return;
+
       log.info(`Listen on ${instance.address().port}`);
       break;
     case 'dev':

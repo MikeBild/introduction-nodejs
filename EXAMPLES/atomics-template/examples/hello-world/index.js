@@ -2,25 +2,35 @@ const express = require('express');
 const { log, servicebus } = require('atomics-template');
 
 log.info(`Starting MicroService ...`);
+log.info(`ServiceBus State: ${servicebus.state}`);
 
-servicebus.on('connected', () =>
-  log.info(`ServiceBus State: ${servicebus.state}`)
-);
+module.exports = async () => {
+  const routes = express.Router();
 
-const app = express.Router();
+  routes.get('/', (_, res) => {
+    res.send('Hello World');
+  });
 
-module.exports = app;
+  routes.get('/users', async (req, res) => {
+    const data = await servicebus.subscribeOnce('topic');
+    res.send(data);
+  });
 
-app.get('/', (_, res) => {
-  res.send('Hello World');
-});
+  routes.post('/users', (req, res) => {
+    const data = req.body;
+    servicebus.publish('topic', data);
+  });
 
-app.get('/users', async (req, res) => {
-  const data = await servicebus.subscribeOnce('topic');
-  res.send(data);
-});
+  const { state } = await onServiceConnectionEstablished({ servicebus });
+  log.info(`ServiceBus State: ${state}`);
 
-app.post('/users', (req, res) => {
-  const data = req.body;
-  servicebus.publish('topic', data);
-});
+  return {
+    routes,
+  };
+};
+
+function onServiceConnectionEstablished({ servicebus }) {
+  return new Promise(resolve => {
+    servicebus.on('connected');
+  });
+}
