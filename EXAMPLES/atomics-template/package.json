@@ -14,12 +14,14 @@
   },
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
-    "wafios-logger": "^2.0.2",
-    "yargs": "^12.0.2"
+    "express": "4.16.4",
+    "service-bus": "1.0.6-24",
+    "wafios-logger": "2.0.2",
+    "wafios-metrics": "1.0.1-9",
+    "yargs": "12.0.2"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "node-dev": "^3.1.3"
+    "mocha": "5.2.0",
+    "node-dev": "3.1.3"
   }
 }

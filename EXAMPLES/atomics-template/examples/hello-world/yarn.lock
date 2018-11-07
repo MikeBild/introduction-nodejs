@@ -4,7 +4,7 @@
 
 accepts@~1.3.5:
   version "1.3.5"
-  resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
   integrity sha1-63d99gEXI6OxTopywIBcjoZ0a9I=
   dependencies:
     mime-types "~2.1.18"
@@ -32,8 +32,18 @@ ansistyles@~0.1.1:
 
 array-flatten@1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
   integrity sha1-ml9pkFGx5wczKPKgCJaLZOopVdI=
+
+arrify@^1.0.0:
+  version "1.0.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
+  integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
+
+assertion-error@^1.1.0:
+  version "1.1.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/assertion-error/-/assertion-error-1.1.0.tgz#e60b6b0e8f301bd97e5375215bda406c85118c0b"
+  integrity sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==
 
 async@^2.6.0:
   version "2.6.1"
@@ -45,18 +55,25 @@ async@^2.6.0:
 "atomics-template@file:../..":
   version "1.0.0"
   dependencies:
-    express "^4.16.4"
-    wafios-logger "^2.0.2"
-    yargs "^12.0.2"
+    express "4.16.4"
+    service-bus "1.0.6-24"
+    wafios-logger "2.0.2"
+    wafios-metrics "1.0.1-9"
+    yargs "12.0.2"
 
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+bintrees@1.0.1:
+  version "1.0.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
+  integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
+
 body-parser@1.18.3:
   version "1.18.3"
-  resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.18.3.tgz#5b292198ffdd553b3a0f20ded0592b956955c8b4"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/body-parser/-/body-parser-1.18.3.tgz#5b292198ffdd553b3a0f20ded0592b956955c8b4"
   integrity sha1-WykhmP/dVTs6DyDe0FkrlWlVyLQ=
   dependencies:
     bytes "3.0.0"
@@ -77,6 +94,11 @@ brace-expansion@^1.1.7:
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
+
+buffer-from@^1.0.0, buffer-from@^1.1.0:
+  version "1.1.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
+  integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
 bunyan-format-wafios@^0.2.5:
   version "0.2.5"
@@ -99,13 +121,30 @@ bunyan@^1.8.12:
 
 bytes@3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
   integrity sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
 
 camelcase@^4.1.0:
   version "4.1.0"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
   integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
+
+chai@^4.2.0:
+  version "4.2.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/chai/-/chai-4.2.0.tgz#760aa72cf20e3795e84b12877ce0e83737aa29e5"
+  integrity sha512-XQU3bhBukrOsQCuwZndwGcCVQHyZi53fQ6Ys1Fym7E4olpIqqZZhhoFJoaKVvV17lWQoXYwgWN2nF5crA8J2jw==
+  dependencies:
+    assertion-error "^1.1.0"
+    check-error "^1.0.2"
+    deep-eql "^3.0.1"
+    get-func-name "^2.0.0"
+    pathval "^1.1.0"
+    type-detect "^4.0.5"
+
+check-error@^1.0.2:
+  version "1.0.2"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
+  integrity sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=
 
 cliui@^4.0.0:
   version "4.1.0"
@@ -179,22 +218,22 @@ concat-map@0.0.1:
 
 content-disposition@0.5.2:
   version "0.5.2"
-  resolved "https://registry.yarnpkg.com/content-disposition/-/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/content-disposition/-/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
   integrity sha1-DPaLud318r55YcOoUXjLhdunjLQ=
 
 content-type@~1.0.4:
   version "1.0.4"
-  resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 cookie-signature@1.0.6:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
   integrity sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
 
 cookie@0.3.1:
   version "0.3.1"
-  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
   integrity sha1-5+Ch+e9DtMi6klxcWpboBtFoc7s=
 
 core-util-is@~1.0.0:
@@ -215,7 +254,7 @@ cross-spawn@^6.0.0:
 
 debug@2.6.9:
   version "2.6.9"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
   dependencies:
     ms "2.0.0"
@@ -227,14 +266,21 @@ decamelize@^2.0.0:
   dependencies:
     xregexp "4.0.0"
 
+deep-eql@^3.0.1:
+  version "3.0.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/deep-eql/-/deep-eql-3.0.1.tgz#dfc9404400ad1c8fe023e7da1df1c147c4b444df"
+  integrity sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==
+  dependencies:
+    type-detect "^4.0.0"
+
 depd@~1.1.2:
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
 destroy@~1.0.4:
   version "1.0.4"
-  resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
 diagnostics@^1.1.1:
@@ -246,6 +292,16 @@ diagnostics@^1.1.1:
     enabled "1.0.x"
     kuler "1.0.x"
 
+diff@^3.1.0:
+  version "3.5.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
+  integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
+
+double-ended-queue@^2.1.0-0:
+  version "2.1.0-0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
+  integrity sha1-ED01J/0xUo9AGIEwyEHv3XgmTlw=
+
 dtrace-provider@~0.8:
   version "0.8.7"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/dtrace-provider/-/dtrace-provider-0.8.7.tgz#dc939b4d3e0620cfe0c1cd803d0d2d7ed04ffd04"
@@ -255,7 +311,7 @@ dtrace-provider@~0.8:
 
 ee-first@1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 enabled@1.0.x:
@@ -267,7 +323,7 @@ enabled@1.0.x:
 
 encodeurl@~1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
 
 env-variable@0.0.x:
@@ -275,14 +331,21 @@ env-variable@0.0.x:
   resolved "http://192.168.22.200:8081/repository/wafios-npm/env-variable/-/env-variable-0.0.5.tgz#913dd830bef11e96a039c038d4130604eba37f88"
   integrity sha512-zoB603vQReOFvTg5xMl9I1P2PnHsHQQKTEowsKKD7nseUfJq6UWzK+4YtlWUO1nhiQUxe6XMkk+JleSZD1NZFA==
 
+environment-mapper@^1.0.81:
+  version "1.0.81"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/environment-mapper/-/environment-mapper-1.0.81.tgz#ba8cb9763819de8a91d66ccce7b34b6ad037947b"
+  integrity sha1-uoy5djgZ3oqR1mzM57NLatA3lHs=
+  dependencies:
+    lodash "^4.17.4"
+
 escape-html@~1.0.3:
   version "1.0.3"
-  resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
 etag@~1.8.1:
   version "1.8.1"
-  resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
 event-lite@^0.1.1:
@@ -303,9 +366,9 @@ execa@^0.10.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-express@^4.16.4:
+express@4.16.4, express@^4.16.4:
   version "4.16.4"
-  resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
   integrity sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg==
   dependencies:
     accepts "~1.3.5"
@@ -351,7 +414,7 @@ fecha@^2.3.3:
 
 finalhandler@1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.1.1.tgz#eebf4ed840079c83f4249038c9d703008301b105"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/finalhandler/-/finalhandler-1.1.1.tgz#eebf4ed840079c83f4249038c9d703008301b105"
   integrity sha512-Y1GUDo39ez4aHAw7MysnUD5JzYX+WaIj8I57kO3aEPT1fFRL4sr7mjei97FgnwhAyyzRYmQZaTHb2+9uZ1dPtg==
   dependencies:
     debug "2.6.9"
@@ -383,12 +446,12 @@ fluent-logger@^2.7.0:
 
 forwarded@~0.1.2:
   version "0.1.2"
-  resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
 fresh@0.5.2:
   version "0.5.2"
-  resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
 fs@0.0.1-security:
@@ -400,6 +463,11 @@ get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
+
+get-func-name@^2.0.0:
+  version "2.0.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
+  integrity sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -419,7 +487,7 @@ glob@^6.0.1:
 
 http-errors@1.6.3, http-errors@~1.6.2, http-errors@~1.6.3:
   version "1.6.3"
-  resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
   integrity sha1-i1VoC7S+KDoLW/TqLjhYC+HZMg0=
   dependencies:
     depd "~1.1.2"
@@ -429,7 +497,7 @@ http-errors@1.6.3, http-errors@~1.6.2, http-errors@~1.6.3:
 
 iconv-lite@0.4.23:
   version "0.4.23"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.23.tgz#297871f63be507adcfbfca715d0cd0eed84e9a63"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/iconv-lite/-/iconv-lite-0.4.23.tgz#297871f63be507adcfbfca715d0cd0eed84e9a63"
   integrity sha512-neyTUVFtahjf0mB3dZT77u+8O0QB89jFdnBkd5P1JgYPbPaia3gXXOVL2fq8VyU2gMMD7SaN7QukTB/pmXYvDA==
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
@@ -449,7 +517,7 @@ inflight@^1.0.4:
 
 inherits@2, inherits@2.0.3, inherits@~2.0.3:
   version "2.0.3"
-  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
 int64-buffer@^0.1.9:
@@ -464,7 +532,7 @@ invert-kv@^2.0.0:
 
 ipaddr.js@1.8.0:
   version "1.8.0"
-  resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.8.0.tgz#eaa33d6ddd7ace8f7f6fe0c9ca0440e706738b1e"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/ipaddr.js/-/ipaddr.js-1.8.0.tgz#eaa33d6ddd7ace8f7f6fe0c9ca0440e706738b1e"
   integrity sha1-6qM9bd16zo9/b+DJygRA5wZzix4=
 
 is-arrayish@^0.3.1:
@@ -521,7 +589,7 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash@^4.17.10:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4:
   version "4.17.11"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -537,6 +605,11 @@ logform@^1.9.1:
     ms "^2.1.1"
     triple-beam "^1.2.0"
 
+make-error@^1.1.1:
+  version "1.3.5"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/make-error/-/make-error-1.3.5.tgz#efe4e81f6db28cadd605c70f29c831b58ef776c8"
+  integrity sha512-c3sIjNUow0+8swNwVpqoH4YCShKNFkMaw6oH1mNS2haDZQqkeZFlHS3dhoeEbKKmJB4vXpJucU6oH75aDYeE9g==
+
 map-age-cleaner@^0.1.1:
   version "0.1.2"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/map-age-cleaner/-/map-age-cleaner-0.1.2.tgz#098fb15538fd3dbe461f12745b0ca8568d4e3f74"
@@ -546,7 +619,7 @@ map-age-cleaner@^0.1.1:
 
 media-typer@0.3.0:
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
 mem@^4.0.0:
@@ -560,29 +633,29 @@ mem@^4.0.0:
 
 merge-descriptors@1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   integrity sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=
 
 methods@~1.1.2:
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
 mime-db@~1.37.0:
   version "1.37.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.37.0.tgz#0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/mime-db/-/mime-db-1.37.0.tgz#0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8"
   integrity sha512-R3C4db6bgQhlIhPU48fUtdVmKnflq+hRdad7IyKhtFj06VPNVdk2RhiYL3UjQIlso8L+YxAtFkobT0VK+S/ybg==
 
 mime-types@~2.1.18:
   version "2.1.21"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
   integrity sha512-3iL6DbwpyLzjR3xHSFNFeb9Nz/M8WDkX33t1GFQnFOllWk8pOrh/LSrB5OXlnlW5P9LH73X6loW/eogc+F5lJg==
   dependencies:
     mime-db "~1.37.0"
 
 mime@1.4.1:
   version "1.4.1"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
   integrity sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
 
 mimic-fn@^1.0.0:
@@ -602,7 +675,12 @@ minimist@0.0.8:
   resolved "http://192.168.22.200:8081/repository/wafios-npm/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
-mkdirp@~0.5.1:
+minimist@^1.2.0:
+  version "1.2.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+  integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
+
+mkdirp@^0.5.1, mkdirp@~0.5.1:
   version "0.5.1"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
@@ -616,7 +694,7 @@ moment@^2.10.6:
 
 ms@2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
 ms@^2.1.1:
@@ -655,7 +733,7 @@ ncp@~2.0.0:
 
 negotiator@0.6.1:
   version "0.6.1"
-  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
   integrity sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
 
 nice-try@^1.0.4:
@@ -682,7 +760,7 @@ object-keys@~0.4.0:
 
 on-finished@~2.3.0:
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
   integrity sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=
   dependencies:
     ee-first "1.1.1"
@@ -744,7 +822,7 @@ p-try@^2.0.0:
 
 parseurl@~1.3.2:
   version "1.3.2"
-  resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
   integrity sha1-/CidTtiZMRlGDBViUyYs3I3mW/M=
 
 path-exists@^3.0.0:
@@ -764,17 +842,29 @@ path-key@^2.0.0, path-key@^2.0.1:
 
 path-to-regexp@0.1.7:
   version "0.1.7"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+
+pathval@^1.1.0:
+  version "1.1.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/pathval/-/pathval-1.1.0.tgz#b942e6d4bde653005ef6b71361def8727d0645e0"
+  integrity sha1-uULm1L3mUwBe9rcTYd74cn0GReA=
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
   integrity sha512-MtEC1TqN0EU5nephaJ4rAtThHtC86dNN9qCuEhtshvpVBkAW5ZO7BASN9REnF9eoXGcRub+pFuKEpOHE+HbEMw==
 
+prom-client@^11.1.3:
+  version "11.1.3"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/prom-client/-/prom-client-11.1.3.tgz#bd9566ddcc6cb52e47732547191d777fbe35d12e"
+  integrity sha512-vpEQ8NltXq+lrtOYvPEoX+kvN4FG3LrIfa0/eVE8sfePDIprhV/RY7EX8u14EN4KWNjO9O70b9mNLHglSt1rzQ==
+  dependencies:
+    tdigest "^0.1.1"
+
 proxy-addr@~2.0.4:
   version "2.0.4"
-  resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.4.tgz#ecfc733bf22ff8c6f407fa275327b9ab67e48b93"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/proxy-addr/-/proxy-addr-2.0.4.tgz#ecfc733bf22ff8c6f407fa275327b9ab67e48b93"
   integrity sha512-5erio2h9jp5CHGwcybmxmVqHmnCBZeewlfJ0pex+UW7Qny7OOZXTtH56TGNyBizkgiOwhJtMKrVzDTeKcySZwA==
   dependencies:
     forwarded "~0.1.2"
@@ -782,17 +872,17 @@ proxy-addr@~2.0.4:
 
 qs@6.5.2:
   version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
 range-parser@~1.2.0:
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
   integrity sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
 
 raw-body@2.3.3:
   version "2.3.3"
-  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.3.3.tgz#1b324ece6b5706e153855bc1148c65bb7f6ea0c3"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/raw-body/-/raw-body-2.3.3.tgz#1b324ece6b5706e153855bc1148c65bb7f6ea0c3"
   integrity sha512-9esiElv1BrZoI3rCDuOuKCBRbuApGGaDPQfjSflGxdy4oyzqghxu6klEkkVIvBje+FF0BX9coEv8KqW6X/7njw==
   dependencies:
     bytes "3.0.0"
@@ -813,6 +903,25 @@ readable-stream@^2.3.6:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
+redis-commands@^1.2.0:
+  version "1.4.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/redis-commands/-/redis-commands-1.4.0.tgz#52f9cf99153efcce56a8f86af986bd04e988602f"
+  integrity sha512-cu8EF+MtkwI4DLIT0x9P8qNTLFhQD4jLfxLR0cCNkeGzs87FN6879JOJwNQR/1zD7aSYNbU0hgsV9zGY71Itvw==
+
+redis-parser@^2.6.0:
+  version "2.6.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/redis-parser/-/redis-parser-2.6.0.tgz#52ed09dacac108f1a631c07e9b69941e7a19504b"
+  integrity sha1-Uu0J2srBCPGmMcB+m2mUHnoZUEs=
+
+redis@^2.8.0:
+  version "2.8.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/redis/-/redis-2.8.0.tgz#202288e3f58c49f6079d97af7a10e1303ae14b02"
+  integrity sha512-M1OkonEQwtRmZv4tEWF2VgpG0JWJ8Fv1PhlgT5+B+uNq2cA3Rt1Yt/ryoR+vQNOQcIEgdCdfH0jr3bDpihAw1A==
+  dependencies:
+    double-ended-queue "^2.1.0-0"
+    redis-commands "^1.2.0"
+    redis-parser "^2.6.0"
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
@@ -832,7 +941,7 @@ rimraf@~2.4.0:
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
 safe-json-stringify@~1:
@@ -842,7 +951,7 @@ safe-json-stringify@~1:
 
 "safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"
-  resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
 semver@^5.5.0:
@@ -852,7 +961,7 @@ semver@^5.5.0:
 
 send@0.16.2:
   version "0.16.2"
-  resolved "https://registry.yarnpkg.com/send/-/send-0.16.2.tgz#6ecca1e0f8c156d141597559848df64730a6bbc1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/send/-/send-0.16.2.tgz#6ecca1e0f8c156d141597559848df64730a6bbc1"
   integrity sha512-E64YFPUssFHEFBvpbbjr44NCLtI1AohxQ8ZSiJjQLskAdKuriYEP6VyGEsRDH8ScozGpkaX1BGvhanqCwkcEZw==
   dependencies:
     debug "2.6.9"
@@ -871,13 +980,43 @@ send@0.16.2:
 
 serve-static@1.13.2:
   version "1.13.2"
-  resolved "https://registry.yarnpkg.com/serve-static/-/serve-static-1.13.2.tgz#095e8472fd5b46237db50ce486a43f4b86c6cec1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/serve-static/-/serve-static-1.13.2.tgz#095e8472fd5b46237db50ce486a43f4b86c6cec1"
   integrity sha512-p/tdJrO4U387R9oMjb1oj7qSMaMfmOyd4j9hOFoxZe2baQszgHcSWjuya/CiT5kgZZKRudHNOA0pYXOl8rQ5nw==
   dependencies:
     encodeurl "~1.0.2"
     escape-html "~1.0.3"
     parseurl "~1.3.2"
     send "0.16.2"
+
+service-bus-api@^2.3.4-2:
+  version "2.3.4-2"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/service-bus-api/-/service-bus-api-2.3.4-2.tgz#68cee3e83f9a5de16dc4e5610cc7f32792f77355"
+  integrity sha512-+3+K9EkGXzLZXkrV4fqK1WerV9sMMmFVrc6NVSLY71WQcy0KTRiR5WKdGRIbqpGKbcUQZPzuiXCR+CntA+ta3Q==
+  dependencies:
+    lodash "^4.17.10"
+    redis "^2.8.0"
+    ts-node "^7.0.0"
+    wafios-logger "^2.0.2"
+
+service-bus-interface-provider@^1.1.4-4:
+  version "1.1.4-5"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/service-bus-interface-provider/-/service-bus-interface-provider-1.1.4-5.tgz#2e0870320dc784af1c446515c94173f7e7167001"
+  integrity sha512-JeAE+W2gEkMZ59APmbwDHXEF+kUAPcxEL6nDQuC3tgmXXR/fDcGfyWhY3ZgFcUuw14To+SgVOt8bXykAjoVleQ==
+  dependencies:
+    environment-mapper "^1.0.81"
+    fs "0.0.1-security"
+    lodash "^4.17.11"
+
+service-bus@1.0.6-24, service-bus@^1.0.6-20:
+  version "1.0.6-24"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/service-bus/-/service-bus-1.0.6-24.tgz#cc0f216c81bc72ca3b5ba7c60dc4d6dce8e93ce8"
+  integrity sha512-gZ1UFb36z1pYH9jBr/Z7pxPAsnchaO3qhWSw0EvVdvqLxQYWXBx2OBTWdCRqDyka8n9GfNEgzPsiz2ROK7hr9Q==
+  dependencies:
+    chai "^4.2.0"
+    lodash "^4.17.10"
+    service-bus-api "^2.3.4-2"
+    service-bus-interface-provider "^1.1.4-4"
+    wafios-logger "^2.0.2"
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -886,7 +1025,7 @@ set-blocking@^2.0.0:
 
 setprototypeof@1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
   integrity sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==
 
 shebang-command@^1.2.0:
@@ -913,6 +1052,19 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+source-map-support@^0.5.6:
+  version "0.5.9"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/source-map-support/-/source-map-support-0.5.9.tgz#41bc953b2534267ea2d605bccfa7bfa3111ced5f"
+  integrity sha512-gR6Rw4MvUlYy83vP0vxoVNzM6t8MUXqNuRsuBmBHQDu1Fh6X015FrLdgoDKcNdkwGubozq0P4N0Q37UyFVr1EA==
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map@^0.6.0:
+  version "0.6.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+  integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+
 stack-trace@0.0.x:
   version "0.0.10"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
@@ -920,12 +1072,12 @@ stack-trace@0.0.x:
 
 "statuses@>= 1.4.0 < 2":
   version "1.5.0"
-  resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
 statuses@~1.4.0:
   version "1.4.0"
-  resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
   integrity sha512-zhSCtt8v2NDrRlPQpCNtw/heZLtfUDqxBM1udqikb/Hbk52LK4nQSwr10u77iopCW5LsyHpuXS0GnEc48mLeew==
 
 string-width@^1.0.1:
@@ -971,6 +1123,13 @@ strip-eof@^1.0.0:
   resolved "http://192.168.22.200:8081/repository/wafios-npm/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=
 
+tdigest@^0.1.1:
+  version "0.1.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/tdigest/-/tdigest-0.1.1.tgz#2e3cb2c39ea449e55d1e6cd91117accca4588021"
+  integrity sha1-Ljyyw56kSeVdHmzZEReszKRYgCE=
+  dependencies:
+    bintrees "1.0.1"
+
 text-hex@1.0.x:
   version "1.0.0"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/text-hex/-/text-hex-1.0.0.tgz#69dc9c1b17446ee79a92bf5b884bb4b9127506f5"
@@ -981,9 +1140,28 @@ triple-beam@^1.2.0, triple-beam@^1.3.0:
   resolved "http://192.168.22.200:8081/repository/wafios-npm/triple-beam/-/triple-beam-1.3.0.tgz#a595214c7298db8339eeeee083e4d10bd8cb8dd9"
   integrity sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
 
+ts-node@^7.0.0:
+  version "7.0.1"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/ts-node/-/ts-node-7.0.1.tgz#9562dc2d1e6d248d24bc55f773e3f614337d9baf"
+  integrity sha512-BVwVbPJRspzNh2yfslyT1PSbl5uIk03EZlb493RKHN4qej/D06n1cEhjlOJG69oFsE7OT8XjpTUcYf6pKTLMhw==
+  dependencies:
+    arrify "^1.0.0"
+    buffer-from "^1.1.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    source-map-support "^0.5.6"
+    yn "^2.0.0"
+
+type-detect@^4.0.0, type-detect@^4.0.5:
+  version "4.0.8"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
+  integrity sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==
+
 type-is@~1.6.16:
   version "1.6.16"
-  resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
   integrity sha512-HRkVv/5qY2G6I8iab9cI7v1bOIdhm94dVjQCPFElW9W+3GeDOSHmy2EBYe4VTApuzolPcmgFTN3ftVJRKR2J9Q==
   dependencies:
     media-typer "0.3.0"
@@ -991,7 +1169,7 @@ type-is@~1.6.16:
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
 
 util-deprecate@~1.0.1:
@@ -1001,15 +1179,15 @@ util-deprecate@~1.0.1:
 
 utils-merge@1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
 vary@~1.1.2:
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-wafios-logger@^2.0.2:
+wafios-logger@2.0.2, wafios-logger@^2.0.2:
   version "2.0.2"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/wafios-logger/-/wafios-logger-2.0.2.tgz#3d50efb01823cf02f3fc9d6cae1f356074668e25"
   integrity sha512-2YhTEv3e0uCOKTr+7ouA2ReP/7i6MsNccWuf2uiO6usCsE1vbUPYDfb6si7aylWuPPE52ktaNids3Tz4A/6cZQ==
@@ -1020,6 +1198,16 @@ wafios-logger@^2.0.2:
     fluent-logger-stream "0.0.1"
     fs "0.0.1-security"
     winston "^3.0.0"
+
+wafios-metrics@1.0.1-9:
+  version "1.0.1-9"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/wafios-metrics/-/wafios-metrics-1.0.1-9.tgz#abdf70ca9855c419f76d1457ccbecc507a0111dd"
+  integrity sha512-ms0aOTzfaS7+X6eEsvABLUrsJ2G0dzZybsAsiQXYmOhlGyT3gsR/94YKSf0jSY1kIVGKhTr4K6meJV1jWhRzVg==
+  dependencies:
+    express "^4.16.4"
+    prom-client "^11.1.3"
+    service-bus "^1.0.6-20"
+    wafios-logger "^2.0.2"
 
 which-module@^2.0.0:
   version "2.0.0"
@@ -1093,7 +1281,7 @@ yargs-parser@^10.1.0:
   dependencies:
     camelcase "^4.1.0"
 
-yargs@^12.0.2:
+yargs@12.0.2:
   version "12.0.2"
   resolved "http://192.168.22.200:8081/repository/wafios-npm/yargs/-/yargs-12.0.2.tgz#fe58234369392af33ecbef53819171eff0f5aadc"
   integrity sha512-e7SkEx6N6SIZ5c5H22RTZae61qtn3PYUE8JYbBFlK9sYmh3DMQ6E5ygtaG/2BW0JZi4WGgTR2IV5ChqlqrDGVQ==
@@ -1110,3 +1298,8 @@ yargs@^12.0.2:
     which-module "^2.0.0"
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^10.1.0"
+
+yn@^2.0.0:
+  version "2.0.0"
+  resolved "http://192.168.22.200:8081/repository/wafios-npm/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
+  integrity sha1-5a2ryKz0CPY4X8dklWhMiOavaJo=
