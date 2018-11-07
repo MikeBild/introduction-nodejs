@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "atomics index.js",
-    "dev": "atomics dev index.js"
+    "dev": "atomics dev index.js",
+    "test": "atomics test",
+    "test:integration": "atomics test integration"
   },
   "dependencies": {
     "atomics-template": "file:../.."

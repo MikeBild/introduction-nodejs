@@ -8,13 +8,16 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "node-dev index.js"
+    "dev": "node-dev index.js",
+    "test": "mocha",
+    "test:ct": "mocha --watch"
   },
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "mocha": "^5.2.0",
     "node-dev": "^3.1.3"
   }
 }
