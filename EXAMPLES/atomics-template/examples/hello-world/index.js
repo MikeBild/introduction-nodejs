@@ -1,5 +1,5 @@
-const express = require('express');
 const { log, servicebus } = require('atomics-template');
+const express = require('express');
 
 log.info(`Starting MicroService ...`);
 log.info(`ServiceBus State: ${servicebus.state}`);
