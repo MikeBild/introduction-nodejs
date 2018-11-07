@@ -4,7 +4,7 @@
   "description": "WAFIOS Zero-Configuration Micro-Service Template",
   "main": "index.js",
   "bin": {
-    "atomics": "index.js"
+    "atomics": "atomics-template.js"
   },
   "scripts": {
     "start": "node index.js",
@@ -14,7 +14,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "yargs": "^12.0.2"
   },
   "devDependencies": {
     "mocha": "^5.2.0",

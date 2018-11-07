@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "atomics index.js",
+    "start": "atomics run index.js",
     "dev": "atomics dev index.js",
     "test": "atomics test",
     "test:integration": "atomics test integration"

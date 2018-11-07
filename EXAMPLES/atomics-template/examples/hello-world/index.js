@@ -1,4 +1,8 @@
 const express = require('express');
+const atomics = require('atomics-template');
+
+atomics.demo();
+
 const app = express.Router();
 
 module.exports = app;
