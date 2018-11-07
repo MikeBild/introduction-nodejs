@@ -1,3 +1,9 @@
+const { join } = require('path');
+const { wafiosLogger } = require('wafios-logger');
+
+const PROJECTPKG = require(join(process.cwd(), 'package.json'));
+
 module.exports = {
-  demo: () => console.log('Hello World!'),
+  pkg: PROJECTPKG,
+  logger: wafiosLogger(`${PROJECTPKG.name}:${PROJECTPKG.version}`),
 };

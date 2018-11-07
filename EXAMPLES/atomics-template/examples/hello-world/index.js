@@ -1,7 +1,7 @@
 const express = require('express');
 const atomics = require('atomics-template');
 
-atomics.demo();
+atomics.logger.info('FOO!');
 
 const app = express.Router();
 
