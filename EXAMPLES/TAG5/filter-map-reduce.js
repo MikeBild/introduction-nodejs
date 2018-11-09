@@ -73,3 +73,27 @@ function avgAggregate(agg, item, idx) {
 
 equal(avgAge1, 25);
 equal(avgAge2, 30);
+
+const minimizedKeyValues = users
+  // .map(asExtendedUser)
+  .map(asMinimizedUser)
+  .map(user => asKeyValues(user));
+
+deepEqual(minimizedKeyValues, [
+  'ID=1\nNAME=Max\n',
+  'ID=2\nNAME=Joe\n',
+  'ID=3\nNAME=Peter\n',
+]);
+
+// {id: 1, name: 'Max'}
+function asMinimizedUser({ id, name }) {
+  return { id, name };
+}
+
+// ID=1\nNAME=Max\n
+function asKeyValues(obj = {}, initial = '') {
+  return Object.keys(obj).reduce(
+    (state, itm) => (state += `${itm.toUpperCase()}=${obj[itm]}\n`),
+    initial
+  );
+}
