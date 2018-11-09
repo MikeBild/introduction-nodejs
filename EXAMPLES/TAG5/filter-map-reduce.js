@@ -97,3 +97,22 @@ function asKeyValues(obj = {}, initial = '') {
     initial
   );
 }
+
+const { from, zip, timer } = require('rxjs');
+const { scan, map } = require('rxjs/operators');
+const timerObservable = timer(1000, 1000);
+
+const usersObservable = from(users);
+const zipObservable = zip(timerObservable, usersObservable);
+
+// zipObservable.subscribe(user => {
+//   console.log(user);
+// });
+
+const scanner = zip(from([...userAges, 40, 82]), timerObservable)
+  .pipe(map(x => x[0]))
+  .pipe(scan(avgAggregate, 0));
+
+scanner.subscribe(avg => {
+  console.log(avg);
+});
