@@ -7,4 +7,6 @@ const server = http.createServer((request, respose) => {
   respose.end();
 });
 
-server.listen(8080, () => console.log(`Listen on 8080`));
+const instance = server.listen(8080, () =>
+  console.log(`Listen on ${instance.address().port}`)
+);
