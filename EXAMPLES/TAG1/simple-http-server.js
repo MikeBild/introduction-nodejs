@@ -1,8 +1,6 @@
-const http = require('http');
+const { createServer } = require('http');
 
-const server = http.createServer((request, respose) => {
-  const method = request.method;
-
+const server = createServer(({ method }, respose) => {
   respose.write(`Hello World via ${method}`);
   respose.end();
 });
