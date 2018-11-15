@@ -65,3 +65,18 @@ Promise.all([
   .catch(error => {
     console.error(error);
   });
+
+Promise.race([
+  readFilePromise('foo.json')
+    .then(data => JSON.parse(data))
+    .catch(error => ({ id: '', count: 0 })),
+  readFilePromise('bar.json')
+    .then(data => JSON.parse(data))
+    .catch(error => ({ id: '', count: 0 })),
+])
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
