@@ -9,11 +9,3 @@ app.get('/', ({ store: { consumers } }, res, next) => {
     consumers,
   });
 });
-
-app.post('/:id', (req, res) => {
-  const id = req.params.id;
-
-  req.store.consumers.push({ id });
-
-  res.redirect('/consumers');
-});
