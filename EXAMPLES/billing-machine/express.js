@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const consumersRoutes = require('./routes/consumers');
 const registerRoutes = require('./routes/register');
+const billingreportsRoutes = require('./routes/billingreports');
 const storeMiddleware = require('./storeMiddleware');
 
 const consumers = [{ id: 'mike' }, { id: 'peter' }];
@@ -19,10 +20,13 @@ Object.keys(billings).map(key => {
 
 app.set('view engine', 'ejs');
 
+app.use(express.json());
 app.use(express.urlencoded());
+
 app.use(storeMiddleware(consumers));
 app.use('/consumers', consumersRoutes);
 app.use('/register', registerRoutes);
+app.use('/billingreports', billingreportsRoutes);
 
 const instance = app.listen(8080, () =>
   console.log(`Listen on ${instance.address().port}`)
