@@ -1,8 +1,16 @@
-export function calculate({
-  billings = {},
-  consumers = [],
-  products = []
-} = {}) {
+declare interface Product {
+  price: number;
+  id: string;
+}
+
+declare interface Store {
+  billings: any;
+  consumers: Array<any>;
+  products: Array<Product>;
+}
+
+export function calculate(store: Store) {
+  const { billings = {}, consumers = [], products = [] } = store;
   const billingsCopy = JSON.parse(JSON.stringify(billings));
 
   const billingReport = aggregateTotalPriceForUsers({
@@ -18,19 +26,12 @@ export function calculate({
   });
 }
 
-function aggregateTotalPriceForUsers({
-  consumers,
-  billings,
-  products
-}: {
-  consumers: any;
-  billings: any;
-  products: any;
-}) {
+function aggregateTotalPriceForUsers(store: Store) {
+  const { billings = {}, consumers = [], products = [] } = store;
   return consumers.reduce((state: any, consumer: any) => {
     const consumerProducts = state[consumer.id];
     const productPrices = consumerProducts.map((x: any) => {
-      const matchedProduct = products.find((y: any) => y.id === x);
+      const matchedProduct = products.find(y => y.id === x);
       return matchedProduct ? matchedProduct.price : 0;
     });
     state[consumer.id] = {
@@ -49,7 +50,7 @@ function cleanupBillingReport({
   billings
 }: {
   billingReport: any;
-  consumers: any;
+  consumers: Array<any>;
   billings: any;
 }) {
   return Object.keys(billingReport)
