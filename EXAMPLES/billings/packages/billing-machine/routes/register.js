@@ -9,6 +9,5 @@ app.get('/', (req, res) =>
 
 app.post('/', ({ body: { id }, store }, res) => {
   store.consumers.push({ id });
-
   res.redirect('/consumers');
 });
