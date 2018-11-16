@@ -1,11 +1,21 @@
 # Testing
 
+- [Test Pyramid](#test-pyramid)
+- [Test Types](#test-types)
 - [Arrange-Act-Assert](#arrange-act-assert)
 - [Mocha](#mocha)
 - [Assert](#asserts)
 - [Negative Tests](#negative-tests)
 - [Async](#async-tests)
 - [Integration Tests](#integration-tests)
+
+## Test Pyramid
+
+![Test Pyramid](test-pyramid.png)
+
+## Test Types
+
+![Test Types](test-types.png)
 
 ## Examples
 

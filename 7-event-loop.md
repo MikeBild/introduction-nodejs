@@ -1,23 +1,7 @@
 # Event-Loop Architecture
 
-![Event-Loop-Architecture](event_loop.jpg)
+![Concurrent vs. Parallel](concurrent-vs-parallel.png)
 
-- observer pattern (similar to callbacks)
-- asynchronous function (handler) returns its result
-- EventEmitter-Module
+![Event-Loop-Concept](event-loop.jpg)
 
-```javascript
-// Import events module
-const EventEmitter = require('events');
-
-// Create an eventEmitter object
-const eventEmitter = new EventEmitter();
-
-// Bind event and even handler as follows
-eventEmitter.on('eventName', message => {
-  console.log(message);
-});
-
-// Fire an event
-eventEmitter.emit('eventName', { value: '1' });
-```
+![Event-Loop-Architecture](event-loop-details.png)
