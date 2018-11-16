@@ -1,6 +1,6 @@
 // require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 require('dotenv').config();
-
+// Config via Env-Vars
 const PORT = process.env.PORT || 8080;
 const DB = process.env.DB || 'database.json';
 
@@ -17,25 +17,30 @@ let instance = null;
 let store = null;
 
 async function main() {
+  console.log('Read database from file');
   store = JSON.parse(await readFilePromise(DB));
   instance = await start({ port: PORT, store });
   console.log(`Listen on ${instance.address().port}`);
 }
 
+// Graceful shutdown!
 process.on('SIGTERM', gracefulShutdown);
 process.on('SIGINT', gracefulShutdown);
 
-async function gracefulShutdown() {
-  console.log('Graceful shutdown .... ');
-  try {
-    console.log('Write  Database');
-    await writeFilePromise(DB, JSON.stringify(store, null, 2));
-    console.log('Stop Express');
-    await stop(instance);
-    console.log('Graceful stopped .... ');
-    process.exit(0);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+function gracefulShutdown() {
+  console.log('Graceful shutdown ...');
+  console.log('Write database to file');
+  writeFilePromise(DB, JSON.stringify(store, null, 2))
+    .then(() => stop(instance))
+    .then(() => {
+      // Log to stdout
+      console.log('Exit');
+      // Process exit codes
+      process.exit(0);
+    })
+    .catch(error => {
+      // Log to stderr
+      console.error(error);
+      process.exit(1);
+    });
 }
