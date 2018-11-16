@@ -3,13 +3,18 @@ module.exports = {
 };
 
 function calculate({ billings = {}, consumers = [], products = [] } = {}) {
+  const billingsCopy = JSON.parse(JSON.stringify(billings));
   const billingReport = aggregateTotalPriceForUsers({
     products,
     consumers,
-    billings,
+    billings: billingsCopy,
   });
 
-  return cleanupBillingReport({ billingReport, consumers, billings });
+  return cleanupBillingReport({
+    billingReport,
+    consumers,
+    billings: billingsCopy,
+  });
 }
 
 function aggregateTotalPriceForUsers({ consumers, billings, products }) {

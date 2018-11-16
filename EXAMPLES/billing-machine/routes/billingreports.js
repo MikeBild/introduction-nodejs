@@ -1,9 +1,13 @@
 const express = require('express');
+const { calculate } = require('../lib/billing-report');
 const app = express.Router();
 
 module.exports = app;
 
-app.get('/', (req, res) => {});
+app.get('/', (req, res) => {
+  const billingReport = calculate(req.store);
+  res.send(billingReport);
+});
 
 app.post('/', (req, res) => {
   console.log(req.body);
