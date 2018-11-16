@@ -1,5 +1,9 @@
 # Event-Emitter
 
+- Pub/Sub pattern (similar to callbacks)
+- Asynchronous handler function contains the payload
+- EventEmitter-Module
+
 ```javascript
 // Import events module
 const EventEmitter = require('events');

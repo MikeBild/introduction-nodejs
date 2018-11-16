@@ -1,6 +1,15 @@
-# NPM
+# NPM & Yarn
 
-## Global vs. local
+- [NPM](#npm)
+  - [Global vs. Local](#global-vs-local)
+  - [`package.json`](#package.json)
+  - [Update versions](#update-versions)
+- [Yarn](#yarn)
+  - [Workspaces](#workspaces)
+
+## NPM
+
+### Global vs. Local
 
 ```bash
 sudo npm install npm -g
@@ -10,38 +19,45 @@ sudo npm install npm -g
 npm install lodash
 ```
 
-## Package.json
+### `package.json`
 
 ```bash
 npm init
 ```
 
-## Update
+### Update versions
 
 ```bash
 npm update
 ```
 
-## Lock down dependency versions
-
-```bash
-npm shrinkwrap
-```
-
-## Publish to Repository
+### Publish to Repository
 
 ```bash
 npm adduser
 npm publish
 ```
 
-## Ignore files
+### Ignore files
 
 - add `.npmignore`
 
-# YARN
+## Yarn
 
 - the "new" JS Package Manager
 - Backward compatible
 - `yarn install`
 - `yarn add ...`
+
+### Workspaces
+
+1. Create a `packages` folder in root
+2. Copy your projects into the `packages` folder
+3. Add a `packages.json` into your root
+
+```json
+{
+  "private": true,
+  "workspaces": ["packages/*"]
+}
+```

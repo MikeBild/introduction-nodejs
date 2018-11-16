@@ -46,10 +46,18 @@
 
 ## Testing
 
-- [Mocha](16-testing.md)
+- [Test Pyramid](16-testing.md#test-pyramid)
+- [Test Types](16-testing.md#test-types)
+- [Arrange-Act-Assert](16-testing.md#arrange-act-assert)
+- [Mocha](16-testing.md#mocha)
+- [Assert](16-testing.md#asserts)
+- [Negative Tests](16-testing.md#negative-tests)
+- [Async](16-testing.md#async-tests)
+- [Integration Tests](16-testing.md#integration-tests)
 
 ## Deployment
 
+- [NodeJS Production / Deploment](24-deployment)
 - [Introduction to Docker](https://github.com/mikebild/introduction-docker)
 - [Introduction to Kubernetes](https://github.com/mikebild/introduction-kubernetes)
 - [Docker & Kubernetes Tools](./tools.md)
@@ -84,6 +92,10 @@
   - [Async and Await](21-ECMA.md#async-and-await)
   - [Generator Function](21-ECMA.md#generator-function)
 
+## TypeScript
+
+- [Setup](23-TypeScript.md)
+
 ## Functional JS
 
 - [Functional JS](20-functional.md)
@@ -95,14 +107,19 @@
 
 ## Issue Reporting
 
-If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public [GitHub issue tracker](https://github.com/MikeBild/introduction-nodejs/issues).
+If you have found a bug or if you have a feature request, please report them at
+this repository issues section. Please do not report security vulnerabilities on
+the public
+[GitHub issue tracker](https://github.com/MikeBild/introduction-nodejs/issues).
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file
+for more info.
 
 ## Thanks
 
-You like this **NodeJS introduction** and you want to see what coming next? Follow me on Twitter [`@mikebild`](https://twitter.com/mikebild).
+You like this **NodeJS introduction** and you want to see what coming next?
+Follow me on Twitter [`@mikebild`](https://twitter.com/mikebild).
 
 Enjoy!
