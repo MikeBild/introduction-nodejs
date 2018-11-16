@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "billing-report-engine",
+  "version": "1.1.0",
+  "description": "",
+  "main": "dist/billing-report.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "test:watch": "mocha --recursive --watch",
+    "build": "tsc --build src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "typescript": "^3.1.6"
+  }
+}

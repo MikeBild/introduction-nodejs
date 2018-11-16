@@ -1,5 +1,5 @@
 const express = require('express');
-const { calculate } = require('../lib/billing-report');
+const { calculate } = require('billing-report-engine');
 const app = express.Router();
 
 module.exports = app;

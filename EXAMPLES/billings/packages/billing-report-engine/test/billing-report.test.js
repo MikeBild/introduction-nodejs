@@ -3,7 +3,7 @@ const { deepEqual } = require('assert');
 describe('Billing Report Unit Tests', () => {
   it('should be true', () => {
     //Arrange
-    const { calculate } = require('../../lib/billing-report');
+    const { calculate } = require('../billing-report');
 
     const consumers = [{ id: 'mike' }, { id: 'peter' }];
     const products = [
