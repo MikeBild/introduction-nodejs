@@ -4,6 +4,7 @@ module.exports = {
 
 function calculate({ billings = {}, consumers = [], products = [] } = {}) {
   const billingsCopy = JSON.parse(JSON.stringify(billings));
+
   const billingReport = aggregateTotalPriceForUsers({
     products,
     consumers,

@@ -1,6 +1,6 @@
 const { deepEqual } = require('assert');
 
-describe.skip('Billing Report Unit Tests', () => {
+describe('Billing Report Unit Tests', () => {
   it('should be true', () => {
     //Arrange
     const { calculate } = require('../../lib/billing-report');
