@@ -1,44 +1,81 @@
 # Reactive Extentions (RxJS)
 
-> RxJS 4.1
+> [RxJS 6.x](http://reactivex.io/rxjs)
 
-```bash
-npm install rx --save
-npm install rx-node --save
-```
+## Setup
+
+- rxjs `npm install rxjs`
+- rxjs-stream `npm install rxjs-stream`
+
+## Observable
+
+### Subscribe / Unsubscribe
 
 ```javascript
-const Rx = require('rx');
-const RxNode = require('rx-node');
-
-const subscription = Rx.Observable.interval(1000)
-  .do(console.log)
-  .subscribe();
-
-setTimeout(() => subscription.dispose(), 5000);
+const subscription = observable.subscribe(
+  data => console.log('Next', data),
+  error => console.error('Error', error),
+  () => console.log('Complete')
+);
+subscription.unsubscribe();
 ```
+
+### Observer
+
+```javascript
+observable.subscribe({
+  next(data) {
+    console.log('Next', data);
+  },
+  error(error) {
+    console.error('Error', error);
+  },
+  complete() {
+    console.log('Complete');
+  },
+});
+```
+
+## Into observable
+
+- [From](./EXAMPLES/RXJS/operators.js)
+  - [Range](./EXAMPLES/RXJS/operators.js)
+  - [Array](./EXAMPLES/RXJS/operators.js)
+  - [Promise](./EXAMPLES/RXJS/operators.js)
+- [Subject](./EXAMPLES/RXJS/subject.js)
+- [Timer](./EXAMPLES/RXJS/operators.js)
+- [Interval](./EXAMPLES/RXJS/operators.js)
+
+## Combination operators
+
+- [tap](./EXAMPLES/RXJS/subject.js)
+- [filter](./EXAMPLES/RXJS/operators.js)
+- [map](./EXAMPLES/RXJS/operators.js)
+- [scan](./EXAMPLES/RXJS/operators.js)
+- [zip](./EXAMPLES/RXJS/operators.js)
+
+## NodeJS
+
+- [rxToStream](./EXAMPLES/RXJS/node.js)
+- [streamToRx](./EXAMPLES/RXJS/node.js)
+- [bindNodeCallback](./EXAMPLES/RXJS/node.js)
 
 ## Subjects
 
-```javascript
-const emitter = new Rx.Observable.Subject();
+- [Child-Subscriptions]()
+- [multicast]()
+- [refCount]()
+- [BehaviorSubject]()
+- [ReplaySubject]()
+- [AsyncSubject]()
 
-emmiter.do(console.log).subscribe();
+## Schedulers
 
-emitter.onNext({ value: 1 });
-emitter.onCompleted();
-emitter.onError(new Error('My Error!'));
-```
+- [VirtualTimeScheduler]()
+- [TestScheduler]()
 
-## RxNode
+## Resources / Links
 
-```javascript
-const spawn = require('child_process').spawn;
-const Rx = require('rx');
-const RxNode = require('rx-node');
-
-RxNode.fromStream(spawn('ls', ['-lha']).stdout)
-  .map(x => x.toString())
-  .do(console.log)
-  .subscribe();
-```
+- [Learn Rx](https://www.learnrxjs.io)
+- [Rx Marbles](http://rxmarbles.com/)
+- [Zen-Observable](https://github.com/zenparsing/zen-observable)
