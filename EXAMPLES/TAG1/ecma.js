@@ -1,4 +1,4 @@
-// Destructing
+// Destructing Objects
 
 foo({
   a: 'a',
@@ -12,8 +12,16 @@ foo({
 foo();
 
 function foo(
-  { a, b = 'default', hello: { world } = {}, show } = { show: () => ({}) }
+  { a: theFirstValue, b = 'default', hello: { world } = {}, show } = {
+    show: () => ({}),
+  }
 ) {
-  console.log(`As function call: ${a}, ${b}, ${world}`);
+  console.log(`As function call: ${theFirstValue}, ${b}, ${world}`);
   show();
 }
+
+// Destructing Array
+
+const [first, second, third] = [1, 2, 3, 4];
+
+console.log(`Array destruction: ${first} ${second}`);
