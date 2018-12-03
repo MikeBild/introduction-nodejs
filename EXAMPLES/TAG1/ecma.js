@@ -46,6 +46,9 @@ function User(id) {
   };
 }
 
+User.toString = () => console.log('foo');
+User.toString();
+
 function AdvancedUser(id, name) {
   const user = new User(id);
   this.id = user.id;
