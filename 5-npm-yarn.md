@@ -3,9 +3,10 @@
 - [NPM](#npm)
   - [Global vs. Local](#global-vs-local)
   - [`package.json`](#package.json)
-  - [Update versions](#update-versions)
+  - [Outdated / Update versions](#update-versions)
 - [Yarn](#yarn)
-  - [Workspaces](#workspaces)
+  - [Upgrade versions](#upgrade)
+  - [Workspaces and Monorepo](#workspaces-and-monorepo)
 
 ## NPM
 
@@ -26,6 +27,14 @@ npm init
 ```
 
 ### Update versions
+
+#### Outdated versions
+
+```bash
+npm outdated
+```
+
+#### Update version
 
 ```bash
 npm update
@@ -49,7 +58,15 @@ npm publish
 - `yarn install`
 - `yarn add ...`
 
-### Workspaces
+### Upgrade
+
+```bash
+yarn upgrade-interactive --latest
+```
+
+### Workspaces and Monorepo
+
+![MonoRepo](./monorepo.png)
 
 1. Create a `packages` folder in root
 2. Copy your projects into the `packages` folder
