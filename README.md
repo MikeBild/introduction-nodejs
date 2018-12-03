@@ -100,7 +100,9 @@
 
 ## TypeScript
 
-- [Setup](23-TypeScript.md)
+- [Setup](23-TypeScript.md#setup)
+- [Testing](23-TypeScript.md#testing)
+- [Resources](23-TypeScript.md#resources)
 
 ## Functional JS
 

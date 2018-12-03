@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "typescript-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha dist/**/*.spec.js -R spec --bail"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.11",
+    "mocha": "^5.2.0",
+    "typescript": "^3.2.1"
+  }
+}
