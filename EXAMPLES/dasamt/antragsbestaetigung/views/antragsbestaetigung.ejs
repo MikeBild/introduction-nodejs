@@ -1,0 +1,26 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <h2><%= fileName %></h2>
+  <h2>Name: <%= urlaubsantrag.name %></h2>
+  <h2>Startdate: <%= urlaubsantrag.startdate %></h2>
+  <h2>Amount: <%= urlaubsantrag.amount %></h2>
+  <h2>Bestätigt: <%= urlaubsantrag.ok %></h2>
+  <form action="/antragsbestaetigung/<%= fileName %>/yes" method="POST">
+    <button>Bestätigen</button>
+  </form>
+  <form action="/antragsbestaetigung/<%= fileName %>/no" method="POST">
+    <button>Ablehnen</button>
+  </form>
+</body>
+
+</html>
