@@ -1,0 +1,47 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th {
+      text-align: left;
+      width: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <table>
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start Date</th>
+          <th>Amount</th>
+          <th>Rest</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% urlaubsReporte.forEach(urlaubsReport => { %>
+          <tr>
+            <td><%= urlaubsReport.name %></td>
+            <td><%= urlaubsReport.startdate %></td>
+            <td><%= urlaubsReport.amount %></td>
+            <td><%= urlaubsReport.rest %></td>
+          </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+
+</body>
+
+</html>
