@@ -4,23 +4,23 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><%= title %></title>
+  <title><%= locals.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
   <h1><%= title %></h1>
-  <% if(success === true) {%>
+  <% if(locals.success === true) {%>
     <h2>Thank you</h2>
   <% } %>
-  <% if(failureMessage) {%>
-    <h2><%= failureMessage %></h2>
+  <% if(locals.failureMessage) {%>
+    <h2 style="color: red;"><%= locals.failureMessage %></h2>
   <% } %>
-  <form method="POST">
+  <form method="POST" action="/">
     <label for="name">Name</label>
-    <input type="text" name="name" />
-    <input type="date" name="startdate" />
-    <input type="number" name="amount" />
+    <input type="text" name="name" value="<%= locals.name %>" />
+    <input type="date" name="startdate" value="<%= locals.startdate %>" />
+    <input type="number" name="amount" value="<%= locals.amount %>" />
     <button>Send</button>
   </form>
 </body>
