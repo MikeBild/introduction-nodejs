@@ -4,7 +4,7 @@ const repository = require('../lib/mock-repository');
 
 const { equal, deepEqual } = require('assert');
 describe('Integrations Tests', () => {
-	describe('Urlaubsreport ', () => {
+	describe('Urlaubsantraege ', () => {
 		let instance;
 		before(async () => {
 			instance = await startServer({
@@ -16,21 +16,24 @@ describe('Integrations Tests', () => {
 			await stopServer(instance);
 		});
 
-		it('should return a report', async () => {
+		it('should return a new urlaubsantrag', async () => {
 			const response = await fetch(
-				`http://localhost:${instance.address().port}/api/urlaubsreport`,
+				`http://localhost:${instance.address().port}/api/urlaubsantraege`,
 				{
+					method  : 'POST',
 					headers : {
 						'Content-Type' : 'application/json',
 					},
+					body    : JSON.stringify({
+						name : 'foo',
+					}),
 				}
 			);
-			equal(response.status, 200);
+			equal(response.status, 201);
 
-			const actual = await response.json();
-			deepEqual(actual, {
-				Max : { name: 'Max', rest: 28 },
-			});
+			const { id, name } = await response.json();
+			equal(id, 'foo');
+			equal(name, 'foo');
 		});
 	});
 });

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router();
-const generateUrlaubsreport = require('../../lib/generateUrlaubsreport');
+
 module.exports = app;
 
 app.get('/', async (req, res) => {
@@ -10,7 +10,12 @@ app.get('/', async (req, res) => {
 			urlaubsConfig   : { loadMaxAnzahl },
 		},
 	} = req;
-	const urlaubsantraege = await loadAll();
-	const maxAnzahl = await loadMaxAnzahl();
-	res.send(generateUrlaubsreport(urlaubsantraege, maxAnzahl));
+	res.send(await loadAll());
+});
+
+app.post('/', async (req, res) => {
+	const newUrlaubsantrag = req.body;
+	const { repository: { urlaubsantraege: { insert } } } = req;
+
+	res.status(201).send(await insert(newUrlaubsantrag));
 });
