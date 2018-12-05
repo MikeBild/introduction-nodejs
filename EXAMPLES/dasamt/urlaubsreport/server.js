@@ -4,7 +4,6 @@ const express = require('express');
 const home = require('./routes/home');
 const apiUrlaubsreport = require('./routes/api/urlaubsreport');
 const apiUrlaubsantraege = require('./routes/api/urlaubsantraege');
-
 const apiHealthcheck = require('./routes/api/healthcheck');
 const app = express();
 
