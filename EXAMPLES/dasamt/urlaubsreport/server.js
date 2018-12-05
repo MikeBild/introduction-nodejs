@@ -3,6 +3,7 @@ const mockData = require('./lib/mockdata-middleware');
 const express = require('express');
 const home = require('./routes/home');
 const apiUrlaubsreport = require('./routes/api/urlaubsreport');
+const apiHealthcheck = require('./routes/api/healthcheck');
 const app = express();
 
 module.exports = {
@@ -23,6 +24,7 @@ function startServer({ port, data = {} }) {
 	app.use(mockData(data));
 	app.use('/', home);
 	app.use('/api/urlaubsreport', apiUrlaubsreport);
+	app.use('/healthcheck', apiHealthcheck);
 
 	return new Promise((resolve) => {
 		const instance = app.listen(port, () => resolve(instance));
