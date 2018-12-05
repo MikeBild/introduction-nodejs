@@ -2,9 +2,9 @@
 	"private": true,
 	"name": "urlaubsantrag",
 	"version": "1.0.0",
-	"main": "server.js",
+	"main": "app.js",
 	"scripts": {
-		"dev": "nodemon server",
+		"dev": "nodemon app",
 		"test": "mocha",
 		"ct": "mocha --watch"
 	},
@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"mocha": "^5.2.0",
+		"node-fetch": "^2.3.0",
 		"nodemon": "^1.18.7"
 	}
 }
