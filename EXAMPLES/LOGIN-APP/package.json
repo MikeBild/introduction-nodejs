@@ -11,12 +11,16 @@
     "jqlite": "^0.2.42",
     "parcel-bundler": "^1.12.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^6.0.2",
+    "node-fetch": "^2.3.0"
+  },
   "scripts": {
     "develop": "npm run dev",
-    "dev:server": "node --experimental-modules server/index.mjs",
+    "dev:server": "node --experimental-modules server/index.js",
     "dev": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test:watch": "mocha --watch"
   },
   "keywords": [],
   "author": "",
