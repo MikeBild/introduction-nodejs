@@ -20,11 +20,28 @@ window.goToLogin = () => {
   $('#login').show();
 };
 
-window.registerUser = () => {
+window.registerUser = async () => {
   const username = $('#username').val();
   const password = $('#password').val();
   const verify = $('#verify').val();
   const birthdate = $('#birthdate').val();
 
-  console.log({ username, password, verify, birthdate });
+  try {
+    const response = await fetch('http://localhost:8080/users/register', {
+      method: 'POST',
+      body: JSON.stringify({ username, password, verify, birthdate }),
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+
+    if (response.status >= 400 && response.status <= 500) {
+      // TODO: message to user
+      return console.error(response.statusText);
+    }
+
+    goToLogin();
+  } catch (e) {
+    console.error(e);
+  }
 };

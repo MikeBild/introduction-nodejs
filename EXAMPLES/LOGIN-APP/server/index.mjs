@@ -1,9 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-app.post('/user/register', (req, res) => {
+app.post('/users/register', (req, res) => {
   console.log(req.body);
 
   res.send({
