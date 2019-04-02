@@ -1,0 +1,12 @@
+{
+  "name": "@introduction-aws/demo-lib",
+  "version": "1.0.0",
+  "description": "A simple tool ... ",
+  "main": "src/index.js",
+  "bin": {
+    "dosomething": "./bin/dosomething"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
