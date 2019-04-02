@@ -1,4 +1,5 @@
+import $ from 'jqlite';
 import { render as renderRegister } from './register';
+import { render as renderLogin } from './Login';
 
-const rootElement = document.getElementById('root');
-rootElement.innerHTML = renderRegister();
+$('#root').html(`${renderRegister()}${renderLogin()}`);

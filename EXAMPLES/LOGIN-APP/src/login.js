@@ -1,7 +1,7 @@
 export function render() {
   return `
-  <div id="register">
-    <h1>Register ...</h1>
+  <div id="login">
+    <h1>Login ...</h1>
   </div>
   `;
 }

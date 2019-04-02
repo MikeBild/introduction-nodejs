@@ -5,10 +5,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "jqlite": "^0.2.42",
     "parcel-bundler": "^1.12.3"
   },
   "devDependencies": {},
   "scripts": {
+    "develop": "npm run dev",
     "dev": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
