@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "express-webserver",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "1.19.2",
+    "prettier": "1.18.2"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "develop": "nodemon server.js",
+    "format": "prettier --write server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
