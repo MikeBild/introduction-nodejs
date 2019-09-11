@@ -22,6 +22,12 @@ app.get("/accounts", (req, res) => {
 
 app.post("/accounts/:account", (req, res) => {
 	const newAccount = req.params.account
+	//TODO: DB
+
+	res.status(201).send({
+		id: 1,
+		...newAccount,
+	})
 })
 
 app.listen(port, () => {
