@@ -1,4 +1,5 @@
 const express = require('express');
+const validation = require('./lib/verifications');
 const instance = express();
 instance.use(express.json());
 
