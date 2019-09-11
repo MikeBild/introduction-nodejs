@@ -1,4 +1,5 @@
 const express = require('express');
+const uuid = require('uuid')
 const validation = require('./lib/verifications');
 const instance = express();
 instance.use(express.json());
@@ -12,7 +13,7 @@ instance.get('/accounts', (req, res) => {
 
 instance.post('/accounts', (req, res) => {
   const newAccount = {
-    id: 1,
+    id: uuid.v1(),
     ...req.body,
   };
   //TODO: add to DB

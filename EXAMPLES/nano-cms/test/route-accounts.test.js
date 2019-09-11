@@ -12,6 +12,10 @@ describe('Integration Tests', () => {
   it('POST /accounts, should return a account with a new ID', async () => {
     const response = await fetch('http://localhost:8080/accounts', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',      
+      },
+      body: JSON.stringify({name: 'Hello World!'})
     });
 
     const actual = await response.json();

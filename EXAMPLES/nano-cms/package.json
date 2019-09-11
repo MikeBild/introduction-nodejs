@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "4.17.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "mocha": "6.2.0",
