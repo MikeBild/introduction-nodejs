@@ -20,6 +20,10 @@ app.get("/accounts", (req, res) => {
 	res.status(200).send(accounts[0])
 })
 
+app.post("/accounts/:account", (req, res) => {
+	const newAccount = req.params.account
+})
+
 app.listen(port, () => {
 	console.log("Port " + port + " wird genutzt")
 })
