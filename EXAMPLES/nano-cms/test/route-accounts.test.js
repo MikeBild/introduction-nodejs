@@ -22,5 +22,8 @@ describe('Integration Tests', () => {
     assert.ok(actual.id !== 1);
     assert.ok(actual.id != undefined);
     assert.ok(actual.id != null);
+    assert.ok(actual.name != null);
+    assert.ok(actual.name != undefined);
+    assert.ok(actual.name !== '');
   });
 });
