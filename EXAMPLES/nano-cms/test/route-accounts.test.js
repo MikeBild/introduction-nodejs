@@ -13,8 +13,10 @@ describe('Integration Tests', () => {
     const response = await fetch('http://localhost:8080/accounts', {
       method: 'POST',
     });
+
     const actual = await response.json();
 
+    assert.equal(response.status, 201);
     assert.notDeepEqual(actual, {});
     assert.notEqual(actual, null);
     assert.notEqual(actual, undefined);
