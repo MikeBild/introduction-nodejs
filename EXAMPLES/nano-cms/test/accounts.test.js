@@ -14,5 +14,18 @@ describe('Component Tests', () => {
 
       assert.equal(actual.length, 2);
     });
+
+    it('delete of invalid account ID should throw exception', () => {
+      const sut = require('../lib/accounts')([]);
+
+      assert.throws(() => sut.del(1), new Error('Account ID 1 not found'));
+    });
+
+    it('deletion of valid account ID should not throw exception and the length of account should be 0', () => {
+      const sut = require('../lib/accounts')([{ id: 1 }]);
+
+      assert.doesNotThrow(() => sut.del(1));
+      assert.equal(sut.get().length, 0);
+    });
   });
 });

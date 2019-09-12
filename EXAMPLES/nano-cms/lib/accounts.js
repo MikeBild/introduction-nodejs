@@ -18,7 +18,7 @@ module.exports = (initalAccountList = [], databaseConnection) => {
   }
 
   function get() {
-    return accountList;
+    return accountList.filter(account => account);
   }
 
   function query(predicateFn = () => false) {
@@ -31,7 +31,7 @@ module.exports = (initalAccountList = [], databaseConnection) => {
 
   function del(id) {
     const indexForDelete = accountList.findIndex(account => account.id === id);
-    if (indexForDelete === -1) throw new Error('Account not found');
+    if (indexForDelete === -1) throw new Error(`Account ID ${id} not found`);
     delete accountList[indexForDelete];
   }
 };
