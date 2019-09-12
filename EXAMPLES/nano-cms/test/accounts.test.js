@@ -1,4 +1,5 @@
 const assert = require('assert');
+const uuid = require('uuid');
 
 describe('Component Tests', () => {
   describe('Account Tests', () => {
@@ -13,6 +14,18 @@ describe('Component Tests', () => {
       const actual = sut.get();
 
       assert.equal(actual.length, 2);
+    });
+
+    it('delete non existing account shoul return error', () => {
+      const sut = require('../lib/accounts')([{}, {}]);
+
+      assert.throws(() => sut.del(uuid.v1()), new Error('Account not found'));
+    });
+
+    it('delete a vaild account', () => {
+      const sut = require('../lib/accounts')([{ id: 1 }, {}]);
+
+      assert.doesNotThrow(() => sut.del(1));
     });
   });
 });
