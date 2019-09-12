@@ -1,30 +1,47 @@
 const express = require('express');
 const validation = require('./lib/verifications');
-const accountList = require('./lib/accounts');
-const instance = express();
-instance.use(express.json());
+const accounts = require('./lib/accounts');
 
-instance.get('/accounts', (req, res) => {
-  res.send(accountList.get());
-});
+module.exports = initalAccountList => {
+  const instance = express();
+  instance.use(express.json());
 
-instance.post('/accounts', (req, res) => {
-  const newAccount = accountList.createAccount(req.body);
+  let serverInstance;
+  const accountList = accounts([...initalAccountList]);
 
-  accountList.add(newAccount);
-  res.status(201).send(newAccount);
-});
+  instance.get('/accounts', (req, res) => {
+    res.send(accountList.get());
+  });
 
-instance.delete('/accounts/:id', (req, res) => {
-  try {
-    accountList.del(req.params.id);
-  } catch (error) {
-    return res.sendStatus(404);
+  instance.post('/accounts', (req, res) => {
+    const newAccount = accountList.createAccount(req.body);
+
+    accountList.add(newAccount);
+    res.status(201).send(newAccount);
+  });
+
+  instance.delete('/accounts/:id', (req, res) => {
+    try {
+      accountList.del(req.params.id);
+    } catch (error) {
+      return res.status(404).send({ message: error.message });
+    }
+
+    res.sendStatus(204);
+  });
+
+  return {
+    start,
+    stop,
+  };
+
+  function start() {
+    return new Promise(resolve => {
+      serverInstance = instance.listen(8080, () => resolve());
+    });
   }
 
-  res.sendStatus(204);
-});
-
-instance.listen(8080, () => {
-  console.log('Listen on 8080');
-});
+  function stop() {
+    return new Promise(resolve => serverInstance.close(() => resolve()));
+  }
+};

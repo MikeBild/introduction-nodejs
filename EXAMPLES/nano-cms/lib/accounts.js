@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 
-module.exports = (initalAccountList = [], databaseConnection) => {
+module.exports = (initalAccountList = []) => {
   const accountList = [...initalAccountList];
 
   return {
