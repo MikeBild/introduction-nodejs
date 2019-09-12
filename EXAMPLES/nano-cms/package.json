@@ -4,13 +4,15 @@
   "scripts": {
     "test": "mocha",
     "ct": "mocha --watch",
-    "start": "node app.js",
+    "start": "dotenv -e .env.prod -- node app.js",
+    "start:mike": "dotenv -e .env.mike -- node app.js",
     "develop": "nodemon app.js"
   },
   "dependencies": {
+    "dotenv-cli": "^2.0.1",
     "express": "4.17.1",
-    "node-fetch": "^2.6.0",
-    "uuid": "^3.3.3"
+    "node-fetch": "2.6.0",
+    "uuid": "3.3.3"
   },
   "devDependencies": {
     "mocha": "6.2.0",

@@ -1,13 +1,13 @@
 const express = require('express');
-const validation = require('./lib/verifications');
 const accounts = require('./lib/accounts');
+const PORT = process.env.PORT || 8080;
 
 module.exports = (initalAccountList = []) => {
   const instance = express();
   instance.use(express.json());
 
   let serverInstance;
-  const accountList = accounts([...initalAccountList]);
+  const { onAdded, offAdded, get, add, del, createAccount } = accounts([...initalAccountList]);
 
   instance.get('/accounts/events/added', (req, res) => {
     res.header('Transfer-Encoding', 'chunked');
@@ -19,26 +19,26 @@ module.exports = (initalAccountList = []) => {
 
     req.on('close', () => {
       console.log('CLOSE CONNECTION');
-      accountList.offAdded(pushToConsumer);
+      offAdded(pushToConsumer);
     });
 
-    accountList.onAdded(pushToConsumer);
+    onAdded(pushToConsumer);
   });
 
   instance.get('/accounts', (req, res) => {
-    res.send(accountList.get());
+    res.send(get());
   });
 
   instance.post('/accounts', (req, res) => {
-    const newAccount = accountList.createAccount(req.body);
+    const newAccount = createAccount(req.body);
 
-    accountList.add(newAccount);
+    add(newAccount);
     res.status(201).send(newAccount);
   });
 
   instance.delete('/accounts/:id', (req, res) => {
     try {
-      accountList.del(req.params.id);
+      del(req.params.id);
     } catch (error) {
       return res.status(404).send({ message: error.message });
     }
@@ -53,7 +53,7 @@ module.exports = (initalAccountList = []) => {
 
   function start() {
     return new Promise(resolve => {
-      serverInstance = instance.listen(8080, () => resolve());
+      serverInstance = instance.listen(PORT, () => resolve());
     });
   }
 

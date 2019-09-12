@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v1 } = require('uuid');
 const EventEmitter = require('events').EventEmitter;
 
 module.exports = (initalAccountList = []) => {
@@ -18,7 +18,7 @@ module.exports = (initalAccountList = []) => {
 
   function createAccount(payload) {
     return {
-      id: uuid.v1(),
+      id: v1(),
       ...payload,
     };
   }
@@ -32,12 +32,12 @@ module.exports = (initalAccountList = []) => {
   }
 
   function getNames() {
-    return accountList.map(account => `${account.firstName} ${account.lastName}`);
+    return accountList.map(({ firstName = '', lastName = '' }) => `${firstName} ${lastName}`);
   }
 
   function getNamesAsCSV() {
-    return accountList.reduce((state, value) => {
-      state += `${value.firstName} ${value.lastName},`;
+    return accountList.reduce((state, { firstName = '', lastName = '' }) => {
+      state += `${firstName} ${lastName},`;
       return state;
     }, '');
   }
