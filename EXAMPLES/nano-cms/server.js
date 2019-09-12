@@ -9,6 +9,15 @@ module.exports = (initalAccountList = []) => {
   let serverInstance;
   const accountList = accounts([...initalAccountList]);
 
+  instance.get('/accounts/events/added', (req, res) => {
+    res.header('Transfer-Encoding', 'chunked');
+    res.write('\n\n');
+
+    accountList.onAdded(payload => {
+      res.write(`${JSON.stringify(payload)}\n`);
+    });
+  });
+
   instance.get('/accounts', (req, res) => {
     res.send(accountList.get());
   });

@@ -1,7 +1,9 @@
 const uuid = require('uuid');
+const EventEmitter = require('events').EventEmitter;
 
 module.exports = (initalAccountList = []) => {
   const accountList = [...initalAccountList];
+  const pubsub = new EventEmitter();
 
   return {
     get,
@@ -10,6 +12,7 @@ module.exports = (initalAccountList = []) => {
     createAccount,
     del,
     add,
+    onAdded,
   };
 
   function createAccount(payload) {
@@ -17,6 +20,10 @@ module.exports = (initalAccountList = []) => {
       id: uuid.v1(),
       ...payload,
     };
+  }
+
+  function onAdded(callback) {
+    pubsub.on('account::add', callback);
   }
 
   function getNames() {
@@ -40,6 +47,7 @@ module.exports = (initalAccountList = []) => {
 
   function add(newAccount) {
     accountList.push(newAccount);
+    pubsub.emit('account::add', newAccount);
   }
 
   function del(id) {
