@@ -1,19 +1,12 @@
 {
   "name": "nano-cms",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
   "scripts": {
     "test": "mocha",
     "ct": "mocha --watch",
-    "start": "node server.js",
-    "start_jw": "node server_jw.js",
-    "start_hb": "node server_hb.js",
-    "develop": "nodemon server.js"
+    "start": "node app.js",
+    "develop": "nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "4.17.1",
     "node-fetch": "^2.6.0",

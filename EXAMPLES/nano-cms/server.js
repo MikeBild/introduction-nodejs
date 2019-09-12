@@ -2,7 +2,7 @@ const express = require('express');
 const validation = require('./lib/verifications');
 const accounts = require('./lib/accounts');
 
-module.exports = initalAccountList => {
+module.exports = (initalAccountList = []) => {
   const instance = express();
   instance.use(express.json());
 
