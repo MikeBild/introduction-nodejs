@@ -16,9 +16,11 @@ instance.post('/accounts', (req, res) => {
 });
 
 instance.delete('/accounts/:id', (req, res) => {
-  const account = accountList.del(req.params.id);
-
-  if (!account) return res.sendStatus(404);
+  try {
+    accountList.del(req.params.id);
+  } catch (error) {
+    return res.sendStatus(404);
+  }
 
   res.sendStatus(204);
 });

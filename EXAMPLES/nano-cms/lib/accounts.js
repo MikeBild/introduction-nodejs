@@ -31,6 +31,7 @@ module.exports = (initalAccountList = [], databaseConnection) => {
 
   function del(id) {
     const indexForDelete = accountList.findIndex(account => account.id === id);
+    if (indexForDelete === -1) throw new Error('Account not found');
     delete accountList[indexForDelete];
   }
 };
