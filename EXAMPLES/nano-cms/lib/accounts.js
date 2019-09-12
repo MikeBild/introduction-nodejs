@@ -13,6 +13,7 @@ module.exports = (initalAccountList = []) => {
     del,
     add,
     onAdded,
+    offAdded,
   };
 
   function createAccount(payload) {
@@ -24,6 +25,10 @@ module.exports = (initalAccountList = []) => {
 
   function onAdded(callback) {
     pubsub.on('account::add', callback);
+  }
+
+  function offAdded(callback) {
+    pubsub.off('account::add', callback);
   }
 
   function getNames() {

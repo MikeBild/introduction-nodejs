@@ -13,9 +13,16 @@ module.exports = (initalAccountList = []) => {
     res.header('Transfer-Encoding', 'chunked');
     res.write('\n\n');
 
-    accountList.onAdded(payload => {
+    const pushToConsumer = payload => {
       res.write(`${JSON.stringify(payload)}\n`);
+    };
+
+    req.on('close', () => {
+      console.log('CLOSE CONNECTION');
+      accountList.offAdded(pushToConsumer);
     });
+
+    accountList.onAdded(pushToConsumer);
   });
 
   instance.get('/accounts', (req, res) => {
