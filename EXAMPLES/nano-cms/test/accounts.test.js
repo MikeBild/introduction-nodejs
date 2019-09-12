@@ -27,5 +27,25 @@ describe('Component Tests', () => {
       assert.doesNotThrow(() => sut.del(1));
       assert.equal(sut.get().length, 0);
     });
+
+    it('getNames should return the account names', () => {
+      const sut = require('../lib/accounts')([
+        { firstName: 'Max', lastName: 'Muster' },
+        { firstName: 'Hans', lastName: 'Wurst' },
+      ]);
+
+      const actual = sut.getNames();
+      assert.deepEqual(actual, ['Max Muster', 'Hans Wurst']);
+    });
+
+    it('getNamesAsCSV should return the account names as CSV', () => {
+      const sut = require('../lib/accounts')([
+        { firstName: 'Max', lastName: 'Muster' },
+        { firstName: 'Hans', lastName: 'Wurst' },
+      ]);
+
+      const actual = sut.getNamesAsCSV();
+      assert.equal(actual, 'Max Muster,Hans Wurst,');
+    });
   });
 });

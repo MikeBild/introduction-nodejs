@@ -5,6 +5,8 @@ module.exports = (initalAccountList = []) => {
 
   return {
     get,
+    getNames,
+    getNamesAsCSV,
     createAccount,
     del,
     add,
@@ -15,6 +17,17 @@ module.exports = (initalAccountList = []) => {
       id: uuid.v1(),
       ...payload,
     };
+  }
+
+  function getNames() {
+    return accountList.map(account => `${account.firstName} ${account.lastName}`);
+  }
+
+  function getNamesAsCSV() {
+    return accountList.reduce((state, value) => {
+      state += `${value.firstName} ${value.lastName},`;
+      return state;
+    }, '');
   }
 
   function get() {
