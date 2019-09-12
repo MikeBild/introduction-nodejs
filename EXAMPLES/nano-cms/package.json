@@ -8,6 +8,7 @@
     "ct": "mocha --watch",
     "start": "node server.js",
     "start_jw": "node server_jw.js",
+    "start_hb": "node server_hb.js",
     "develop": "nodemon server.js"
   },
   "keywords": [],
