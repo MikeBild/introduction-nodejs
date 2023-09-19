@@ -1,6 +1,6 @@
 import { Gemeinde } from "../types/Gemeinde";
 
-export const gemeinden: Gemeinde[] = [
+export let gemeinden: Gemeinde[] = [
   {
     id: 1,
     fehler: null,
@@ -30,3 +30,7 @@ export const gemeinden: Gemeinde[] = [
     },
   },
 ];
+
+export function add(gemeinde: Gemeinde) {
+  gemeinden = [...gemeinden, gemeinde]
+}

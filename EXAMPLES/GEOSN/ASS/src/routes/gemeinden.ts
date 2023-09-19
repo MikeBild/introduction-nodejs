@@ -1,11 +1,15 @@
 import express from "express";
-import { gemeinden as mockGemeinden } from "../mocks/Gemeinden";
+import { gemeinden as mockGemeinden, add } from "../mocks/Gemeinden";
 export const gemeinden = express.Router();
 
 gemeinden.get("/gemeinden", (req, res) => {
+  const nameContains = req.query["?nameContains"] as string;
+
   //database query
   res.send({
-    items: mockGemeinden,
+    items: nameContains
+      ? mockGemeinden.filter((x) => x.name.includes(nameContains))
+      : mockGemeinden,
   });
 });
 
@@ -19,7 +23,12 @@ gemeinden.get("/gemeinden/:id", (req, res) => {
 
 gemeinden.post("/gemeinden", (req, res) => {
   //Database insert
-  res.status(201).send({});
+  const created = {
+    ...req.body,
+    id: mockGemeinden.length + 1,
+  };
+  add(created);
+  res.status(201).send(created);
 });
 
 gemeinden.put("/gemeinden/:id", (req, res) => {
