@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.6.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
