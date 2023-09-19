@@ -4,6 +4,7 @@ import { writeFile } from "fs";
 // npx tsc --init
 // npx tsc app1.ts
 const result = add(2, 2);
+console.log(result);
 
 writeFile("result.txt", result.toString(), null, (error) => {
   if (error) {
@@ -13,8 +14,6 @@ writeFile("result.txt", result.toString(), null, (error) => {
 
   console.log("File successful written.");
 });
-
-console.log(result);
 
 export function add(a: number, b: number): number {
   return a + b;
