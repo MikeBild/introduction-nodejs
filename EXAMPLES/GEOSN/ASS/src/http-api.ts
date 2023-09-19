@@ -3,7 +3,7 @@ import { AddressInfo } from "net";
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/gemeinde", (req, res) => {
   res.send({
     message: "Hello World!",
   });

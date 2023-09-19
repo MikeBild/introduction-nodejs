@@ -5,10 +5,13 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/http-api",
-    "test": ""
+    "test": "ts-mocha tests/**/*.spec.ts -w --watch-files '**/*.ts'"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
+    "node-fetch-commonjs": "^3.3.2",
+    "ts-mocha": "^10.0.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
