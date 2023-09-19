@@ -2,10 +2,12 @@ import express from "express";
 import { AddressInfo } from "net";
 import { Server } from "http";
 import { gemeinden } from "./routes/gemeinden";
+import bodyParser from "body-parser";
 
 let srv: Server | null = null;
 
 const app = express();
+app.use(bodyParser.json());
 app.use(gemeinden);
 
 export function start(port = 8080): Promise<Server | null> {
