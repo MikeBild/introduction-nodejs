@@ -1,0 +1,12 @@
+{
+  "name": "ass",
+  "version": "1.0.0",
+  "description": "ASS API",
+  "scripts": {
+    "build": "tsc",
+    "test": ""
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
