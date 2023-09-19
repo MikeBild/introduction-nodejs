@@ -1,11 +1,11 @@
 import { Country } from "./Country";
-import { ID, Fehler, Kennzeichen, QuadratKilometer } from "./Einheiten";
+import { ID, Fehler, Kennzeichen, Geometrie } from "./Einheiten";
 
-interface Gemeinde {
+export interface Gemeinde {
   id: ID | number;
-  fehler: Fehler | string
+  fehler: Fehler | string | null
   kennzeichen: Kennzeichen | string;
-  geometrie: QuadratKilometer | string;
+  geometrie: Geometrie | string;
   name: string
   country: Country | string
 }

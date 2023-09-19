@@ -1,15 +1,12 @@
 import express from "express";
 import { AddressInfo } from "net";
 import { Server } from "http";
+import { gemeinden } from "./routes/gemeinden";
 
-const app = express();
 let srv: Server | null = null;
 
-app.get("/gemeinden", (req, res) => {
-  res.send({
-    message: "Hello World!",
-  });
-});
+const app = express();
+app.use(gemeinden);
 
 export function start(port = 8080): Promise<Server | null> {
   return new Promise((resolve) => {

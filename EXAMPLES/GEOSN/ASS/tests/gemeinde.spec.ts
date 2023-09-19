@@ -1,22 +1,30 @@
-import { deepEqual } from "assert";
+import { notEqual, equal } from "assert";
 import fetch from "node-fetch-commonjs";
 import { start, stop } from "../src/http-api";
+import { Gemeinde } from "../src/types/Gemeinde";
 
-describe("GET /gemeinden", () => {
+describe("/gemeinden", () => {
   before(async () => {
     //arrange
     await start(8080);
   });
 
-  it("...should ... ", async () => {
+  it("GET / should return items", async () => {
     //act
     const response = await fetch("http://localhost:8080/gemeinden");
-    const actual = await response.json();
+    const actual = ((await response.json()) as any).items as [Gemeinde];
 
     //assert
-    deepEqual(actual, {
-      message: "Hello World!",
-    });
+    notEqual(actual.length, 0);
+  });
+
+  it("GET /1 should return Gemeinde with ID 1", async () => {
+    //act
+    const response = await fetch("http://localhost:8080/gemeinden/1");
+    const actual = (await response.json()) as Gemeinde;
+
+    //assert
+    equal(actual.id, 1);
   });
 
   after(async () => {

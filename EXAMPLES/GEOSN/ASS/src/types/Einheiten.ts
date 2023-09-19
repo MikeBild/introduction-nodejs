@@ -2,8 +2,9 @@ export interface ID {
     id: number
 }
 
-export interface QuadratKilometer {
-    wert: number
+export interface Geometrie {
+    flaeche: number
+    einheit: "QuadratKilometer" | "Qudratmeter"
 }
 
 export interface Kennzeichen {
