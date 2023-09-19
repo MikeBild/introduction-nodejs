@@ -5,7 +5,7 @@ import { Server } from "http";
 const app = express();
 let srv: Server | null = null;
 
-app.get("/gemeinde", (req, res) => {
+app.get("/gemeinden", (req, res) => {
   res.send({
     message: "Hello World!",
   });
@@ -14,7 +14,9 @@ app.get("/gemeinde", (req, res) => {
 export function start(port = 8080): Promise<Server | null> {
   return new Promise((resolve) => {
     srv = app.listen(port, () => {
-      console.log(`Listen on ${(srv?.address() as AddressInfo)?.port}. Exit with CTRL+C.`);
+      console.log(
+        `Listen on ${(srv?.address() as AddressInfo)?.port}. Exit with CTRL+C.`
+      );
       resolve(srv);
     });
   });
@@ -23,7 +25,7 @@ export function start(port = 8080): Promise<Server | null> {
 export function stop(): Promise<void> {
   return new Promise((resolve) => {
     srv?.close(() => {
-      console.log(`Exit.`)
+      console.log(`Exit.`);
       resolve();
     });
   });

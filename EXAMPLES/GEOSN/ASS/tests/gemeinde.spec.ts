@@ -2,7 +2,7 @@ import { deepEqual } from "assert";
 import fetch from "node-fetch-commonjs";
 import { start, stop } from "../src/http-api";
 
-describe("GET /gemeinde", () => {
+describe("GET /gemeinden", () => {
   before(async () => {
     //arrange
     await start(8080);
@@ -10,7 +10,7 @@ describe("GET /gemeinde", () => {
 
   it("...should ... ", async () => {
     //act
-    const response = await fetch("http://localhost:8080/gemeinde");
+    const response = await fetch("http://localhost:8080/gemeinden");
     const actual = await response.json();
 
     //assert
