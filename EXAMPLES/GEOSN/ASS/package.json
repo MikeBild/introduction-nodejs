@@ -4,9 +4,9 @@
   "description": "ASS API",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn src/http-api",
+    "dev": "ts-node-dev --respawn src/server",
     "test": "ts-mocha tests/**/*.spec.ts -w --watch-files '**/*.ts'",
-    "start": "node build/src/http-api"
+    "start": "node build/src/server"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
