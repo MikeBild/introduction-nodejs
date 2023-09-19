@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/http-api",
-    "test": "ts-mocha tests/**/*.spec.ts -w --watch-files '**/*.ts'"
+    "test": "ts-mocha tests/**/*.spec.ts -w --watch-files '**/*.ts'",
+    "start": "node build/src/http-api"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
