@@ -1,4 +1,4 @@
-import { equal, deepEqual } from "assert";
+import { deepEqual } from "assert";
 import fetch from "node-fetch-commonjs";
 
 describe("GET /gemeinde", () => {
