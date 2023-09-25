@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn src/server",
     "graphql-dev": "ts-node-dev --respawn src/graphql",
     "test": "ts-mocha tests/**/*.spec.ts -w --watch-files '**/*.ts'",
-    "start": "node build/src/server"
+    "start": "node build/src/server",
+    "cli": "node build/src/cli"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
