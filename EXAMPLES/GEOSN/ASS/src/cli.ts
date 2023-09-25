@@ -35,3 +35,18 @@ function getVars() {
     fileName,
   };
 }
+
+let i = 0;
+const intervalRef = setInterval(() => {
+  console.log(i++);
+  if (i > 9) clearInterval(intervalRef);
+}, 1000);
+
+const timeoutRef = setTimeout(() => {
+  console.log("Done");
+}, 12000);
+
+clearTimeout(timeoutRef);
+
+const outputInBase64 = Buffer.from("Hello World!").toString("base64");
+console.log({ outputInBase64 });
