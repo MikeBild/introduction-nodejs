@@ -23,7 +23,15 @@ PORT=8080 node build/src/cli.js
 */
 console.log(process.env.PORT);
 
-const [_, __, ___, paramPort, fileNameParam, fileName] = process.argv;
-const envPort = process.env.PORT;
-const usedPort = envPort || paramPort || "8181";
-console.log(`Hello World! ${usedPort}, ${fileName}`);
+const { port, fileName } = getVars();
+console.log(`Variables - Port: ${port} - Filename: ${fileName}`);
+
+function getVars() {
+  const [_, __, ___, paramPort, fileNameParam, fileName] = process.argv;
+  const envPort = process.env.PORT;
+  const usedPort = envPort || paramPort || "8181";
+  return {
+    port: usedPort,
+    fileName,
+  };
+}
