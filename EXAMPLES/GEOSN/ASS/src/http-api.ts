@@ -2,6 +2,7 @@ import express from "express";
 import { AddressInfo } from "net";
 import { Server } from "http";
 import { gemeinden } from "./routes/gemeinden";
+import { benutzer } from "./routes/benutzer";
 import bodyParser from "body-parser";
 
 let srv: Server | null = null;
@@ -9,6 +10,7 @@ let srv: Server | null = null;
 const app = express();
 app.use(bodyParser.json());
 app.use(gemeinden);
+app.use(benutzer);
 
 export function start(port = 8080): Promise<Server | null> {
   return new Promise((resolve) => {
