@@ -2,6 +2,14 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { gemeinden as mockGemeinden } from "./mocks/Gemeinden";
 
+/*
+curl -g \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{"query":"query ExampleQuery { gemeinden(id: 1) { id name }}"}' \
+http://localhost:9090
+*/
+
 const typeDefs = `
 type Kennzeichen {
     wert: String
@@ -12,13 +20,17 @@ type Geometrie {
     einheit: String
 }
 
+type Country {
+  value: String
+}
+
 type Gemeinde {
     id: ID
     fehler: String
     kennzeichen: Kennzeichen
     geometrie: Geometrie
     name: String!
-    country: String
+    country: Country
 }
 
 type Query {

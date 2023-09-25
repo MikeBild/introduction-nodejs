@@ -29,3 +29,24 @@ export function stop(): Promise<void> {
     });
   });
 }
+
+//common exception handler
+process.on("uncaughtException", (error) => {
+  console.error(error);
+  process.exit(1);
+});
+
+//ps
+//kill -TERM <PID>
+process.on("SIGTERM", onExit);
+process.on("SIGINT", onExit);
+
+function onExit() {
+  console.log("EXIT");
+  process.exit(0);
+}
+
+// Simulation of error
+// setInterval(() => {
+//   throw new Error("MEIN FEHLER!");
+// }, 4000);
