@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>cross-runtime in the browser</title>
+  </head>
+  <body>
+    <h1>Same handler, running in the browser</h1>
+    <pre id="output">loading…</pre>
+    <script type="module">
+      import { handle } from '../src/handler.js'
+
+      const response = await handle(new Request(location.href))
+      document.querySelector('#output').textContent = JSON.stringify(await response.json(), null, 2)
+    </script>
+  </body>
+</html>
