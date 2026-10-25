@@ -12,6 +12,8 @@
   "scripts": {
     "start": "node src/main.ts",
     "start:solution": "node solution/main.ts",
+    "dev": "ENABLE_DEV_ISSUER=true node src/main.ts",
+    "dev:solution": "ENABLE_DEV_ISSUER=true node solution/main.ts",
     "test": "node --test \"src/**/*.test.ts\"",
     "test:solution": "node --test \"solution/**/*.test.ts\"",
     "typecheck": "tsc --noEmit",

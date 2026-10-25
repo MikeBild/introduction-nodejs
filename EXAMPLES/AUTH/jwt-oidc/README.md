@@ -1,10 +1,10 @@
 # JWT / OIDC with jose and Hono
 
-Your API does not log anybody in: an identity provider issues access tokens, the API verifies them strictly with [jose](https://github.com/panva/jose) (signature via JWKS, `iss`, `aud`, `exp`) and then decides about permissions. Without `JWKS_URI` a local dev issuer signs tokens, so everything runs offline.
+Your API does not log anybody in: an identity provider issues access tokens, the API verifies them strictly with [jose](https://github.com/panva/jose) (signature via JWKS, `iss`, `aud`, `exp`) and then decides about permissions. For local development `npm run dev` starts a dev issuer that signs tokens offline (`ENABLE_DEV_ISSUER=true`, bound to 127.0.0.1, fixed scopes). Without it and without `JWKS_URI`/`JWT_ISSUER` the server refuses to start – fail closed.
 
 ```bash
 npm install
-npm start
+npm run dev
 TOKEN=$(curl -s "localhost:3000/dev/token?scope=orders:read")
 curl -i localhost:3000/orders                                   # 401
 curl -i localhost:3000/orders -H "authorization: Bearer $TOKEN" # 200
