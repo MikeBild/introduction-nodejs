@@ -113,6 +113,21 @@
 - [ExpressJS-EJS](/EXAMPLES/EXPRESSJS/SSR/README.md)
 - [ExpressJS-SPDY/HTTP2 Server-Side Events](/EXAMPLES/HTTP2/EXPRESSJS-SPDY/README.md)
 
+## Exercises: Node.js Backend with TypeScript
+
+Runnable starting points with an exercise in each README. Node.js >= 22.18 runs the TypeScript directly; `npm install && npm test` in each folder.
+
+- [CLI tools: orders report](/EXAMPLES/CLI/orders-report/README.md)
+- [Validation with zod](/EXAMPLES/VALIDATION/zod-api/README.md)
+- [Typed configuration and secrets](/EXAMPLES/CONFIG/typed-config/README.md)
+- [SQL repository with postgres.js](/EXAMPLES/DATABASE/sql-repository/README.md)
+- [Structured logs](/EXAMPLES/LOGGING/structured-logs/README.md)
+- [JWT / OIDC with jose](/EXAMPLES/AUTH/jwt-oidc/README.md)
+- [Profiling and performance](/EXAMPLES/PERFORMANCE/profiling/README.md)
+- [Hardening a service](/EXAMPLES/SECURITY/hardening/README.md)
+- [OpenTelemetry tracing](/EXAMPLES/OBSERVABILITY/otel-tracing/README.md)
+- [Ports and adapters](/EXAMPLES/ARCHITECTURE/ports-adapters/README.md)
+
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at
@@ -131,3 +146,19 @@ You like this **NodeJS introduction** and you want to see what coming next?
 Follow me on Twitter [`@mikebild`](https://twitter.com/mikebild).
 
 Enjoy!
+
+## Exercises: JavaScript and TypeScript
+
+Runnable starting points with an exercise in each README; `npm install && npm test` in each folder.
+
+- [Values and equality](/EXAMPLES/ECMA/values-equality/README.md)
+- [Unions and literal types](/EXAMPLES/TYPESCRIPT/unions-literals/README.md)
+- [Narrowing](/EXAMPLES/TYPESCRIPT/narrowing/README.md)
+- [Generics](/EXAMPLES/TYPESCRIPT/generics/README.md)
+- [Utility types](/EXAMPLES/TYPESCRIPT/utility-types/README.md)
+- [Advanced types](/EXAMPLES/TYPESCRIPT/advanced-types/README.md)
+- [Runtime validation with zod](/EXAMPLES/TYPESCRIPT/runtime-validation/README.md)
+- [Branded IDs](/EXAMPLES/TYPESCRIPT/branded-ids/README.md)
+- [Library design](/EXAMPLES/TYPESCRIPT/library-design/README.md)
+- [Cross-runtime code](/EXAMPLES/ECMA/cross-runtime/README.md)
+

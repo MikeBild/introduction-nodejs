@@ -1,0 +1,32 @@
+{
+  "name": "hardening",
+  "version": "1.0.0",
+  "description": "Harden a Hono service: limits, security headers, schema input, SSRF allowlist and least privilege",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "start:solution": "node solution/main.ts",
+    "start:restricted": "node --permission --allow-fs-read=./ solution/main.ts",
+    "test": "node --test \"src/**/*.test.ts\"",
+    "test:solution": "node --test \"solution/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src solution README.md"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.5",
+    "hono": "^4.13.14",
+    "loglevel": "^1.9.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}

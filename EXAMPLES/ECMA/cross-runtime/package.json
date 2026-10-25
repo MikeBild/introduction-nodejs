@@ -1,0 +1,22 @@
+{
+  "name": "ecma-cross-runtime",
+  "version": "1.0.0",
+  "description": "A web standards core that runs in Node.js, Deno, Bun and the browser",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node adapters/node.js",
+    "start:deno": "deno run --allow-net --allow-env adapters/deno.js",
+    "start:bun": "bun adapters/bun.js",
+    "test": "node --test",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2"
+  }
+}
