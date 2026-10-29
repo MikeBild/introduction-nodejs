@@ -1,5 +1,5 @@
 // Aggregat Order: Die Root schützt alle Regeln der Bestellung als Einheit.
-// Von außen gibt es nur diese Functions. Jede liefert eine neue Order oder wirft.
+// Von außen gibt es nur diese Funktionen. Jede liefert eine neue Order oder wirft.
 
 export type OrderId = string & { readonly __brand: 'OrderId' }
 export type CustomerId = string & { readonly __brand: 'CustomerId' }

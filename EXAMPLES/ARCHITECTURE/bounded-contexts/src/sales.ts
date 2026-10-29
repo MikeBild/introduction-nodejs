@@ -1,7 +1,7 @@
 import type { InventoryClient } from './inventory.ts'
 
 // Context Verkauf, heute: Er spricht die Sprache des Lagers.
-// Jede Function kennt die Felder des fremden Modells.
+// Jede Funktion kennt die Felder des fremden Modells.
 
 export const createSales = (inventory: InventoryClient) => ({
   // Was kostet der Warenkorb? In Euro, als Kommazahl.

@@ -34,6 +34,6 @@ export const catchUp = async <S>(
     current,
   )
 
-// Neuaufbau: dieselbe Function, nur ab Position null
+// Neuaufbau: dieselbe Funktion, nur ab Position null
 export const rebuild = <S>(store: EventStore, projection: Projection<S>) =>
   catchUp(store, projection, start(projection))
