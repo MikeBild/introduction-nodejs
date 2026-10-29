@@ -1,15 +1,16 @@
-import type { LogLevelDesc } from 'loglevel'
-import { createLogger } from '../src/logger.ts'
+import { createApp } from '../src/app.ts'
+import { createLogger, isLevel } from '../src/logger.ts'
 import { placeOrder } from '../src/orders.ts'
-import { createOrderServer } from '../src/server.ts'
 import { withTraceContext } from './logger.ts'
 import { traced } from './orders-traced.ts'
 
 const port = Number(process.env.PORT ?? 3000)
 const logger = withTraceContext(
-  createLogger('orders', (process.env.LOG_LEVEL ?? 'info') as LogLevelDesc),
+  createLogger(isLevel(process.env.LOG_LEVEL) ? process.env.LOG_LEVEL : 'info', {
+    service: 'orders',
+  }),
 )
 
-createOrderServer({ logger, placeOrder: traced(placeOrder) }).listen(port, () =>
+createApp({ logger, placeOrder: traced(placeOrder) }).listen(port, () =>
   logger.info('server started', { port }),
 )

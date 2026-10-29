@@ -1,19 +1,19 @@
 {
   "name": "otel-tracing",
   "version": "1.0.0",
-  "description": "Instrument a Node.js service with OpenTelemetry and connect traces and logs via the trace id",
+  "description": "Instrument an Express 5 service with OpenTelemetry and connect traces and logs via the trace id",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node --import ./src/instrumentation.ts src/main.ts",
     "start:solution": "node --import ./src/instrumentation.ts solution/main.ts",
-    "test": "node --test \"src/**/*.test.ts\"",
-    "test:solution": "node --test \"solution/**/*.test.ts\"",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src solution README.md"
   },
@@ -24,11 +24,13 @@
     "@opentelemetry/instrumentation-http": "^0.300.0",
     "@opentelemetry/sdk-node": "^0.300.0",
     "@opentelemetry/sdk-trace": "^3.0.0",
-    "loglevel": "^1.9.2"
+    "express": "^5.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }
