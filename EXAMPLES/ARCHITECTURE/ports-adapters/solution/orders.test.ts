@@ -1,61 +1,77 @@
-import assert from 'node:assert/strict'
-import { describe, test } from 'node:test'
-import log from 'loglevel'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { testPlaceOrderBehaviour } from '../src/characterization.ts'
+import { createLogger } from '../src/logger.ts'
 import { createApp } from './app.ts'
-import { checkout, createMemoryOrderStore, decideCheckout, type Cart } from './orders/index.ts'
+import { hammer, saw } from './fixtures.ts'
+import { createMemoryOrderStore, createPlaceOrder, placeOrder } from './orders/index.ts'
 
-const createdAt = new Date('2026-10-01T10:00:00Z')
-const cart: Cart = {
-  id: 'cart-1',
-  customerId: 'c-17',
-  items: [{ sku: 'book', quantity: 2, unitPriceCents: 1990 }],
-  createdAt,
-}
-const oneHourLater = () => new Date('2026-10-01T11:00:00Z')
-const twoDaysLater = () => new Date('2026-10-03T10:00:00Z')
+beforeEach(() => void vi.spyOn(console, 'log').mockImplementation(() => {}))
+afterEach(() => void vi.restoreAllMocks())
 
-describe('core: decideCheckout', () => {
-  test('accepts a fresh cart and sums the total', () => {
-    assert.deepEqual(decideCheckout(cart, oneHourLater()), {
-      kind: 'accepted',
-      cartId: 'cart-1',
-      customerId: 'c-17',
-      totalCents: 3980,
+const now = new Date('2026-10-29T10:00:00.000Z')
+const clock = () => now
+const catalog = new Map([[hammer.id as string, hammer]])
+
+describe('core: placeOrder', () => {
+  test('places an order with prices from the catalog and createdAt = now', () => {
+    expect(
+      placeOrder(
+        { customerId: 'c-17', items: [{ productId: hammer.id, quantity: 2 }] },
+        catalog,
+        now,
+      ),
+    ).toEqual({
+      kind: 'placed',
+      order: {
+        customerId: 'c-17',
+        items: [{ productId: hammer.id, quantity: 2, priceCents: 1990 }],
+        status: 'placed',
+        createdAt: '2026-10-29T10:00:00.000Z',
+      },
     })
   })
 
-  test('rejects an expired cart – no global state, just a date', () => {
-    assert.deepEqual(decideCheckout(cart, twoDaysLater()), {
+  test('the stock rule needs no global state – just a catalog value', () => {
+    const emptyShelf = new Map([[hammer.id as string, { ...hammer, stock: 0 }]])
+    expect(
+      placeOrder(
+        { customerId: 'c-17', items: [{ productId: hammer.id, quantity: 1 }] },
+        emptyShelf,
+        now,
+      ),
+    ).toEqual({
       kind: 'rejected',
-      reason: 'cart-expired',
+      reason: 'insufficient-stock',
     })
   })
 })
 
-describe('use case: checkout', () => {
-  test('saves accepted orders through the port', async () => {
-    const orderStore = createMemoryOrderStore([cart])
-    const result = await checkout(orderStore, oneHourLater)('cart-1')
-    assert.equal(result.kind, 'accepted')
-    assert.equal(orderStore.savedOrders().length, 1)
+describe('use case: createPlaceOrder', () => {
+  test('saves placed orders through the port', async () => {
+    const orderStore = createMemoryOrderStore([hammer])
+    const placeOrderNow = createPlaceOrder(orderStore, clock)
+    const outcome = await placeOrderNow({
+      customerId: 'c-17',
+      items: [{ productId: hammer.id, quantity: 1 }],
+    })
+    expect(outcome.kind).toBe('placed')
+    expect(orderStore.savedOrders()).toHaveLength(1)
   })
 
-  test('saves nothing for an expired cart', async () => {
-    const orderStore = createMemoryOrderStore([cart])
-    await checkout(orderStore, twoDaysLater)('cart-1')
-    assert.equal(orderStore.savedOrders().length, 0)
-  })
-})
-
-describe('http adapter', () => {
-  const logger = log.getLogger('test')
-  logger.setLevel('silent')
-  const app = createApp({ orderStore: createMemoryOrderStore([cart]), clock: twoDaysLater, logger })
-
-  test('maps rejections to 404 and 422', async () => {
-    assert.equal((await app.request('/checkout/unknown', { method: 'POST' })).status, 404)
-    const response = await app.request('/checkout/cart-1', { method: 'POST' })
-    assert.equal(response.status, 422)
-    assert.deepEqual(await response.json(), { error: 'cart-expired' })
+  test('saves nothing for a rejected order', async () => {
+    const orderStore = createMemoryOrderStore([hammer])
+    const placeOrderNow = createPlaceOrder(orderStore, clock)
+    await placeOrderNow({ customerId: 'c-17', items: [{ productId: 'p-unknown', quantity: 1 }] })
+    expect(orderStore.savedOrders()).toHaveLength(0)
   })
 })
+
+// the same characterization tests as for the knot – the refactoring kept the behaviour
+describe('http adapter (characterization)', () =>
+  testPlaceOrderBehaviour(() =>
+    createApp({
+      orderStore: createMemoryOrderStore([hammer, saw]),
+      clock,
+      logger: createLogger('error'),
+    }),
+  ))
