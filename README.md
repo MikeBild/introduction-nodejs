@@ -133,6 +133,10 @@ Runnable starting points with an exercise in each README. Node.js >= 26 runs the
 - [Event sourcing and CQRS](/EXAMPLES/ARCHITECTURE/event-sourcing/README.md) (Node.js >= 26, Vitest)
 - [Architecture decision records (ADR)](/EXAMPLES/ARCHITECTURE/adr/README.md)
 
+## Exercises: Architecture with DDD, CQRS and Event Sourcing
+
+Twelve exercises from domain language to event sourcing, plus sagas and event sourcing on AWS, each with start, solution and tests. Overview and order: [EXAMPLES/ARCHITECTURE](/EXAMPLES/ARCHITECTURE/README.md) (German).
+
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at
