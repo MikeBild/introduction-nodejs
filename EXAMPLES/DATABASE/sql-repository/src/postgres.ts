@@ -1,5 +1,5 @@
 import postgres from 'postgres'
-import { formatCents, toCents, type Order, type OrderStatus } from './orders.ts'
+import type { Order, OrderStatus } from './orders.ts'
 import type { OrderRepository } from './repository.ts'
 
 export const createDatabase = (databaseUrl: string) =>
@@ -7,34 +7,36 @@ export const createDatabase = (databaseUrl: string) =>
 
 export type Sql = ReturnType<typeof createDatabase>
 
-type OrderRow = { id: string; customer_id: string; status: OrderStatus; total: string }
+export type OrderRow = { id: string; customer_id: string; status: OrderStatus; created_at: Date }
 
-const toOrder = (row: OrderRow): Order => ({
+export const toOrder = (row: OrderRow, items: Order['items'] = []): Order => ({
   id: row.id,
   customerId: row.customer_id,
+  items,
   status: row.status,
-  totalCents: toCents(row.total),
+  createdAt: row.created_at.toISOString(),
 })
 
 // values in ${} are sent as parameters, never concatenated into the SQL text
+// Exercise: the items are not stored yet – there is no order_items table
 export const createPostgresOrderRepository = (sql: Sql): OrderRepository => ({
   findOrder: async (orderId) => {
     const [row] = await sql<OrderRow[]>`
-      select id, customer_id, status, total from orders where id = ${orderId}
+      select id, customer_id, status, created_at from orders where id = ${orderId}
     `
     return row && toOrder(row)
   },
-  listOpenOrders: async (limit) => {
+  listOrdersByStatus: async (status, limit) => {
     const rows = await sql<OrderRow[]>`
-      select id, customer_id, status, total from orders
-      where status = 'open' order by created_at limit ${limit}
+      select id, customer_id, status, created_at from orders
+      where status = ${status} order by created_at, id limit ${limit}
     `
-    return rows.map(toOrder)
+    return rows.map((row) => toOrder(row))
   },
-  createOrder: async ({ customerId, totalCents }) => {
+  saveOrder: async ({ customerId, status }) => {
     const [row] = await sql<OrderRow[]>`
-      insert into orders (customer_id, total) values (${customerId}, ${formatCents(totalCents)})
-      returning id, customer_id, status, total
+      insert into orders (customer_id, status) values (${customerId}, ${status})
+      returning id, customer_id, status, created_at
     `
     if (!row) throw new Error('insert returned no row')
     return toOrder(row)

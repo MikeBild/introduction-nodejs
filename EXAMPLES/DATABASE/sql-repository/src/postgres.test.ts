@@ -1,4 +1,4 @@
-import { after, before, describe } from 'node:test'
+import { afterAll, beforeAll, describe } from 'vitest'
 import { migrate } from './migrate.ts'
 import { createDatabase, createPostgresOrderRepository } from './postgres.ts'
 import { testOrderRepositoryContract } from './repository.contract.ts'
@@ -6,12 +6,13 @@ import { testOrderRepositoryContract } from './repository.contract.ts'
 // runs only against a real database: DATABASE_URL=postgres://… npm test
 const databaseUrl = process.env.DATABASE_URL
 
-describe('postgres order repository', { skip: !databaseUrl && 'DATABASE_URL not set' }, () => {
+describe.skipIf(!databaseUrl)('postgres order repository', () => {
   const sql = createDatabase(databaseUrl ?? 'postgres://unused')
-  before(async () => {
+  beforeAll(async () => {
     await migrate(sql, ['migrations'])
     await sql`truncate orders cascade`
   })
-  after(() => sql.end())
-  testOrderRepositoryContract(() => createPostgresOrderRepository(sql))
+  afterAll(() => sql.end())
+  // Exercise: set storesItems to true once order_items exists and saveOrder writes them
+  testOrderRepositoryContract(() => createPostgresOrderRepository(sql), { storesItems: false })
 })

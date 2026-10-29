@@ -1,6 +1,7 @@
-import { describe } from 'node:test'
-import { createMemoryOrderRepositoryWithItems } from './memory.ts'
-import { testOrderRepositoryWithItemsContract } from './repository.contract.ts'
+import { describe } from 'vitest'
+import { createMemoryOrderRepository } from '../src/memory.ts'
+import { testOrderRepositoryContract } from '../src/repository.contract.ts'
 
+// the same contract – in-memory and postgres must behave alike, items and rollback included
 describe('solution memory order repository', () =>
-  testOrderRepositoryWithItemsContract(createMemoryOrderRepositoryWithItems))
+  testOrderRepositoryContract(createMemoryOrderRepository))

@@ -1,4 +1,4 @@
-import { describe } from 'node:test'
+import { describe } from 'vitest'
 import { createMemoryOrderRepository } from './memory.ts'
 import { testOrderRepositoryContract } from './repository.contract.ts'
 
