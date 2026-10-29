@@ -127,6 +127,8 @@ Runnable starting points with an exercise in each README. Node.js >= 22.18 runs 
 - [Hardening a service](/EXAMPLES/SECURITY/hardening/README.md)
 - [OpenTelemetry tracing](/EXAMPLES/OBSERVABILITY/otel-tracing/README.md)
 - [Ports and adapters](/EXAMPLES/ARCHITECTURE/ports-adapters/README.md)
+- [Event sourcing and CQRS](/EXAMPLES/ARCHITECTURE/event-sourcing/README.md) (Node.js >= 26, Vitest)
+- [Architecture decision records (ADR)](/EXAMPLES/ARCHITECTURE/adr/README.md)
 
 ## Issue Reporting
 
