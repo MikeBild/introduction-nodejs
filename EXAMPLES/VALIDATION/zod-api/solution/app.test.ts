@@ -1,68 +1,73 @@
-import assert from 'node:assert/strict'
-import { randomUUID } from 'node:crypto'
-import { describe, test } from 'node:test'
-import { createApp } from './app.ts'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { orders, products } from '../src/fixtures.ts'
 import { createLogger } from '../src/logger.ts'
-import { createOrderStore } from '../src/orders.ts'
+import { createOrderStore } from '../src/store.ts'
+import { listen } from '../src/test-server.ts'
+import { createApp } from './app.ts'
+
+beforeEach(() => void vi.spyOn(console, 'log').mockImplementation(() => {}))
+afterEach(() => void vi.restoreAllMocks())
 
 const createTestApp = () =>
-  createApp({ orderStore: createOrderStore(), logger: createLogger('test', 'silent') })
+  createApp({ orderStore: createOrderStore({ products, orders }), logger: createLogger('error') })
 
-const postOrder = (app: ReturnType<typeof createTestApp>, body: unknown) =>
-  app.request('/orders', {
+const postOrder = (url: string, body: unknown) =>
+  fetch(`${url}/orders`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
   })
 
 describe('solution orders api', () => {
-  test('coerces and limits the query', async () => {
-    const app = createTestApp()
-    for (const sku of ['a', 'b', 'c'])
-      await postOrder(app, { customerId: randomUUID(), items: [{ sku, quantity: 1 }] })
-    const response = await app.request('/orders?limit=2')
-    assert.equal(response.status, 200)
-    assert.equal(((await response.json()) as unknown[]).length, 2)
-  })
-
-  test('rejects an invalid query with 400 and details', async () => {
-    const response = await createTestApp().request('/orders?limit=0')
-    assert.equal(response.status, 400)
-    const body = (await response.json()) as { issues: { path: string }[] }
-    assert.equal(body.issues[0]?.path, 'limit')
-  })
-
-  test('creates a valid order', async () => {
-    const response = await postOrder(createTestApp(), {
-      customerId: randomUUID(),
-      items: [{ sku: 'book', quantity: 2 }],
+  test('places a valid order', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-saw', quantity: 2 }],
     })
-    assert.equal(response.status, 201)
+    expect(response.status).toBe(201)
+    expect(await response.json()).toMatchObject({ status: 'placed' })
   })
 
-  test('rejects an order without items with 400', async () => {
-    const response = await postOrder(createTestApp(), { customerId: randomUUID(), items: [] })
-    assert.equal(response.status, 400)
+  test.each([
+    ['without items', { customerId: 'c-17', items: [] }, 'items'],
+    ['without the items field', { customerId: 'c-17' }, 'items'],
+    [
+      'with an empty customerId',
+      { customerId: '', items: [{ productId: 'p-saw', quantity: 1 }] },
+      'customerId',
+    ],
+    [
+      'with a quantity as string',
+      { customerId: 'c-17', items: [{ productId: 'p-saw', quantity: '2' }] },
+      'items',
+    ],
+  ])('rejects an order %s with 400 and the field', async (_case, body, field) => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, body)
+    expect(response.status).toBe(400)
+    const { issues } = (await response.json()) as { issues: Record<string, string[]> }
+    expect(issues[field]).toBeDefined()
   })
 
-  test('drops unknown fields like isAdmin', async () => {
-    const response = await postOrder(createTestApp(), {
-      customerId: randomUUID(),
-      items: [{ sku: 'a', quantity: 1 }],
+  test('rejects unknown fields like isAdmin – strictObject does not silently pass them on', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-saw', quantity: 1 }],
       isAdmin: true,
     })
-    assert.equal('isAdmin' in ((await response.json()) as object), false)
+    expect(response.status).toBe(400)
+    expect(await response.json()).toMatchObject({ error: 'invalid input' })
   })
-})
 
-test('rejects a non-numeric quantity and reports the field path', async () => {
-  const app = createApp({ orderStore: createOrderStore(), logger: createLogger('test', 'silent') })
-  const response = await app.request('/orders', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ customerId: randomUUID(), items: [{ sku: 'a', quantity: '2' }] }),
+  test('valid but impossible orders are 422, not 400', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-unknown', quantity: 1 }],
+    })
+    expect(response.status).toBe(422)
+    expect(await response.json()).toEqual({ error: 'unknown-product' })
   })
-  assert.equal(response.status, 400)
-  const body = (await response.json()) as { issues: { path: string }[] }
-  assert.equal(body.issues[0]?.path, 'items.0.quantity')
 })

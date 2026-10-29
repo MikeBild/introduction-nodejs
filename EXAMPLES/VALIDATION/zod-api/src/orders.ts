@@ -1,29 +1,57 @@
-import { randomUUID } from 'node:crypto'
+import type { PlaceOrderInput } from './schemas.ts'
 
-export type OrderStatus = 'open' | 'paid' | 'cancelled'
-export type OrderItem = { sku: string; quantity: number }
+export type ProductId = string & { readonly __brand: 'ProductId' }
+export type OrderId = string & { readonly __brand: 'OrderId' }
+export type CustomerId = string & { readonly __brand: 'CustomerId' }
+
+export type Product = { id: ProductId; name: string; priceCents: number; stock: number }
+export type OrderItem = { productId: ProductId; quantity: number; priceCents: number }
+export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
 export type Order = {
-  id: string
-  customerId: string
+  id: OrderId
+  customerId: CustomerId
   items: OrderItem[]
-  note?: string
   status: OrderStatus
+  createdAt: string
 }
-export type NewOrder = Pick<Order, 'customerId' | 'items' | 'note'>
-export type ListOptions = { limit: number; status?: OrderStatus }
+export type NewOrder = Omit<Order, 'id'> // saveOrder assigns the id
+export type Catalog = Map<string, Product>
+export type RejectionReason = 'empty-order' | 'unknown-product' | 'insufficient-stock'
+export type PlaceOrderResult =
+  { kind: 'placed'; order: NewOrder } | { kind: 'rejected'; reason: RejectionReason }
 
-// in-memory store – the core only works with already parsed, typed values
-export const createOrderStore = (initialOrders: readonly Order[] = []) => {
-  const orders = [...initialOrders]
+const rejected = (reason: RejectionReason): PlaceOrderResult => ({ kind: 'rejected', reason })
+
+// money in whole cents, never as float
+export const orderTotalCents = (items: readonly OrderItem[]) =>
+  items.reduce((sum, { quantity, priceCents }) => sum + quantity * priceCents, 0)
+
+const requestedQuantity = (input: PlaceOrderInput, productId: string) =>
+  input.items
+    .filter((item) => item.productId === productId)
+    .reduce((sum, { quantity }) => sum + quantity, 0)
+
+// functional core: no I/O, no clock, no ids – same input, same output
+export const placeOrder = (
+  input: PlaceOrderInput,
+  catalog: Catalog,
+  now: Date,
+): PlaceOrderResult => {
+  if (input.items.length === 0) return rejected('empty-order')
+  const items: OrderItem[] = []
+  for (const { productId, quantity } of input.items) {
+    const product = catalog.get(productId)
+    if (!product) return rejected('unknown-product')
+    if (requestedQuantity(input, productId) > product.stock) return rejected('insufficient-stock')
+    items.push({ productId: product.id, quantity, priceCents: product.priceCents })
+  }
   return {
-    listOrders: async ({ limit, status }: ListOptions) =>
-      orders.filter((order) => !status || order.status === status).slice(0, limit),
-    createOrder: async (newOrder: NewOrder) => {
-      const order: Order = { id: randomUUID(), status: 'open', ...newOrder }
-      orders.push(order)
-      return order
+    kind: 'placed',
+    order: {
+      customerId: input.customerId as CustomerId,
+      items,
+      status: 'placed',
+      createdAt: now.toISOString(),
     },
   }
 }
-
-export type OrderStore = ReturnType<typeof createOrderStore>
