@@ -1,0 +1,31 @@
+{
+  "name": "orders-api",
+  "version": "1.0.0",
+  "description": "A small HTTP API with Express 5: routes, routers, validation, 404 and error handling",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "start:solution": "node solution/main.ts",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src solution README.md"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "prettier": "^3.6.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
