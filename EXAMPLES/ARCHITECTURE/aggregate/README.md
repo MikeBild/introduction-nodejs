@@ -4,7 +4,7 @@ Eine Bestellung hat Regeln: Positionen nur im Status `draft`, `placed` nur mit m
 
 `src/orders.ts` ist ein anämisches Modell: Daten hier, Regeln verstreut in Services. Die Tests in `src/orders.test.ts` zeigen, wie ein zweiter Service die Regeln umgeht, wie eine leere Bestellung bestellt wird und wie ein halber Checkout den Bestand ändert.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

@@ -4,7 +4,7 @@ Gespeicherte Events änderst du nie. Das Schema deines Codes ändert sich trotzd
 
 `src/events.ts` enthält ein Logbuch aus drei Jahren: 2023 standen Preise in Euro als Kommazahl (`price`) und der Zeitpunkt der Bestellung in `at`, seit 2025 gelten `priceCents` und `placedAt`. Heute liest jeder die Daten so, als wären sie im aktuellen Schema. Die Tests in `src/events.test.ts` zeigen das Ergebnis: Die Summe wird `NaN`, der Zeitpunkt fehlt.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

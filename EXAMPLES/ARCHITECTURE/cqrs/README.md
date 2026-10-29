@@ -4,7 +4,7 @@ Command Query Responsibility Segregation, kurz CQRS, trennt das Modell zum Schre
 
 `src/orders.ts` nutzt ein Modell für alles. Die Übersicht „offene Bestellungen“ lädt jedes Aggregat und jeden Kunden einzeln, und weil die Oberfläche den Kundennamen braucht, steht er jetzt auch in der Bestellung. Die Tests in `src/orders.test.ts` zeigen das.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

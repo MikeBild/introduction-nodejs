@@ -4,7 +4,7 @@ Das durchgehende Beispiel ist der Werkstatt-Shop: Kundinnen bestellen Werkzeug, 
 
 `src/board.ts` hält ein Event-Storming-Board als Code fest: Domain Events (orange), Commands (blau) mit Actor, Policies (lila) und Hotspots (rot). Der erste Stand stammt aus dem Code und nicht aus dem Gespräch: `SaveOrder`, `OrderUpdated`, ein Glossar mit Tabellennamen. `src/lint.ts` prüft das Board auf technische Namen, lose Enden und fehlende Begriffe.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

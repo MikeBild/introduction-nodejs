@@ -4,7 +4,7 @@ Zwischen Schreiben und Lesen liegt ein Verzug, und jeder Bus liefert mindestens 
 
 `src/` enthält den Event Store aus der Übung [Event Sourcing](../event-sourcing/README.md). Hier liefert `append` zusätzlich die letzte globale Position. `src/shop.ts` speichert die Zahlung und veröffentlicht sie danach direkt: ein Dual Write. Die Tests in `src/shop.test.ts` zeigen, wie ein Netzwerkfehler das Event verliert und wie eine doppelte Zustellung zwei Pakete packt.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

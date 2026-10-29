@@ -6,7 +6,7 @@ Das durchgehende Beispiel ist der Werkstatt-Shop. Eine Bestellung hat Positionen
 
 Du baust das Aggregat Order mit Event Sourcing nach. Der Zustand entsteht dann aus Events, Konflikte fallen per Versionsprüfung auf, und Read Models sind wegwerfbare Projektionen.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install
