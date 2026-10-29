@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "login-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jqlite": "^0.2.42",
+    "parcel-bundler": "^1.12.3"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.2",
+    "node-fetch": "^2.3.0"
+  },
+  "scripts": {
+    "develop": "npm run dev",
+    "dev:server": "node --experimental-modules server/index.js",
+    "dev": "parcel index.html",
+    "test": "mocha",
+    "test:watch": "mocha --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
