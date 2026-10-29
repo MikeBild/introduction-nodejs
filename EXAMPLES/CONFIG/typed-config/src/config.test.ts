@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 import { loadConfig } from './config.ts'
 
 const validEnvironment = {
@@ -24,14 +24,14 @@ describe('loadConfig', () => {
     assert.equal(Object.isFrozen(loadConfig(validEnvironment)), true)
   })
 
-  test('requires DATABASE_URL as url', { todo: 'Exercise step 1' }, () => {
+  test.todo('requires DATABASE_URL as url (step 1)', () => {
     assert.throws(
       () => loadConfig({ ...validEnvironment, DATABASE_URL: 'localhost' }),
       /DATABASE_URL/,
     )
   })
 
-  test('requires PAYMENT_API_KEY without default', { todo: 'Exercise step 1' }, () => {
+  test.todo('requires PAYMENT_API_KEY without default (step 1)', () => {
     assert.throws(
       () => loadConfig({ DATABASE_URL: validEnvironment.DATABASE_URL }),
       /PAYMENT_API_KEY/,
