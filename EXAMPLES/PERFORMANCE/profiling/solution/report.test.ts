@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import { performance } from 'node:perf_hooks'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 import { generateOrders } from '../src/orders.ts'
 import { buildMonthlyReport as buildMonthlyReportSlow } from '../src/report.ts'
 import { buildMonthlyReport } from './report.ts'
-import { createRecentRequests } from './server.ts'
+import { createRecentRequests } from './app.ts'
 
 describe('solution', () => {
   test('the fast report returns exactly the same result as the original', () => {
