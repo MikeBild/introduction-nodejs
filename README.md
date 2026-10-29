@@ -115,17 +115,20 @@
 
 ## Exercises: Node.js Backend with TypeScript
 
-Runnable starting points with an exercise in each README. Node.js >= 22.18 runs the TypeScript directly; `npm install && npm test` in each folder.
+Runnable starting points with an exercise in each README. Node.js >= 26 runs the TypeScript directly (type stripping); HTTP services use [Express 5](https://expressjs.com), tests run with [Vitest](https://vitest.dev). All exercises share one small domain – the orders of a workshop shop (money in whole cents). `npm install && npm test` in each folder, `npm run test:solution` for the solution.
 
+- [HTTP API with Express 5](/EXAMPLES/EXPRESS/orders-api/README.md)
 - [CLI tools: orders report](/EXAMPLES/CLI/orders-report/README.md)
 - [Validation with zod](/EXAMPLES/VALIDATION/zod-api/README.md)
 - [Typed configuration and secrets](/EXAMPLES/CONFIG/typed-config/README.md)
+- [Testing an API with Vitest](/EXAMPLES/TESTING/vitest-api/README.md)
 - [SQL repository with postgres.js](/EXAMPLES/DATABASE/sql-repository/README.md)
 - [Structured logs](/EXAMPLES/LOGGING/structured-logs/README.md)
 - [JWT / OIDC with jose](/EXAMPLES/AUTH/jwt-oidc/README.md)
 - [Profiling and performance](/EXAMPLES/PERFORMANCE/profiling/README.md)
 - [Hardening a service](/EXAMPLES/SECURITY/hardening/README.md)
 - [OpenTelemetry tracing](/EXAMPLES/OBSERVABILITY/otel-tracing/README.md)
+- [Health checks and graceful shutdown](/EXAMPLES/OPERATIONS/graceful-shutdown/README.md)
 - [Ports and adapters](/EXAMPLES/ARCHITECTURE/ports-adapters/README.md)
 
 ## Issue Reporting
