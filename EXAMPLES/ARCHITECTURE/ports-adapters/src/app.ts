@@ -1,30 +1,54 @@
 import { randomUUID } from 'node:crypto'
-import { Hono } from 'hono'
-import log from 'loglevel'
-import { carts, orders, type Order } from './database.ts'
+import express from 'express'
+import { orders, products, type Order, type OrderItem } from './database.ts'
+import { createLogger } from './logger.ts'
 
-const cartLifetimeMs = 24 * 60 * 60 * 1000
+const logger = createLogger(process.env.LOG_LEVEL === 'debug' ? 'debug' : 'info') // global logger
+
+type PlaceOrderBody = { customerId?: string; items?: { productId: string; quantity: number }[] }
 
 // everything in one handler: HTTP, business rules, storage, clock and logging are tangled
-export const createApp = () =>
-  new Hono().post('/checkout/:cartId', async (c) => {
-    const cart = carts.get(c.req.param('cartId'))
-    if (!cart) return c.json({ error: 'unknown-cart' }, 404)
-    if (cart.items.length === 0) return c.json({ error: 'empty-cart' }, 422)
-    if (Date.now() - cart.createdAt.getTime() > cartLifetimeMs)
-      return c.json({ error: 'cart-expired' }, 422)
+export const createApp = () => {
+  const app = express()
+  app.disable('x-powered-by')
+  app.use(express.json({ limit: '100kb' }))
 
-    const totalCents = cart.items.reduce(
-      (sum, item) => sum + item.quantity * item.unitPriceCents,
-      0,
-    )
+  app.post('/orders', (req, res) => {
+    const { customerId, items } = (req.body ?? {}) as PlaceOrderBody
+    if (!customerId || !Array.isArray(items)) {
+      res.status(400).json({ error: 'invalid-input' })
+      return
+    }
+    if (items.length === 0) {
+      res.status(422).json({ error: 'empty-order' })
+      return
+    }
+    const orderItems: OrderItem[] = []
+    for (const { productId, quantity } of items) {
+      const product = products.get(productId)
+      if (!product) {
+        res.status(422).json({ error: 'unknown-product' })
+        return
+      }
+      if (quantity > product.stock) {
+        res.status(422).json({ error: 'insufficient-stock' })
+        return
+      }
+      orderItems.push({ productId, quantity, priceCents: product.priceCents })
+    }
     const order: Order = {
       id: randomUUID(),
-      cartId: cart.id,
-      customerId: cart.customerId,
-      totalCents,
+      customerId,
+      items: orderItems,
+      status: 'placed',
+      createdAt: new Date().toISOString(), // hard-wired clock
     }
     orders.set(order.id, order)
-    log.info(`order placed order_id=${order.id} total_cents=${totalCents}`)
-    return c.json({ orderId: order.id, totalCents }, 201)
+    for (const { productId, quantity } of orderItems) products.get(productId)!.stock -= quantity
+    const totalCents = orderItems.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
+    logger.info('order placed', { order_id: order.id, total_cents: totalCents })
+    res.status(201).json({ orderId: order.id, totalCents })
   })
+
+  return app
+}

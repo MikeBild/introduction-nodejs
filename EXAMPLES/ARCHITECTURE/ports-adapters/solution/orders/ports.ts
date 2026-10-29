@@ -1,9 +1,9 @@
-import type { AcceptedCheckout, Cart } from './core.ts'
+import type { Catalog, NewOrder, Order } from './core.ts'
 
 // the core defines what it needs – adapters adapt to it
 export type OrderStore = {
-  findCart: (cartId: string) => Promise<Cart | undefined>
-  saveOrder: (order: AcceptedCheckout) => Promise<{ id: string }>
+  loadCatalog: (productIds: readonly string[]) => Promise<Catalog>
+  saveOrder: (order: NewOrder) => Promise<Order>
 }
 
 export type Clock = () => Date

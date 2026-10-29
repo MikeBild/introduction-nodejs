@@ -1,9 +1,14 @@
-import { Hono } from 'hono'
-import type { Logger } from 'loglevel'
-import { checkout, createOrderRoutes, type Clock, type OrderStore } from './orders/index.ts'
+import express from 'express'
+import type { Logger } from '../src/logger.ts'
+import { createOrderRoutes, createPlaceOrder, type Clock, type OrderStore } from './orders/index.ts'
 
 type AppDependencies = { orderStore: OrderStore; clock: Clock; logger: Logger }
 
 // wiring: use cases get their ports, routes get their use cases
-export const createApp = ({ orderStore, clock, logger }: AppDependencies) =>
-  new Hono().route('/', createOrderRoutes({ placeCheckout: checkout(orderStore, clock), logger }))
+export const createApp = ({ orderStore, clock, logger }: AppDependencies) => {
+  const app = express()
+  app.disable('x-powered-by')
+  app.use(express.json({ limit: '100kb' }))
+  app.use(createOrderRoutes({ placeOrder: createPlaceOrder(orderStore, clock), logger }))
+  return app
+}
