@@ -14,6 +14,7 @@ try {
   const order = await orderRepository.saveOrder({
     customerId: 'c-17',
     status: 'placed',
+    createdAt: new Date().toISOString(),
     items: [{ productId: 'p-hammer', quantity: 2, priceCents: 1990 }],
   })
   logger.debug('order saved', { order_id: order.id, item_count: order.items.length })

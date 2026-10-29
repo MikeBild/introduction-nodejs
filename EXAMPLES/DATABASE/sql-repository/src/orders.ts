@@ -7,7 +7,7 @@ export type Order = {
   status: OrderStatus
   createdAt: string
 }
-export type NewOrder = Omit<Order, 'id' | 'createdAt'> // the database assigns id and createdAt
+export type NewOrder = Omit<Order, 'id'> // the database assigns the id, createdAt comes from the caller's clock
 
 // the total is derived, never stored: Σ quantity × priceCents, in whole cents
 export const orderTotalCents = (items: readonly OrderItem[]) =>

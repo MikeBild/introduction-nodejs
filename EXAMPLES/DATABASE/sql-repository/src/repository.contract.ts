@@ -7,6 +7,7 @@ export const newOrder = (customerId: string, items: NewOrder['items'] = []): New
   customerId,
   items,
   status: 'placed',
+  createdAt: '2026-10-29T10:00:00.000Z',
 })
 
 const hammer = { productId: 'p-hammer', quantity: 2, priceCents: 1990 }
@@ -20,11 +21,11 @@ export const testOrderRepositoryContract = (
   // Exercise: the postgres adapter runs these as todo until it stores items (storesItems: false)
   const itemTest = storesItems ? test : test.todo
 
-  test('saveOrder stores a placed order with id and createdAt', async () => {
+  test('saveOrder stores a placed order with an id and the given createdAt', async () => {
     const repository = createRepository()
     const order = await repository.saveOrder(newOrder('c-1'))
     assert.equal(order.status, 'placed')
-    assert.ok(Date.parse(order.createdAt))
+    assert.equal(order.createdAt, '2026-10-29T10:00:00.000Z')
     assert.deepEqual(await repository.findOrder(order.id), order)
   })
 

@@ -33,9 +33,10 @@ export const createPostgresOrderRepository = (sql: Sql): OrderRepository => ({
     `
     return rows.map((row) => toOrder(row))
   },
-  saveOrder: async ({ customerId, status }) => {
+  saveOrder: async ({ customerId, status, createdAt }) => {
     const [row] = await sql<OrderRow[]>`
-      insert into orders (customer_id, status) values (${customerId}, ${status})
+      insert into orders (customer_id, status, created_at)
+      values (${customerId}, ${status}, ${createdAt})
       returning id, customer_id, status, created_at
     `
     if (!row) throw new Error('insert returned no row')
