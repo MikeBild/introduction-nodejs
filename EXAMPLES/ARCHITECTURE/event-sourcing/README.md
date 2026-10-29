@@ -43,3 +43,5 @@ solution/
 8. Braucht dein eigener Bounded Context die Historie fachlich, oder reicht CRUD? Halte die Antwort als ADR fest, siehe [../adr](../adr/README.md) und dort ADR 0002 „Event Sourcing nur für Orders“.
 
 Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+
+Weiter: [Projektionen](../projections/README.md)

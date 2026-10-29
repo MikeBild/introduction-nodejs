@@ -1,0 +1,28 @@
+{
+  "name": "adr",
+  "version": "1.0.0",
+  "description": "Architecture Decision Records mit Prüfregeln für Aufbau und Status",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "start:solution": "node solution/main.ts",
+    "test": "vitest run",
+    "test:start": "vitest run src",
+    "test:solution": "vitest run solution",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src solution README.md vitest.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
