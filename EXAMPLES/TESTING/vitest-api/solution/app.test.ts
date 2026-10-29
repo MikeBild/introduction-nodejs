@@ -63,7 +63,10 @@ describe('POST /orders', () => {
     expect(response.status).toBe(400)
     expect(await response.json()).toMatchObject({
       error: 'invalid input',
-      issues: { customerId: expect.any(Array), items: expect.any(Array) },
+      issues: [
+        { path: 'customerId', message: expect.any(String) },
+        { path: 'items', message: expect.any(String) },
+      ],
     })
     expect(loadCatalog).not.toHaveBeenCalled()
   })

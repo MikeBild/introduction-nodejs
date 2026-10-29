@@ -36,7 +36,7 @@ describe('solution hardening', () => {
     expect(await response.json()).toEqual({ theme: 'dark', pageSize: 20 })
     const invalid = await sendJson(api.url, 'PUT', '/settings', '{"pageSize":1000}')
     expect(invalid.status).toBe(400)
-    expect(await invalid.json()).toMatchObject({ issues: { pageSize: expect.any(Array) } })
+    expect(await invalid.json()).toMatchObject({ issues: [{ path: 'pageSize' }] })
   })
 
   test('rejects bodies larger than 100 KB with 413', async () => {

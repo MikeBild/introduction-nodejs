@@ -19,7 +19,7 @@ npm run typecheck
 1. Add `POST /orders`: parse the body with `PlaceOrderInput.parse(req.body)`, load a `Catalog` with `orderStore.loadCatalog`, call `placeOrder(input, catalog, now())` and answer `201` with the saved order – or `422 { error: reason }` when the order is rejected (e.g. `insufficient-stock`).
 2. Add `GET /orders` with the query schema `ListQuery` (`limit`, `status`). `req.query` is a getter in Express 5 – parse it, never assign it.
 3. Move all `/orders` routes into an `express.Router()` and mount it with `app.use('/orders', ordersRouter)`.
-4. Register a JSON 404 (`app.use(notFound)`) and an error handler with four parameters `(error, req, res, next)` after all routes: a `ZodError` becomes `400 { error: 'invalid input', issues: z.flattenError(error).fieldErrors }`, everything else is logged and answered with `500 { error: 'internal error' }`.
+4. Register a JSON 404 (`app.use(notFound)`) and an error handler with four parameters `(error, req, res, next)` after all routes: a `ZodError` becomes `400 { error: 'invalid input', issues: [{ path, message }] }` (`path` joined with dots, e.g. `items.0.quantity`), everything else is logged and answered with `500 { error: 'internal error' }`.
 5. Change the `test.todo` tests in `src/app.test.ts` to `test` – they start the app with `listen(0)` (`src/test-server.ts`) and call it with `fetch`. They turn green along the way.
 
 A possible solution lives in `solution/` (`npm run start:solution`, `npm run test:solution`).

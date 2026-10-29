@@ -35,8 +35,8 @@ describe('orders api', () => {
     await using api = await listen(createTestApp())
     const response = await fetch(`${api.url}/orders?limit=0&status=open`)
     assert.equal(response.status, 400)
-    const body = (await response.json()) as { issues: Record<string, string[]> }
-    assert.deepEqual(Object.keys(body.issues).toSorted(), ['limit', 'status'])
+    const body = (await response.json()) as { issues: { path: string; message: string }[] }
+    assert.deepEqual(body.issues.map(({ path }) => path).toSorted(), ['limit', 'status'])
   })
 
   test('places a valid order', async () => {
@@ -54,8 +54,11 @@ describe('orders api', () => {
     await using api = await listen(createTestApp())
     const response = await postOrder(api.url, { customerId: 'c-17', items: [] })
     assert.equal(response.status, 400)
-    const body = (await response.json()) as { issues: Record<string, string[]> }
-    assert.ok(body.issues.items)
+    const body = (await response.json()) as { issues: { path: string; message: string }[] }
+    assert.deepEqual(
+      body.issues.map(({ path }) => path),
+      ['items'],
+    )
   })
 
   test.todo('rejects unknown fields like isAdmin with 400', async () => {

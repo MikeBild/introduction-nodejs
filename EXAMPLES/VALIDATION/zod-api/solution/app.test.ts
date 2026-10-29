@@ -40,14 +40,24 @@ describe('solution orders api', () => {
     [
       'with a quantity as string',
       { customerId: 'c-17', items: [{ productId: 'p-saw', quantity: '2' }] },
-      'items',
+      'items.0.quantity',
     ],
-  ])('rejects an order %s with 400 and the field', async (_case, body, field) => {
+    [
+      'with quantity 0',
+      { customerId: 'c-17', items: [{ productId: 'p-saw', quantity: 0 }] },
+      'items.0.quantity',
+    ],
+    [
+      'with an extra field',
+      { customerId: 'c-17', items: [{ productId: 'p-saw', quantity: 1 }], extra: 1 },
+      '', // strictObject reports unknown keys on the object itself
+    ],
+  ])('rejects an order %s with 400 and the path "%s"', async (_case, body, field) => {
     await using api = await listen(createTestApp())
     const response = await postOrder(api.url, body)
     expect(response.status).toBe(400)
-    const { issues } = (await response.json()) as { issues: Record<string, string[]> }
-    expect(issues[field]).toBeDefined()
+    const { issues } = (await response.json()) as { issues: { path: string }[] }
+    expect(issues.map(({ path }) => path)).toEqual([field])
   })
 
   test('rejects unknown fields like isAdmin – strictObject does not silently pass them on', async () => {
@@ -58,7 +68,10 @@ describe('solution orders api', () => {
       isAdmin: true,
     })
     expect(response.status).toBe(400)
-    expect(await response.json()).toMatchObject({ error: 'invalid input' })
+    expect(await response.json()).toMatchObject({
+      error: 'invalid input',
+      issues: [{ path: '', message: expect.stringContaining('isAdmin') }],
+    })
   })
 
   test('valid but impossible orders are 422, not 400', async () => {
