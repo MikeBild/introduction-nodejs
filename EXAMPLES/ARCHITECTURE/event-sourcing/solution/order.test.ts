@@ -1,42 +1,67 @@
 import { describe, expect, it } from 'vitest'
-import { addItem, evolve, initial, place, ship, type OrderEvent } from './order.ts'
+import {
+  addItem,
+  cancel,
+  CustomerId,
+  evolve,
+  initial,
+  pay,
+  place,
+  ProductId,
+  ship,
+  totalCents,
+  type OrderEvent,
+} from './order.ts'
 
 const fold = (events: OrderEvent[]) => events.reduce(evolve, initial)
+const at = '2026-10-29T10:00:00.000Z'
+const hammer = { productId: ProductId('p-1'), quantity: 2, priceCents: 1290 }
+const created: OrderEvent = { type: 'OrderCreated', customerId: CustomerId('c-1') }
+const draft = fold([created, { type: 'ItemAdded', ...hammer }])
+const placed = fold([
+  created,
+  { type: 'ItemAdded', ...hammer },
+  { type: 'OrderPlaced', placedAt: at },
+])
 
 describe('order aggregate', () => {
   it('derives the state as a left fold over the events', () => {
     const order = fold([
-      { type: 'OrderPlaced', customerId: 'c-1' },
-      { type: 'ItemAdded', sku: 'KB-1', quantity: 2, unitCents: 4900 },
-      { type: 'OrderShipped', shippedAt: '2026-10-29T10:00:00.000Z' },
+      created,
+      { type: 'ItemAdded', ...hammer },
+      { type: 'OrderPlaced', placedAt: at },
+      { type: 'OrderPaid', paidAt: at },
+      { type: 'OrderShipped', shippedAt: at },
     ])
-    expect(order).toEqual({ status: 'shipped', totalCents: 9800 })
+    expect(order).toEqual({ customerId: 'c-1', status: 'shipped', items: [hammer] })
+    expect(totalCents(order)).toBe(2580)
   })
 
-  it('rejects shipping an order that was never placed', () => {
-    expect(() => ship(initial)).toThrow('Only placed orders can ship')
+  it('accepts items only while the order is a draft', () => {
+    expect(addItem(draft, hammer)).toEqual([{ type: 'ItemAdded', ...hammer }])
+    expect(() => addItem(placed, hammer)).toThrow('Only draft orders accept items')
+    expect(() => addItem(draft, { ...hammer, quantity: 0 })).toThrow('Quantity must be at least 1')
   })
 
-  it('rejects items for a shipped order', () => {
-    const shipped = fold([
-      { type: 'OrderPlaced', customerId: 'c-1' },
-      { type: 'OrderShipped', shippedAt: '2026-10-29T10:00:00.000Z' },
-    ])
-    expect(() => addItem(shipped, { sku: 'KB-1', quantity: 1, unitCents: 4900 })).toThrow(
-      'Only placed orders accept items',
-    )
+  it('places only with at least one item', () => {
+    expect(() => place(fold([created]))).toThrow('An order needs at least one item')
+    expect(place(draft, new Date(at))).toEqual([{ type: 'OrderPlaced', placedAt: at }])
   })
 
-  it('rejects placing the same order twice', () => {
-    expect(() => place(fold([{ type: 'OrderPlaced', customerId: 'c-1' }]), 'c-2')).toThrow(
-      'Order already placed',
-    )
+  it('follows draft → placed → paid → shipped, no shortcuts', () => {
+    expect(() => ship(placed)).toThrow('Only paid orders can ship')
+    expect(() => pay(draft)).toThrow('Only placed orders can be paid')
+  })
+
+  it('cancels only from draft or placed', () => {
+    expect(cancel(placed, new Date(at))).toEqual([{ type: 'OrderCancelled', cancelledAt: at }])
+    const paid = evolve(placed, { type: 'OrderPaid', paidAt: at })
+    expect(() => cancel(paid)).toThrow('Only draft or placed orders can be cancelled')
   })
 
   it('returns events instead of changing state', () => {
-    const placed = fold([{ type: 'OrderPlaced', customerId: 'c-1' }])
-    expect(ship(placed, new Date('2026-10-29T10:00:00Z'))).toEqual([
-      { type: 'OrderShipped', shippedAt: '2026-10-29T10:00:00.000Z' },
+    expect(ship(evolve(placed, { type: 'OrderPaid', paidAt: at }), new Date(at))).toEqual([
+      { type: 'OrderShipped', shippedAt: at },
     ])
     expect(placed.status).toBe('placed')
   })
