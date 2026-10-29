@@ -8,7 +8,7 @@ Ein akzeptiertes ADR änderst du nie. Entscheidet ihr neu, schreibst du ein neue
 docs/adr/
   0000-template.md                                  # Vorlage zum Kopieren
   0001-crud-mit-postgresql-fuer-den-bestell-context.md   # Superseded by 0002
-  0002-event-sourcing-fuer-den-bestell-context.md        # Accepted, löst 0001 ab
+  0002-event-sourcing-nur-fuer-orders.md        # Accepted, löst 0001 ab
 ```
 
 Die Beispiele gehören zur Übung [Event Sourcing und CQRS](../event-sourcing/README.md): 0001 beschreibt den CRUD-Stand aus `src/`, 0002 die Entscheidung für `solution/`.

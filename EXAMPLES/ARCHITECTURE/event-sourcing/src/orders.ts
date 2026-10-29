@@ -1,11 +1,12 @@
 // CRUD: Jede Änderung überschreibt die Zeile. Was vorher war, ist weg.
 
-export type OrderItem = { sku: string; quantity: number; unitCents: number }
+export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
+export type OrderItem = { productId: string; quantity: number; priceCents: number }
 
 export type OrderRow = {
   id: string
   customerId: string
-  status: 'placed' | 'shipped'
+  status: OrderStatus
   items: OrderItem[]
   totalCents: number
   updatedAt: string
@@ -27,8 +28,9 @@ export const createOrderTable = () => {
 
 export type OrderTable = ReturnType<typeof createOrderTable>
 
+// Geld immer in ganzen Cent: Gesamtsumme = Σ quantity × priceCents
 const total = (items: OrderItem[]) =>
-  items.reduce((sum, item) => sum + item.quantity * item.unitCents, 0)
+  items.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
 
 export const createOrderService = (table: OrderTable, now = () => new Date()) => {
   const load = async (id: string) => {
@@ -36,13 +38,18 @@ export const createOrderService = (table: OrderTable, now = () => new Date()) =>
     if (!row) throw new Error(`Order ${id} not found`)
     return row
   }
+  const moveTo = async (id: string, from: OrderStatus, to: OrderStatus) => {
+    const row = await load(id)
+    if (row.status !== from) throw new Error(`Only ${from} orders can become ${to}`)
+    await table.save({ ...row, status: to, updatedAt: now().toISOString() })
+  }
 
   return {
-    placeOrder: async (id: string, customerId: string) => {
+    createOrder: async (id: string, customerId: string) => {
       await table.save({
         id,
         customerId,
-        status: 'placed',
+        status: 'draft',
         items: [],
         totalCents: 0,
         updatedAt: now().toISOString(),
@@ -50,15 +57,13 @@ export const createOrderService = (table: OrderTable, now = () => new Date()) =>
     },
     addItem: async (id: string, item: OrderItem) => {
       const row = await load(id)
-      if (row.status !== 'placed') throw new Error('Only placed orders accept items')
+      if (row.status !== 'draft') throw new Error('Only draft orders accept items')
       const items = [...row.items, item]
       await table.save({ ...row, items, totalCents: total(items), updatedAt: now().toISOString() })
     },
-    shipOrder: async (id: string) => {
-      const row = await load(id)
-      if (row.status !== 'placed') throw new Error('Only placed orders can ship')
-      await table.save({ ...row, status: 'shipped', updatedAt: now().toISOString() })
-    },
+    placeOrder: (id: string) => moveTo(id, 'draft', 'placed'),
+    payOrder: (id: string) => moveTo(id, 'placed', 'paid'),
+    shipOrder: (id: string) => moveTo(id, 'paid', 'shipped'),
     getOrder: load,
   }
 }
