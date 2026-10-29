@@ -43,7 +43,9 @@ if (!cliArguments || !isOutputFormat(outputFormat) || orderLimit === undefined) 
   if (cliArguments) console.error(`invalid --format or --limit\n${usage}`)
   process.exitCode = 2
 } else {
-  const logger = createLogger('orders-report', cliArguments.values.verbose ? 'debug' : 'warn')
+  const logger = createLogger(cliArguments.values.verbose ? 'debug' : 'warn', {
+    cli: 'orders-report',
+  })
   const [inputFile = '-'] = cliArguments.positionals
   const abortController = new AbortController()
   process.once('SIGINT', () => abortController.abort())
@@ -61,16 +63,16 @@ if (!cliArguments || !isOutputFormat(outputFormat) || orderLimit === undefined) 
       if (line.trim() === '' || isHeaderLine(line)) continue
       const parsedLine = parseOrderLine(line)
       if (parsedLine.ok) orders.push(parsedLine.order)
-      else logger.warn(`line ${lineNumber} skipped: ${parsedLine.reason}`)
+      else logger.warn('line skipped', { line: lineNumber, reason: parsedLine.reason })
       if (orders.length >= orderLimit) break
     }
     process.stdout.write(`${formatOrders(orders, outputFormat)}\n`)
   } catch (error) {
     if (abortController.signal.aborted) {
-      logger.warn(`aborted after ${orders.length} orders`)
+      logger.warn('aborted', { order_count: orders.length })
       process.exitCode = 130
     } else {
-      logger.error(`cannot read input: ${(error as Error).message}`)
+      logger.error('cannot read input', { reason: (error as Error).message })
       process.exitCode = 1
     }
   }
