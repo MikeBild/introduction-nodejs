@@ -1,15 +1,18 @@
-export type OrderStatus = 'open' | 'paid' | 'cancelled'
-export type Order = { id: string; customerId: string; status: OrderStatus; totalCents: number }
-export type NewOrder = { customerId: string; totalCents: number }
-
-// numeric comes back from Postgres as string – convert to integer cents, never to float
-export const toCents = (numeric: string): number => {
-  const [euros = '0', cents = ''] = numeric.split('.')
-  return Number(euros) * 100 + Number(cents.padEnd(2, '0').slice(0, 2))
+export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
+export type OrderItem = { productId: string; quantity: number; priceCents: number }
+export type Order = {
+  id: string
+  customerId: string
+  items: OrderItem[]
+  status: OrderStatus
+  createdAt: string
 }
+export type NewOrder = Omit<Order, 'id' | 'createdAt'> // the database assigns id and createdAt
 
-export const formatCents = (totalCents: number): string =>
-  `${Math.trunc(totalCents / 100)}.${String(totalCents % 100).padStart(2, '0')}`
+// the total is derived, never stored: Σ quantity × priceCents, in whole cents
+export const orderTotalCents = (items: readonly OrderItem[]) =>
+  items.reduce((sum, { quantity, priceCents }) => sum + quantity * priceCents, 0)
 
-export const sumTotals = (orders: readonly Order[]): number =>
-  orders.reduce((sum, order) => sum + order.totalCents, 0)
+// same rule as the primary key (order_id, product_id): one line per product
+export const hasDuplicateProducts = (items: readonly OrderItem[]) =>
+  new Set(items.map(({ productId }) => productId)).size !== items.length

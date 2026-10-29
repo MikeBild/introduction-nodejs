@@ -1,6 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
-import { createLogger } from './logger.ts'
+import { createLogger, isLevel } from './logger.ts'
 import { createDatabase, type Sql } from './postgres.ts'
 
 export const pendingMigrations = (
@@ -36,7 +36,7 @@ export const migrate = async (sql: Sql, directories: readonly string[]) => {
 }
 
 if (import.meta.main) {
-  const logger = createLogger('migrate', process.env.LOG_LEVEL === 'debug' ? 'debug' : 'info')
+  const logger = createLogger(isLevel(process.env.LOG_LEVEL) ? process.env.LOG_LEVEL : 'info')
   const databaseUrl = process.env.DATABASE_URL
   if (!databaseUrl) {
     logger.error('DATABASE_URL is required to run migrations')
@@ -45,9 +45,11 @@ if (import.meta.main) {
     const sql = createDatabase(databaseUrl)
     try {
       const appliedNow = await migrate(sql, process.argv.slice(2))
-      logger.info(appliedNow.length ? `applied ${appliedNow.join(', ')}` : 'schema is up to date')
+      logger.info(appliedNow.length ? 'migrations applied' : 'schema is up to date', {
+        applied: appliedNow,
+      })
     } catch (error) {
-      logger.error(`migration failed: ${(error as Error).message}`)
+      logger.error('migration failed', { reason: (error as Error).message })
       process.exitCode = 1
     } finally {
       await sql.end()
