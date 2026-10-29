@@ -1,0 +1,26 @@
+{
+  "name": "event-sourcing",
+  "version": "1.0.0",
+  "description": "Event Sourcing und CQRS: Events als Quelle der Wahrheit, Aggregat mit Versionsprüfung, wegwerfbare Projektionen",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "start:solution": "node solution/main.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src solution README.md vitest.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
