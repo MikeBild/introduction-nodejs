@@ -113,6 +113,21 @@
 - [ExpressJS-EJS](/EXAMPLES/EXPRESSJS/SSR/README.md)
 - [ExpressJS-SPDY/HTTP2 Server-Side Events](/EXAMPLES/HTTP2/EXPRESSJS-SPDY/README.md)
 
+## Exercises: JavaScript and TypeScript
+
+Runnable starting points with an exercise in each README; `npm install && npm test` in each folder.
+
+- [Values and equality](/EXAMPLES/ECMA/values-equality/README.md)
+- [Unions and literal types](/EXAMPLES/TYPESCRIPT/unions-literals/README.md)
+- [Narrowing](/EXAMPLES/TYPESCRIPT/narrowing/README.md)
+- [Generics](/EXAMPLES/TYPESCRIPT/generics/README.md)
+- [Utility types](/EXAMPLES/TYPESCRIPT/utility-types/README.md)
+- [Advanced types](/EXAMPLES/TYPESCRIPT/advanced-types/README.md)
+- [Runtime validation with zod](/EXAMPLES/TYPESCRIPT/runtime-validation/README.md)
+- [Branded IDs](/EXAMPLES/TYPESCRIPT/branded-ids/README.md)
+- [Library design](/EXAMPLES/TYPESCRIPT/library-design/README.md)
+- [Cross-runtime code](/EXAMPLES/ECMA/cross-runtime/README.md)
+
 ## Exercises: Node.js Backend with TypeScript
 
 Runnable starting points with an exercise in each README. Node.js >= 26 runs the TypeScript directly (type stripping); HTTP services use [Express 5](https://expressjs.com), tests run with [Vitest](https://vitest.dev). All exercises share one small domain – the orders of a workshop shop (money in whole cents). `npm install && npm test` in each folder, `npm run test:solution` for the solution.
@@ -137,6 +152,17 @@ Runnable starting points with an exercise in each README. Node.js >= 26 runs the
 
 Twelve exercises from domain language to event sourcing, plus sagas and event sourcing on AWS, each with start, solution and tests. Overview and order: [EXAMPLES/ARCHITECTURE](/EXAMPLES/ARCHITECTURE/README.md) (German).
 
+## Workshops and slides
+
+The exercises belong to these German-language workshops:
+
+- Workshop: [Node.js Backend, funktional und typsicher](https://workshops.mikebild.dev/w/nodejs/remote/)
+- Workshop: [Node.js Core mit Express 5](https://workshops.mikebild.dev/w/nodejs-kompakt/remote/)
+- Workshop: [Architektur: DDD, CQRS und Event Sourcing](https://workshops.mikebild.dev/w/architektur-ddd-cqrs/remote/)
+- Workshop: [Fullstack mit TypeScript, Node.js, GraphQL und React in 6 Tagen](https://workshops.mikebild.dev/w/fullstack/onsite/)
+- Slides: [slides.mikebild.dev/introduction-nodejs](https://slides.mikebild.dev/introduction-nodejs.html)
+- Slides: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
+
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at
@@ -155,19 +181,3 @@ You like this **NodeJS introduction** and you want to see what coming next?
 Follow me on Twitter [`@mikebild`](https://twitter.com/mikebild).
 
 Enjoy!
-
-## Exercises: JavaScript and TypeScript
-
-Runnable starting points with an exercise in each README; `npm install && npm test` in each folder.
-
-- [Values and equality](/EXAMPLES/ECMA/values-equality/README.md)
-- [Unions and literal types](/EXAMPLES/TYPESCRIPT/unions-literals/README.md)
-- [Narrowing](/EXAMPLES/TYPESCRIPT/narrowing/README.md)
-- [Generics](/EXAMPLES/TYPESCRIPT/generics/README.md)
-- [Utility types](/EXAMPLES/TYPESCRIPT/utility-types/README.md)
-- [Advanced types](/EXAMPLES/TYPESCRIPT/advanced-types/README.md)
-- [Runtime validation with zod](/EXAMPLES/TYPESCRIPT/runtime-validation/README.md)
-- [Branded IDs](/EXAMPLES/TYPESCRIPT/branded-ids/README.md)
-- [Library design](/EXAMPLES/TYPESCRIPT/library-design/README.md)
-- [Cross-runtime code](/EXAMPLES/ECMA/cross-runtime/README.md)
-

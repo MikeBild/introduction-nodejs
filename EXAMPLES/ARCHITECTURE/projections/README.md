@@ -4,7 +4,7 @@ Ein Read Model ist eine Projektion, also ein Fold über die Events mit einem eig
 
 `src/` enthält den Event Store und das Aggregat Order aus der Übung [Event Sourcing](../event-sourcing/README.md), dazu eine Projektion in `src/read-models.ts`, die zu viel tut: Sie zählt doppelt zugestellte Events doppelt und verschickt nebenbei Mails. Beim Neuaufbau gehen alle Mails noch einmal raus. Die Tests in `src/read-models.test.ts` zeigen das.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

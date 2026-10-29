@@ -16,7 +16,7 @@ Verworfen: CRUD plus Audit-Tabelle. Sie liefert Historie für Menschen, aber kei
 
 ## Decision
 
-Wir werden nur das Aggregat Order mit Event Sourcing und Optimistic Concurrency bauen und Lesemodelle wie „offene Bestellungen“ als Projektionen führen. Produkte und Kunden bleiben CRUD: Dort zählt nur der aktuelle Stand.
+Wir werden nur das Aggregat Order mit Event Sourcing und Optimistic Concurrency bauen und Read Models wie „offene Bestellungen“ als Projektionen führen. Produkte und Kunden bleiben CRUD: Dort zählt nur der aktuelle Stand.
 
 ## Consequences
 

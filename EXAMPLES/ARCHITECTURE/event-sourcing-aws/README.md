@@ -6,7 +6,7 @@ Ein Event Store auf DynamoDB ist eine Table mit `pk` (Stream, zum Beispiel `ORDE
 
 Pakete: `@aws-sdk/client-dynamodb` und `@aws-sdk/lib-dynamodb` für die Befehle, wie sie auch in Lambda laufen, `@aws-sdk/util-dynamodb` für `unmarshall`, `@types/aws-lambda` für die Types der Stream-Events.
 
-Du brauchst Node.js >= 26. Ein AWS-Konto brauchst du für die Übung nicht.
+Du brauchst Node.js 26 oder neuer. Ein AWS-Konto brauchst du für die Übung nicht.
 
 ```bash
 npm install
@@ -24,6 +24,6 @@ npm run typecheck
 5. Melde gescheiterte Records mit `batchItemFailures` (ReportBatchItemFailures), statt den ganzen Batch zu werfen.
 6. Überleg: Welcher Partition Key würde bei einem sehr aktiven Stream heiß? Wie baust du ein Read Model neu auf, wenn der Stream nur 24 Stunden zurückreicht?
 
-Wie du Table, Stream und Lambda mit AWS CDK anlegst, zeigt der Workshop AWS Serverless mit dem Übungs-Repo [introduction-aws](https://github.com/MikeBild/introduction-aws).
+Wie du Table, Stream und Lambda mit AWS CDK anlegst, zeigt der Workshop [„AWS Serverless mit Lambda, CDK und DynamoDB“](https://workshops.mikebild.dev/w/aws-serverless/remote/) mit dem Übungs-Repo [introduction-aws](https://github.com/MikeBild/introduction-aws).
 
 Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).

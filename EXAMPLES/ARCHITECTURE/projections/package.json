@@ -1,7 +1,7 @@
 {
   "name": "projections",
   "version": "1.0.0",
-  "description": "Projektionen: Checkpoint, Rebuild und Snapshots",
+  "description": "Projektionen: Checkpoint, Neuaufbau und Snapshots",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

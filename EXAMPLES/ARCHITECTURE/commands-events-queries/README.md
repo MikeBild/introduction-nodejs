@@ -4,7 +4,7 @@ Ein Command ist ein Wunsch und darf abgelehnt werden: `PlaceOrder`. Ein Event is
 
 `src/orders.ts` kennt nur `saveOrder`, `updateOrder` und `getOrder`. Die Tests in `src/orders.test.ts` zeigen die Folgen: Eine leere Bestellung lässt sich auf `shipped` setzen, niemand sieht, was jemand wollte, und schon das Lesen ändert den Zustand.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install

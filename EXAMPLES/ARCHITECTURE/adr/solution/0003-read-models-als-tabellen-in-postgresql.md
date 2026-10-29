@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-Die Übersicht „offene Bestellungen“ faltet heute bei jedem Aufruf alle Events im Speicher. Bei 40 000 Bestellungen dauert das mehrere Sekunden. Der Support braucht die Liste in unter 200 Millisekunden. Das Team betreibt PostgreSQL seit Jahren, ein zweiter Datenbanktyp würde Betrieb und Backups verdoppeln.
+Die Übersicht „offene Bestellungen“ faltet heute bei jedem Aufruf alle Events im Speicher. Bei 40.000 Bestellungen dauert das mehrere Sekunden. Der Support braucht die Liste in unter 200 Millisekunden. Das Team betreibt PostgreSQL seit Jahren, ein zweiter Datenbanktyp würde Betrieb und Backups verdoppeln.
 
 Verworfen: ein Cache vor der Query. Er lässt sich nicht aus der Historie neu aufbauen und veraltet still.
 

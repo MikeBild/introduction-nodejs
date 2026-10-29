@@ -4,7 +4,7 @@ Eine Bestellung läuft durch drei Contexts: Lager, Zahlung, Versand. Eine Transa
 
 `src/checkout.ts` verdrahtet den Ablauf fest: reservieren, abbuchen, versenden. Die Tests in `src/checkout.test.ts` zeigen, was bei einer abgelehnten Zahlung passiert: Der Bestand bleibt reserviert, die Bestellung bleibt offen.
 
-Du brauchst Node.js >= 26.
+Du brauchst Node.js 26 oder neuer.
 
 ```bash
 npm install
