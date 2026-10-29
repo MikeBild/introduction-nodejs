@@ -4,7 +4,7 @@ import { generateOrders } from './orders.ts'
 import { buildMonthlyReport } from './report.ts'
 
 // a quick micro measurement – useful for comparing two versions, not a replacement for a load test
-const logger = createLogger('bench')
+const logger = createLogger('info')
 const orders = generateOrders(100_000, 5_000)
 const durations = Array.from({ length: 20 }, () => {
   const startedAt = performance.now()
@@ -12,6 +12,7 @@ const durations = Array.from({ length: 20 }, () => {
   return performance.now() - startedAt
 }).toSorted((left, right) => left - right)
 
-logger.info(
-  `buildMonthlyReport median_ms=${durations[10]?.toFixed(1)} max_ms=${durations.at(-1)?.toFixed(1)}`,
-)
+logger.info('buildMonthlyReport measured', {
+  median_ms: Number(durations[10]?.toFixed(1)),
+  max_ms: Number(durations.at(-1)?.toFixed(1)),
+})

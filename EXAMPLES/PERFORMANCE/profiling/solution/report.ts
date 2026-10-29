@@ -1,4 +1,4 @@
-import type { Order } from '../src/orders.ts'
+import { orderTotalCents, type Order } from '../src/orders.ts'
 import type { CustomerRevenue, MonthlyReport } from '../src/report.ts'
 
 const byRevenueDescending = (left: CustomerRevenue, right: CustomerRevenue) =>
@@ -14,18 +14,19 @@ export const buildMonthlyReport = (
   let orderCount = 0
   let revenueCents = 0
   for (const order of orders) {
-    if (order.month !== month) continue
+    if (!order.createdAt.startsWith(month)) continue
+    const totalCents = orderTotalCents(order.items)
     orderCount += 1
-    revenueCents += order.totalCents
+    revenueCents += totalCents
     const customerRevenue = revenueByCustomer.get(order.customerId)
     if (customerRevenue) {
       customerRevenue.orderCount += 1
-      customerRevenue.revenueCents += order.totalCents
+      customerRevenue.revenueCents += totalCents
     } else {
       revenueByCustomer.set(order.customerId, {
         customerId: order.customerId,
         orderCount: 1,
-        revenueCents: order.totalCents,
+        revenueCents: totalCents,
       })
     }
   }

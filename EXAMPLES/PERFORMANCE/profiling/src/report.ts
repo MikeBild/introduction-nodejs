@@ -1,4 +1,4 @@
-import type { Order } from './orders.ts'
+import { orderTotalCents, type Order } from './orders.ts'
 
 export type CustomerRevenue = { customerId: string; orderCount: number; revenueCents: number }
 export type MonthlyReport = {
@@ -16,7 +16,7 @@ export const buildMonthlyReport = (
   month: string,
   topCount = 5,
 ): MonthlyReport => {
-  const ordersInMonth = orders.filter((order) => order.month === month)
+  const ordersInMonth = orders.filter((order) => order.createdAt.startsWith(month))
   const customerIds = [...new Set(ordersInMonth.map((order) => order.customerId))]
   // looks harmless – but this scans all orders of the month once per customer
   const customerRevenues = customerIds.map((customerId) => {
@@ -24,13 +24,13 @@ export const buildMonthlyReport = (
     return {
       customerId,
       orderCount: customerOrders.length,
-      revenueCents: customerOrders.reduce((sum, order) => sum + order.totalCents, 0),
+      revenueCents: customerOrders.reduce((sum, order) => sum + orderTotalCents(order.items), 0),
     }
   })
   return {
     month,
     orderCount: ordersInMonth.length,
-    revenueCents: ordersInMonth.reduce((sum, order) => sum + order.totalCents, 0),
+    revenueCents: ordersInMonth.reduce((sum, order) => sum + orderTotalCents(order.items), 0),
     topCustomers: customerRevenues.toSorted(byRevenueDescending).slice(0, topCount),
   }
 }
