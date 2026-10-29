@@ -43,9 +43,26 @@ describe('solution orders api', () => {
     await using api = await listen(createTestApp())
     const response = await postOrder(api.url, { customerId: 'c-17', items: [], isAdmin: true })
     assert.equal(response.status, 400)
-    const body = (await response.json()) as { error: string; issues: Record<string, string[]> }
+    const body = (await response.json()) as {
+      error: string
+      issues: { path: string; message: string }[]
+    }
     assert.equal(body.error, 'invalid input')
-    assert.ok(body.issues.items)
+    assert.deepEqual(body.issues.map(({ path }) => path).toSorted(), ['', 'items'])
+  })
+
+  test('POST /orders names the full path of a nested field', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-saw', quantity: 0 }],
+    })
+    assert.equal(response.status, 400)
+    const body = (await response.json()) as { issues: { path: string }[] }
+    assert.deepEqual(
+      body.issues.map(({ path }) => path),
+      ['items.0.quantity'],
+    )
   })
 
   test('POST /orders answers 400 for broken JSON', async () => {

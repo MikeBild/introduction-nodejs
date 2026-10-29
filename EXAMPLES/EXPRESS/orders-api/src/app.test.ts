@@ -59,8 +59,8 @@ describe('orders api', () => {
     await using api = await listen(createTestApp())
     const response = await postOrder(api.url, { customerId: 'c-17', items: [] })
     assert.equal(response.status, 400)
-    const body = (await response.json()) as { issues: Record<string, string[]> }
-    assert.ok(body.issues.items)
+    const body = (await response.json()) as { issues: { path: string; message: string }[] }
+    assert.ok(body.issues.some(({ path }) => path === 'items'))
   })
 
   test.todo('POST /orders answers 422 when the stock is too low', async () => {

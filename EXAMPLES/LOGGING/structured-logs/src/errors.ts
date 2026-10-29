@@ -17,7 +17,9 @@ export const errorHandler =
   (logger: Logger): ErrorRequestHandler =>
   (error, req, res, _next) => {
     if (error instanceof z.ZodError) {
-      res.status(400).json({ error: 'invalid input', issues: z.flattenError(error).fieldErrors })
+      // the full path per issue: 'items.0.quantity' – and '' for unknown keys of a strictObject
+      const issues = error.issues.map(({ path, message }) => ({ path: path.join('.'), message }))
+      res.status(400).json({ error: 'invalid input', issues })
       return
     }
     // errors from express.json(): 400 for broken JSON, 413 for a body above the limit
