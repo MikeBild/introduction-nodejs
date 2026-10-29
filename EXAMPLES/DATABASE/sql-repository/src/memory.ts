@@ -12,7 +12,7 @@ export const createMemoryOrderRepository = (): OrderRepository => {
     saveOrder: async (newOrder) => {
       // checked before anything is stored – like the transaction in postgres
       if (hasDuplicateProducts(newOrder.items)) throw new Error('duplicate product in order')
-      const order: Order = { id: randomUUID(), createdAt: new Date().toISOString(), ...newOrder }
+      const order: Order = { id: randomUUID(), ...newOrder }
       orders.set(order.id, order)
       return order
     },

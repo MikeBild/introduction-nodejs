@@ -38,10 +38,11 @@ export const createPostgresOrderRepository = (sql: Sql): OrderRepository => ({
     return withItems(sql, rows)
   },
   // all writes in one transaction: if an item insert fails, the order is rolled back as well
-  saveOrder: ({ customerId, status, items }) =>
+  saveOrder: ({ customerId, status, createdAt, items }) =>
     sql.begin(async (transaction) => {
       const [row] = await transaction<OrderRow[]>`
-        insert into orders (customer_id, status) values (${customerId}, ${status})
+        insert into orders (customer_id, status, created_at)
+        values (${customerId}, ${status}, ${createdAt})
         returning id, customer_id, status, created_at
       `
       if (!row) throw new Error('insert returned no row')
