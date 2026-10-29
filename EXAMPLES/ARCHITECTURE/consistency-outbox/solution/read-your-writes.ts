@@ -25,9 +25,11 @@ export const statusView = (store: EventStore) => {
   }
 }
 
+export type StatusView = ReturnType<typeof statusView>
+
 // Read-your-writes: Der Command liefert seine Position, die Query wartet, bis die Sicht sie kennt.
 export const readAfter = async (
-  view: ReturnType<typeof statusView>,
+  view: StatusView,
   position: number,
   id: string,
   attempts = 3,
