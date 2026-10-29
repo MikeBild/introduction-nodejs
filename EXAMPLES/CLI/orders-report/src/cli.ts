@@ -29,25 +29,27 @@ if (!cliArguments || !isOutputFormat(outputFormat)) {
   if (cliArguments) console.error(`unknown format "${outputFormat}"\n${usage}`)
   process.exitCode = 2
 } else {
-  const logger = createLogger('orders-report', cliArguments.values.verbose ? 'debug' : 'warn')
+  const logger = createLogger(cliArguments.values.verbose ? 'debug' : 'warn', {
+    cli: 'orders-report',
+  })
   const [inputFile = '-'] = cliArguments.positionals
   const input = inputFile === '-' ? process.stdin : createReadStream(inputFile)
   const orders: Order[] = []
   let lineNumber = 0
 
   try {
-    logger.debug(`reading from ${inputFile === '-' ? 'stdin' : inputFile}`)
+    logger.debug('reading input', { source: inputFile === '-' ? 'stdin' : inputFile })
     for await (const line of createInterface({ input, crlfDelay: Infinity })) {
       lineNumber += 1
       if (line.trim() === '' || isHeaderLine(line)) continue
       const parsedLine = parseOrderLine(line)
       if (parsedLine.ok) orders.push(parsedLine.order)
-      else logger.warn(`line ${lineNumber} skipped: ${parsedLine.reason}`)
+      else logger.warn('line skipped', { line: lineNumber, reason: parsedLine.reason })
     }
-    logger.info(`${orders.length} orders read`)
+    logger.info('orders read', { order_count: orders.length })
     process.stdout.write(`${formatOrders(orders, outputFormat)}\n`)
   } catch (error) {
-    logger.error(`cannot read input: ${(error as Error).message}`)
+    logger.error('cannot read input', { reason: (error as Error).message })
     process.exitCode = 1
   }
 }

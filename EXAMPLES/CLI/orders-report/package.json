@@ -7,22 +7,20 @@
   "author": "Mike Bild <mike.bild@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node src/cli.ts data/orders.csv",
     "start:solution": "node solution/cli.ts data/orders.csv --limit 3",
-    "test": "node --test \"src/**/*.test.ts\"",
-    "test:solution": "node --test \"solution/**/*.test.ts\"",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src solution README.md"
   },
-  "dependencies": {
-    "loglevel": "^1.9.2"
-  },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/node": "^26.6.5",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }

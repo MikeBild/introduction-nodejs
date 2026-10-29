@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 
 const cliPath = new URL('./cli.ts', import.meta.url).pathname
 const runCli = (cliArguments: string[], stdin = '') =>
@@ -8,10 +8,10 @@ const runCli = (cliArguments: string[], stdin = '') =>
 
 describe('cli', () => {
   test('reads csv from stdin and writes only data to stdout', () => {
-    const result = runCli(['--format', 'csv'], 'o-1,c-1,10.00,open\nbroken line\n')
+    const result = runCli(['--format', 'csv'], 'o-1,c-1,1000,placed\nbroken line\n')
     assert.equal(result.status, 0)
-    assert.equal(result.stdout, 'order_id,customer_id,total,status\no-1,c-1,10.00,open\n')
-    assert.match(result.stderr, /line 2 skipped/)
+    assert.equal(result.stdout, 'order_id,customer_id,total_cents,status\no-1,c-1,1000,placed\n')
+    assert.match(result.stderr, /"msg":"line skipped","cli":"orders-report","line":2/)
   })
 
   test('exits with code 2 and usage on unknown options', () => {
@@ -25,10 +25,10 @@ describe('cli', () => {
     assert.equal(runCli(['does-not-exist.csv']).status, 1)
   })
 
-  test('--limit restricts the number of orders', { todo: 'Exercise step 1' }, () => {
+  test.todo('--limit restricts the number of orders (step 1)', () => {
     const result = runCli(
       ['--format', 'csv', '--limit', '1'],
-      'o-1,c-1,1.00,open\no-2,c-1,2.00,open\n',
+      'o-1,c-1,100,placed\no-2,c-1,200,placed\n',
     )
     assert.equal(result.stdout.trim().split('\n').length, 2)
   })
