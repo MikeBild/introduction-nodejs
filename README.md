@@ -63,7 +63,6 @@
 
 ## Deployment
 
-- [NodeJS Production / Deployment](24-deployment)
 - [Introduction to Docker](https://github.com/mikebild/introduction-docker)
 - [Introduction to Kubernetes](https://github.com/mikebild/introduction-kubernetes)
 - [Docker & Kubernetes Tools](./tools.md)
