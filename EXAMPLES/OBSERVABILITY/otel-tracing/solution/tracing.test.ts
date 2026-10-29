@@ -1,6 +1,5 @@
-import assert from 'node:assert/strict'
-import { beforeEach, describe, test } from 'node:test'
 import { SpanStatusCode, trace } from '@opentelemetry/api'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { createLogger } from '../src/logger.ts'
 import { placeOrder } from '../src/orders.ts'
 import { setupTestTracing } from '../src/test-tracing.ts'
@@ -8,48 +7,53 @@ import { withTraceContext } from './logger.ts'
 import { traced } from './orders-traced.ts'
 
 const spanExporter = setupTestTracing()
-const logLines: Record<string, unknown>[] = []
-const logger = withTraceContext(
-  createLogger('solution', 'debug', (line) =>
-    logLines.push(JSON.parse(line) as Record<string, unknown>),
-  ),
-)
-const placeOrderTraced = traced(placeOrder)
+let logLines: Record<string, unknown>[] = []
 
 beforeEach(() => {
   spanExporter.reset()
-  logLines.length = 0
+  logLines = []
+  vi.spyOn(console, 'log').mockImplementation((line: unknown) => {
+    logLines.push(JSON.parse(String(line)) as Record<string, unknown>)
+  })
 })
+afterEach(() => void vi.restoreAllMocks())
+
+const logger = withTraceContext(createLogger('debug'))
+const placeOrderTraced = traced(placeOrder)
 
 describe('solution tracing', () => {
   test('placeOrder records a span "order.place" with attributes', async () => {
-    await placeOrderTraced({ customerId: 'c-1', items: [{ sku: 'book', quantity: 2 }] })
+    await placeOrderTraced({ customerId: 'c-1', items: [{ productId: 'p-hammer', quantity: 2 }] })
     const [span] = spanExporter.getFinishedSpans()
-    assert.equal(span?.name, 'order.place')
-    assert.equal(span?.attributes['order.item_count'], 1)
+    expect(span?.name).toBe('order.place')
+    expect(span?.attributes['order.item_count']).toBe(1)
+    expect(span?.attributes['order.total_cents']).toBe(3980)
   })
 
   test('a failing order marks the span as error', async () => {
-    await assert.rejects(
-      placeOrderTraced({ customerId: 'c-1', items: [{ sku: 'sold-out', quantity: 1 }] }),
-    )
+    await expect(
+      placeOrderTraced({ customerId: 'c-1', items: [{ productId: 'p-sold-out', quantity: 1 }] }),
+    ).rejects.toThrow('insufficient-stock')
     const [span] = spanExporter.getFinishedSpans()
-    assert.equal(span?.status.code, SpanStatusCode.ERROR)
-    assert.equal(span?.events[0]?.name, 'exception')
+    expect(span?.status.code).toBe(SpanStatusCode.ERROR)
+    expect(span?.events[0]?.name).toBe('exception')
   })
 
-  test('log lines inside a span carry trace_id and span_id', async () => {
+  test('log lines inside a span carry trace_id and span_id – also from child loggers', async () => {
     await trace.getTracer('test').startActiveSpan('parent', async (span) => {
-      logger.info('inside span')
+      logger.child({ request_id: 'r-1' }).info('inside span')
       span.end()
     })
     const [span] = spanExporter.getFinishedSpans()
-    assert.equal(logLines[0]?.trace_id, span?.spanContext().traceId)
-    assert.equal(logLines[0]?.span_id, span?.spanContext().spanId)
+    expect(logLines[0]).toMatchObject({
+      trace_id: span?.spanContext().traceId,
+      span_id: span?.spanContext().spanId,
+      request_id: 'r-1',
+    })
   })
 
   test('log lines outside a span have no trace fields', () => {
     logger.info('outside')
-    assert.equal('trace_id' in (logLines[0] ?? {}), false)
+    expect(logLines[0]).not.toHaveProperty('trace_id')
   })
 })

@@ -1,6 +1,6 @@
 # Profiling and Performance
 
-A small report server with 100,000 generated orders. `GET /report?month=2026-03` is slow and memory grows under load – find out why by measuring, not guessing. Vital signs (event loop delay p99, heap, recent requests) are logged every 5 seconds via [loglevel](https://github.com/pimterry/loglevel).
+A small Express 5 report server with 100,000 generated shop orders (items with `priceCents`, revenue in whole cents). `GET /report?month=2026-03` is slow and memory grows under load – find out why by measuring, not guessing. Vital signs (event loop delay p99, heap, recent requests) are logged as JSON every 5 seconds.
 
 ```bash
 npm install
@@ -19,6 +19,6 @@ Open `.cpuprofile` and `.heapsnapshot` files in Chrome DevTools (Performance / M
 
 1. Set a target first (e.g. p99 < 50 ms with 50 connections), run `npm run load` and write down p99 and your guess where the time goes.
 2. Record a CPU profile under load and find the hot function. Rewrite `buildMonthlyReport` in `src/report.ts` with a single pass and a `Map` – the tests guarantee the same result. Measure again.
-3. Take two heap snapshots a minute apart under load, compare them and fix the growing structure in `src/server.ts` with an upper bound.
+3. Take two heap snapshots a minute apart under load, compare them and fix the growing structure in `src/app.ts` with an upper bound.
 
 A possible solution lives in `solution/` (`npm run start:solution`, `npm run test:solution`).

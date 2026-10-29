@@ -1,15 +1,19 @@
 import assert from 'node:assert/strict'
-import { randomUUID } from 'node:crypto'
-import { describe, test } from 'node:test'
+import { afterEach, beforeEach, describe, test, vi } from 'vitest'
 import { createApp } from './app.ts'
+import { orders, products } from './fixtures.ts'
 import { createLogger } from './logger.ts'
-import { createOrderStore } from './orders.ts'
+import { createOrderStore } from './store.ts'
+import { listen } from './test-server.ts'
+
+beforeEach(() => void vi.spyOn(console, 'log').mockImplementation(() => {}))
+afterEach(() => void vi.restoreAllMocks())
 
 const createTestApp = () =>
-  createApp({ orderStore: createOrderStore(), logger: createLogger('test', 'silent') })
+  createApp({ orderStore: createOrderStore({ products, orders }), logger: createLogger('error') })
 
-const postOrder = (app: ReturnType<typeof createTestApp>, body: unknown) =>
-  app.request('/orders', {
+const postOrder = (url: string, body: unknown) =>
+  fetch(`${url}/orders`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
@@ -17,40 +21,61 @@ const postOrder = (app: ReturnType<typeof createTestApp>, body: unknown) =>
 
 describe('orders api', () => {
   test('coerces and limits the query', async () => {
-    const app = createTestApp()
-    for (const sku of ['a', 'b', 'c'])
-      await postOrder(app, { customerId: randomUUID(), items: [{ sku, quantity: 1 }] })
-    const response = await app.request('/orders?limit=2')
+    await using api = await listen(createTestApp())
+    for (const productId of ['p-hammer', 'p-saw'])
+      await (
+        await postOrder(api.url, { customerId: 'c-1', items: [{ productId, quantity: 1 }] })
+      ).json()
+    const response = await fetch(`${api.url}/orders?limit=2`)
     assert.equal(response.status, 200)
     assert.equal(((await response.json()) as unknown[]).length, 2)
   })
 
-  test('rejects an invalid query with 400 and details', async () => {
-    const response = await createTestApp().request('/orders?limit=0')
+  test('rejects an invalid query with 400 and field errors', async () => {
+    await using api = await listen(createTestApp())
+    const response = await fetch(`${api.url}/orders?limit=0&status=open`)
     assert.equal(response.status, 400)
-    const body = (await response.json()) as { issues: { path: string }[] }
-    assert.equal(body.issues[0]?.path, 'limit')
+    const body = (await response.json()) as { issues: { path: string; message: string }[] }
+    assert.deepEqual(body.issues.map(({ path }) => path).toSorted(), ['limit', 'status'])
   })
 
-  test('creates a valid order', async () => {
-    const response = await postOrder(createTestApp(), {
-      customerId: randomUUID(),
-      items: [{ sku: 'book', quantity: 2 }],
+  test('places a valid order', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-saw', quantity: 2 }],
     })
     assert.equal(response.status, 201)
+    await response.json()
   })
 
-  test('rejects an order without items with 400', { todo: 'Exercise step 2' }, async () => {
-    const response = await postOrder(createTestApp(), { customerId: randomUUID(), items: [] })
+  // Exercise: change test.todo to test once POST /orders parses its body with zod
+  test.todo('rejects an order without items with 400', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, { customerId: 'c-17', items: [] })
     assert.equal(response.status, 400)
+    const body = (await response.json()) as { issues: { path: string; message: string }[] }
+    assert.deepEqual(
+      body.issues.map(({ path }) => path),
+      ['items'],
+    )
   })
 
-  test('drops unknown fields like isAdmin', { todo: 'Exercise step 3' }, async () => {
-    const response = await postOrder(createTestApp(), {
-      customerId: randomUUID(),
-      items: [{ sku: 'a', quantity: 1 }],
+  test.todo('rejects unknown fields like isAdmin with 400', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, {
+      customerId: 'c-17',
+      items: [{ productId: 'p-saw', quantity: 1 }],
       isAdmin: true,
     })
-    assert.equal('isAdmin' in ((await response.json()) as object), false)
+    assert.equal(response.status, 400)
+    await response.json()
+  })
+
+  test.todo('rejects a body without items with 400 instead of a 500', async () => {
+    await using api = await listen(createTestApp())
+    const response = await postOrder(api.url, { customerId: 'c-17' })
+    assert.equal(response.status, 400)
+    await response.json()
   })
 })

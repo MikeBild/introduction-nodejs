@@ -1,23 +1,23 @@
 import assert from 'node:assert/strict'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 import { pendingMigrations } from './migrate.ts'
-import { formatCents, sumTotals, toCents } from './orders.ts'
+import { hasDuplicateProducts, orderTotalCents } from './orders.ts'
 
 describe('money', () => {
-  test('toCents and formatCents are inverse', () => {
-    for (const numeric of ['0.00', '0.10', '12.50', '1999.99'])
-      assert.equal(formatCents(toCents(numeric)), numeric)
+  test('orderTotalCents sums quantity × priceCents exactly', () => {
+    assert.equal(
+      orderTotalCents([
+        { productId: 'p-hammer', quantity: 3, priceCents: 1990 },
+        { productId: 'p-saw', quantity: 1, priceCents: 10 },
+      ]),
+      5980,
+    )
   })
 
-  test('sumTotals adds cents exactly', () => {
-    const order = { id: 'o', customerId: 'c', status: 'open' } as const
-    assert.equal(
-      sumTotals([
-        { ...order, totalCents: 10 },
-        { ...order, totalCents: 20 },
-      ]),
-      30,
-    )
+  test('hasDuplicateProducts finds two lines for the same product', () => {
+    const line = { productId: 'p-hammer', quantity: 1, priceCents: 1990 }
+    assert.equal(hasDuplicateProducts([line, { ...line, productId: 'p-saw' }]), false)
+    assert.equal(hasDuplicateProducts([line, line]), true)
   })
 })
 

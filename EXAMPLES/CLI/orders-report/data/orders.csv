@@ -1,8 +1,8 @@
-order_id,customer_id,total,status
-o-1001,c-17,49.90,paid
-o-1002,c-23,120.00,open
-o-1003,c-17,9.99,cancelled
-o-1004,c-42,not-a-number,open
-o-1005,c-08,310.50,paid
-o-1006,c-23,15.00,open
-o-1007,c-99,72.25,paid
+order_id,customer_id,total_cents,status
+o-1001,c-17,4990,paid
+o-1002,c-23,12000,placed
+o-1003,c-17,999,cancelled
+o-1004,c-42,not-a-number,placed
+o-1005,c-08,31050,shipped
+o-1006,c-23,1500,draft
+o-1007,c-99,7225,paid

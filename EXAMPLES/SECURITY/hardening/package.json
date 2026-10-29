@@ -1,32 +1,32 @@
 {
   "name": "hardening",
   "version": "1.0.0",
-  "description": "Harden a Hono service: limits, security headers, schema input, SSRF allowlist and least privilege",
+  "description": "Harden an Express 5 service: limits, security headers, schema input, SSRF allowlist and least privilege",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node src/main.ts",
     "start:solution": "node solution/main.ts",
-    "start:restricted": "node --permission --allow-fs-read=./ solution/main.ts",
-    "test": "node --test \"src/**/*.test.ts\"",
-    "test:solution": "node --test \"solution/**/*.test.ts\"",
+    "start:restricted": "node --permission --allow-fs-read=./ --allow-net solution/main.ts",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src solution README.md"
   },
   "dependencies": {
-    "@hono/node-server": "^2.1.5",
-    "hono": "^4.13.14",
-    "loglevel": "^1.9.2",
+    "express": "^5.1.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }

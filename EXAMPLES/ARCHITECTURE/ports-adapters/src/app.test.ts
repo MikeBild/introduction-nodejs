@@ -1,40 +1,34 @@
 import assert from 'node:assert/strict'
-import { describe, test } from 'node:test'
-import log from 'loglevel'
+import { afterEach, beforeEach, describe, test, vi } from 'vitest'
 import { createApp } from './app.ts'
-import { carts } from './database.ts'
+import { testPlaceOrderBehaviour } from './characterization.ts'
+import { products } from './database.ts'
+import { listen } from './test-server.ts'
 
-log.setLevel('silent')
+beforeEach(() => void vi.spyOn(console, 'log').mockImplementation(() => {}))
+afterEach(() => void vi.restoreAllMocks())
 
-// characterization tests: they pin the HTTP behaviour and must stay green while you refactor
-describe('checkout', () => {
-  const checkout = (cartId: string) =>
-    createApp().request(`/checkout/${cartId}`, { method: 'POST' })
+describe('POST /orders (characterization)', () => testPlaceOrderBehaviour(createApp))
 
-  test('places an order for a valid cart', async () => {
-    const response = await checkout('cart-1')
-    assert.equal(response.status, 201)
-    assert.equal(((await response.json()) as { totalCents: number }).totalCents, 4730)
-  })
-
-  test('rejects an empty cart', async () => {
-    const response = await checkout('cart-empty')
-    assert.equal(response.status, 422)
-    assert.deepEqual(await response.json(), { error: 'empty-cart' })
-  })
-
-  test('answers 404 for an unknown cart', async () => {
-    assert.equal((await checkout('cart-unknown')).status, 404)
-  })
-
-  test('rejects an expired cart', async () => {
-    // only testable by manipulating global state – the clock is hard-wired
-    carts.set('cart-old', {
-      id: 'cart-old',
-      customerId: 'c-1',
-      items: [{ sku: 'a', quantity: 1, unitPriceCents: 100 }],
-      createdAt: new Date(0),
-    })
-    assert.deepEqual(await (await checkout('cart-old')).json(), { error: 'cart-expired' })
+describe('the knot', () => {
+  test('the stock rule is only testable by manipulating global state', async () => {
+    const hammer = products.get('p-hammer')!
+    const originalStock = hammer.stock
+    hammer.stock = 0 // every other test in this process now sees an empty shelf
+    try {
+      await using api = await listen(createApp())
+      const response = await fetch(`${api.url}/orders`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          customerId: 'c-1',
+          items: [{ productId: 'p-hammer', quantity: 1 }],
+        }),
+      })
+      assert.equal(response.status, 422)
+      await response.json()
+    } finally {
+      hammer.stock = originalStock
+    }
   })
 })

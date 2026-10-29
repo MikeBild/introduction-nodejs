@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 import { loadConfig, redactConfig } from './config.ts'
 
 const validEnvironment = {

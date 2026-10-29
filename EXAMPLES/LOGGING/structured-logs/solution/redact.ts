@@ -1,14 +1,16 @@
-import type { LogFields, Logger } from '../src/logger.ts'
+import type { Logger } from '../src/logger.ts'
+
+type Fields = Record<string, unknown>
 
 const redactValue = (value: unknown, sensitiveKeys: ReadonlySet<string>): unknown =>
   Array.isArray(value)
     ? value.map((item) => redactValue(item, sensitiveKeys))
     : value !== null && typeof value === 'object'
-      ? redactFields(value as LogFields, sensitiveKeys)
+      ? redactFields(value as Fields, sensitiveKeys)
       : value
 
 // masks sensitive keys at any depth – a safety net, not a licence to log whole objects
-export const redactFields = (fields: LogFields, sensitiveKeys: ReadonlySet<string>): LogFields =>
+export const redactFields = (fields: Fields, sensitiveKeys: ReadonlySet<string>): Fields =>
   Object.fromEntries(
     Object.entries(fields).map(([key, value]) => [
       key,
@@ -17,12 +19,11 @@ export const redactFields = (fields: LogFields, sensitiveKeys: ReadonlySet<strin
   )
 
 export const withRedaction = (logger: Logger, sensitiveKeys: ReadonlySet<string>): Logger => ({
-  debug: (message, fields = {}) => logger.debug(message, redactFields(fields, sensitiveKeys)),
-  info: (message, fields = {}) => logger.info(message, redactFields(fields, sensitiveKeys)),
-  warn: (message, fields = {}) => logger.warn(message, redactFields(fields, sensitiveKeys)),
-  error: (message, fields = {}) => logger.error(message, redactFields(fields, sensitiveKeys)),
-  child: (fields) =>
-    withRedaction(logger.child(redactFields(fields, sensitiveKeys)), sensitiveKeys),
+  debug: (msg, fields = {}) => logger.debug(msg, redactFields(fields, sensitiveKeys)),
+  info: (msg, fields = {}) => logger.info(msg, redactFields(fields, sensitiveKeys)),
+  warn: (msg, fields = {}) => logger.warn(msg, redactFields(fields, sensitiveKeys)),
+  error: (msg, fields = {}) => logger.error(msg, redactFields(fields, sensitiveKeys)),
+  child: (more) => withRedaction(logger.child(redactFields(more, sensitiveKeys)), sensitiveKeys),
 })
 
 export const defaultSensitiveKeys: ReadonlySet<string> = new Set([
@@ -30,5 +31,4 @@ export const defaultSensitiveKeys: ReadonlySet<string> = new Set([
   'cookie',
   'password',
   'email',
-  'customeremail',
 ])

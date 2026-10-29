@@ -1,12 +1,20 @@
-import { createMiddleware } from 'hono/factory'
+import type { RequestHandler } from 'express'
 import { jwtVerify, type JWTPayload, type JWTVerifyGetKey } from 'jose'
 import type { Logger } from './logger.ts'
 
 export type TokenExpectations = { issuer: string; audience: string }
-export type VerifyAccessToken = (token: string) => Promise<JWTPayload | undefined>
-export type AuthEnv = { Variables: { principal: JWTPayload } }
+export type VerifyAccessToken = (token: string) => Promise<JWTPayload>
 
-// jose checks signature, exp/nbf, issuer and audience in one call
+// the verified claims are available to every handler behind requireAuth
+declare global {
+  namespace Express {
+    interface Locals {
+      principal: JWTPayload
+    }
+  }
+}
+
+// jose checks signature, exp/nbf, issuer and audience in one call – and throws otherwise
 export const createTokenVerifier =
   (
     keySet: JWTVerifyGetKey,
@@ -17,18 +25,20 @@ export const createTokenVerifier =
     try {
       return (await jwtVerify(token, keySet, { issuer, audience })).payload
     } catch (error) {
-      logger.debug(`token rejected: ${(error as Error).name}`) // the reason, never the token
-      return undefined
+      logger.debug('token rejected', { reason: (error as Error).name }) // the reason, never the token
+      throw error
     }
   }
 
-const bearerToken = (authorizationHeader = '') =>
-  authorizationHeader.startsWith('Bearer ') ? authorizationHeader.slice(7) : ''
-
-export const requireAuth = (verifyAccessToken: VerifyAccessToken) =>
-  createMiddleware<AuthEnv>(async (c, next) => {
-    const principal = await verifyAccessToken(bearerToken(c.req.header('authorization')))
-    if (!principal) return c.json({ error: 'invalid token' }, 401)
-    c.set('principal', principal)
-    await next()
-  })
+export const requireAuth =
+  (verifyAccessToken: VerifyAccessToken): RequestHandler =>
+  async (req, res, next) => {
+    const token = /^Bearer (.+)$/.exec(req.get('authorization') ?? '')?.[1]
+    const principal = token ? await verifyAccessToken(token).catch(() => undefined) : undefined
+    if (!principal) {
+      res.status(401).json({ error: 'invalid token' })
+      return
+    }
+    res.locals.principal = principal
+    next()
+  }

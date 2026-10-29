@@ -19,7 +19,7 @@ export const createTokenVerifier =
       })
       return payload
     } catch (error) {
-      logger.debug(`token rejected: ${(error as Error).name}`)
-      return undefined
+      logger.debug('token rejected', { reason: (error as Error).name }) // never the token itself
+      throw error
     }
   }

@@ -1,9 +1,8 @@
-import { serve } from '@hono/node-server'
 import { createApp, type SendWebhook } from './app.ts'
-import { createLogger } from './logger.ts'
+import { createLogger, isLevel } from './logger.ts'
 
 const port = Number(process.env.PORT ?? 3000)
-const logger = createLogger('hardening', process.env.LOG_LEVEL === 'debug' ? 'debug' : 'info')
+const logger = createLogger(isLevel(process.env.LOG_LEVEL) ? process.env.LOG_LEVEL : 'info')
 
 const sendWebhook: SendWebhook = async (url, payload) =>
   (
@@ -15,6 +14,6 @@ const sendWebhook: SendWebhook = async (url, payload) =>
     })
   ).status
 
-serve({ fetch: createApp({ logger, sendWebhook }).fetch, port }, ({ port }) =>
-  logger.info(`listening on http://localhost:${port}`),
+createApp({ logger, sendWebhook }).listen(port, () =>
+  logger.info('server started', { url: `http://localhost:${port}` }),
 )

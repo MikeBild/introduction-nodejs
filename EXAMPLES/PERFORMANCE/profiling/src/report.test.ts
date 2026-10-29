@@ -1,13 +1,21 @@
 import assert from 'node:assert/strict'
-import { describe, test } from 'node:test'
+import { describe, test } from 'vitest'
 import { generateOrders, type Order } from './orders.ts'
 import { buildMonthlyReport } from './report.ts'
 
+const order = (id: string, customerId: string, createdAt: string, priceCents: number): Order => ({
+  id,
+  customerId,
+  items: [{ productId: 'p-hammer', quantity: 1, priceCents }],
+  status: 'paid',
+  createdAt,
+})
+
 const orders: Order[] = [
-  { id: 'o-1', customerId: 'c-1', month: '2026-03', totalCents: 1000 },
-  { id: 'o-2', customerId: 'c-2', month: '2026-03', totalCents: 3000 },
-  { id: 'o-3', customerId: 'c-1', month: '2026-03', totalCents: 2500 },
-  { id: 'o-4', customerId: 'c-3', month: '2026-04', totalCents: 9000 },
+  order('o-1', 'c-1', '2026-03-02T10:00:00.000Z', 1000),
+  order('o-2', 'c-2', '2026-03-05T10:00:00.000Z', 3000),
+  order('o-3', 'c-1', '2026-03-09T10:00:00.000Z', 2500),
+  order('o-4', 'c-3', '2026-04-01T10:00:00.000Z', 9000),
 ]
 
 describe('buildMonthlyReport', () => {
