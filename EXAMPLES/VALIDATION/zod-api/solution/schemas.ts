@@ -2,11 +2,13 @@ import { z } from 'zod'
 
 export { ListQuery } from '../src/schemas.ts'
 
-export const OrderInput = z.object({
-  customerId: z.uuid(),
-  items: z
-    .array(z.object({ sku: z.string().min(1), quantity: z.number().int().positive() }))
-    .min(1),
-  note: z.string().max(500).optional(),
+// the shared input schema – strict: unknown keys like isAdmin are rejected, not passed on
+export const OrderItemInput = z.strictObject({
+  productId: z.string().min(1),
+  quantity: z.number().int().min(1),
 })
-export type OrderInput = z.infer<typeof OrderInput>
+export const PlaceOrderInput = z.strictObject({
+  customerId: z.string().min(1),
+  items: z.array(OrderItemInput).min(1),
+})
+export type PlaceOrderInput = z.infer<typeof PlaceOrderInput>

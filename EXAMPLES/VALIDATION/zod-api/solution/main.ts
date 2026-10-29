@@ -1,25 +1,10 @@
-import { serve } from '@hono/node-server'
+import { orders, products } from '../src/fixtures.ts'
+import { createLogger, isLevel } from '../src/logger.ts'
+import { createOrderStore } from '../src/store.ts'
 import { createApp } from './app.ts'
-import { createLogger } from '../src/logger.ts'
-import { createOrderStore } from '../src/orders.ts'
 
 const port = Number(process.env.PORT ?? 3000)
-const logger = createLogger('zod-api', process.env.LOG_LEVEL === 'debug' ? 'debug' : 'info')
-const orderStore = createOrderStore([
-  {
-    id: 'a3e1c1f4-1111-4c1e-9a55-000000000001',
-    customerId: 'c-17',
-    items: [{ sku: 'book', quantity: 1 }],
-    status: 'paid',
-  },
-  {
-    id: 'a3e1c1f4-1111-4c1e-9a55-000000000002',
-    customerId: 'c-23',
-    items: [{ sku: 'pen', quantity: 3 }],
-    status: 'open',
-  },
-])
+const logger = createLogger(isLevel(process.env.LOG_LEVEL) ? process.env.LOG_LEVEL : 'info')
+const app = createApp({ orderStore: createOrderStore({ products, orders }), logger })
 
-serve({ fetch: createApp({ orderStore, logger }).fetch, port }, ({ port }) =>
-  logger.info(`listening on http://localhost:${port}`),
-)
+app.listen(port, () => logger.info('server started', { url: `http://localhost:${port}` }))
