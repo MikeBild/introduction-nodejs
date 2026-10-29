@@ -1,33 +1,33 @@
 {
   "name": "jwt-oidc",
   "version": "1.0.0",
-  "description": "Verify OIDC access tokens with jose in Hono and separate authentication from authorization",
+  "description": "Verify OIDC access tokens with jose in Express 5 and separate authentication from authorization",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node src/main.ts",
     "start:solution": "node solution/main.ts",
     "dev": "ENABLE_DEV_ISSUER=true node src/main.ts",
     "dev:solution": "ENABLE_DEV_ISSUER=true node solution/main.ts",
-    "test": "node --test \"src/**/*.test.ts\"",
-    "test:solution": "node --test \"solution/**/*.test.ts\"",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src solution README.md"
   },
   "dependencies": {
-    "@hono/node-server": "^2.1.5",
-    "hono": "^4.13.14",
-    "jose": "^6.2.13",
-    "loglevel": "^1.9.2"
+    "express": "^5.1.0",
+    "jose": "^6.2.13"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }

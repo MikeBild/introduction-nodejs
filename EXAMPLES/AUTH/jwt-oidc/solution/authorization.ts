@@ -1,14 +1,14 @@
-import { createMiddleware } from 'hono/factory'
+import type { RequestHandler } from 'express'
 import type { JWTPayload } from 'jose'
-import type { AuthEnv } from '../src/auth.ts'
 
 // authorization as a pure function – easy to test without HTTP
-export const hasScope = (principal: JWTPayload, scope: string) =>
-  String(principal.scope ?? '')
+export const hasScope = (principal: JWTPayload | undefined, scope: string) =>
+  String(principal?.scope ?? '')
     .split(' ')
     .includes(scope)
 
-export const requireScope = (scope: string) =>
-  createMiddleware<AuthEnv>(async (c, next) =>
-    hasScope(c.get('principal'), scope) ? next() : c.json({ error: 'forbidden' }, 403),
-  )
+// after requireAuth: 401 = who are you?, 403 = I know you, but you may not
+export const requireScope =
+  (scope: string): RequestHandler =>
+  (req, res, next) =>
+    hasScope(res.locals.principal, scope) ? next() : res.status(403).json({ error: 'forbidden' })

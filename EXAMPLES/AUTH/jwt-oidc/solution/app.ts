@@ -1,23 +1,45 @@
-import { Hono } from 'hono'
-import { requireAuth, type AuthEnv, type VerifyAccessToken } from '../src/auth.ts'
+import express from 'express'
+import type { AppOptions } from '../src/app.ts'
+import { requireAuth, type VerifyAccessToken } from '../src/auth.ts'
+import { canCancel, createOrders } from '../src/orders.ts'
 import { requireScope } from './authorization.ts'
 
-export const createApp = (verifyAccessToken: VerifyAccessToken) => {
-  const orders = new Map([
-    ['o-1', { id: 'o-1', customerId: 'c-17', status: 'open' }],
-    ['o-2', { id: 'o-2', customerId: 'c-23', status: 'paid' }],
-  ])
+export const createApp = (
+  verifyAccessToken: VerifyAccessToken,
+  { extraRoutes }: AppOptions = {},
+) => {
+  const orders = createOrders()
   const authenticated = requireAuth(verifyAccessToken)
+  const app = express()
+  app.disable('x-powered-by')
+  app.use(express.json({ limit: '100kb' }))
+  if (extraRoutes) app.use(extraRoutes)
 
-  return new Hono<AuthEnv>()
-    .get('/orders', authenticated, requireScope('orders:read'), (c) => c.json([...orders.values()]))
-    .delete('/orders/:orderId', authenticated, requireScope('orders:write'), (c) =>
-      orders.delete(c.req.param('orderId'))
-        ? c.body(null, 204)
-        : c.json({ error: 'not found' }, 404),
-    )
-    .get('/me', authenticated, (c) => {
-      const { sub, scope } = c.get('principal')
-      return c.json({ subject: sub, scope })
-    })
+  app.get('/orders', authenticated, requireScope('orders:read'), (req, res) => {
+    res.json([...orders.values()])
+  })
+
+  app.post('/orders/:orderId/cancel', authenticated, requireScope('orders:write'), (req, res) => {
+    const order = orders.get(String(req.params.orderId)) // params are untyped behind middleware chains
+    if (!order) {
+      res.status(404).json({ error: 'order not found' })
+      return
+    }
+    if (!canCancel(order)) {
+      res.status(409).json({ error: `cannot cancel a ${order.status} order` })
+      return
+    }
+    order.status = 'cancelled'
+    res.json(order)
+  })
+
+  app.get('/me', authenticated, (req, res) => {
+    const { sub, scope } = res.locals.principal
+    res.json({ subject: sub, scope })
+  })
+
+  app.use((req, res) => {
+    res.status(404).json({ error: 'not found' })
+  })
+  return app
 }

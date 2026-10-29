@@ -1,35 +1,37 @@
-import assert from 'node:assert/strict'
-import { before, describe, test } from 'node:test'
 import { SignJWT } from 'jose'
+import { beforeAll, describe, expect, test } from 'vitest'
 import { createDevIssuer } from '../src/dev-issuer.ts'
 import { createLogger } from '../src/logger.ts'
+import { listen } from '../src/test-server.ts'
 import { createApp } from './app.ts'
 import { hasScope } from './authorization.ts'
 import { createTokenVerifier } from './verifier.ts'
 
 let devIssuer: Awaited<ReturnType<typeof createDevIssuer>>
-let app: ReturnType<typeof createApp>
+const logger = createLogger('error')
 
-before(async () => {
+beforeAll(async () => {
   devIssuer = await createDevIssuer()
-  const logger = createLogger('test', 'silent')
-  app = createApp(
+})
+
+const createTestApp = () =>
+  createApp(
     createTokenVerifier(
       devIssuer.keySet,
       { issuer: devIssuer.issuer, audience: 'orders-api' },
       logger,
     ),
   )
-})
 
-const requestWithToken = (path: string, token: string, method = 'GET') =>
-  app.request(path, { method, headers: { authorization: `Bearer ${token}` } })
+const request = (url: string, path: string, token: string, method = 'GET') =>
+  fetch(`${url}${path}`, { method, headers: { authorization: `Bearer ${token}` } })
 
 describe('solution', () => {
   test('hasScope reads space separated scopes', () => {
-    assert.equal(hasScope({ scope: 'orders:read orders:write' }, 'orders:write'), true)
-    assert.equal(hasScope({ scope: 'orders:read' }, 'orders:write'), false)
-    assert.equal(hasScope({}, 'orders:read'), false)
+    expect(hasScope({ scope: 'orders:read orders:write' }, 'orders:write')).toBe(true)
+    expect(hasScope({ scope: 'orders:read' }, 'orders:write')).toBe(false)
+    expect(hasScope({}, 'orders:read')).toBe(false)
+    expect(hasScope(undefined, 'orders:read')).toBe(false)
   })
 
   test('GET /me rejects a forged token', async () => {
@@ -37,21 +39,33 @@ describe('solution', () => {
       .setProtectedHeader({ alg: 'HS256' })
       .setSubject('mallory')
       .sign(new TextEncoder().encode('guessed-secret-guessed-secret-32'))
-    assert.equal((await requestWithToken('/me', forgedToken)).status, 401)
+    await using api = await listen(createTestApp())
+    const response = await request(api.url, '/me', forgedToken)
+    expect(response.status).toBe(401)
+    await response.json()
   })
 
   test('GET /me returns the verified subject', async () => {
-    const response = await requestWithToken('/me', await devIssuer.issueToken({ subject: 'ada' }))
-    assert.deepEqual(await response.json(), { subject: 'ada', scope: 'orders:read' })
+    await using api = await listen(createTestApp())
+    const response = await request(api.url, '/me', await devIssuer.issueToken({ subject: 'ada' }))
+    expect(await response.json()).toEqual({ subject: 'ada', scope: 'orders:read' })
   })
 
-  test('DELETE needs the orders:write scope', async () => {
+  test('cancelling needs the orders:write scope – 403, not 401', async () => {
     const readToken = await devIssuer.issueToken({ subject: 'ada', scope: 'orders:read' })
     const writeToken = await devIssuer.issueToken({
       subject: 'ada',
       scope: 'orders:read orders:write',
     })
-    assert.equal((await requestWithToken('/orders/o-1', readToken, 'DELETE')).status, 403)
-    assert.equal((await requestWithToken('/orders/o-1', writeToken, 'DELETE')).status, 204)
+    await using api = await listen(createTestApp())
+    const forbidden = await request(api.url, '/orders/o-1/cancel', readToken, 'POST')
+    expect(forbidden.status).toBe(403)
+    expect(await forbidden.json()).toEqual({ error: 'forbidden' })
+    const cancelled = await request(api.url, '/orders/o-1/cancel', writeToken, 'POST')
+    expect(cancelled.status).toBe(200)
+    expect(await cancelled.json()).toMatchObject({ id: 'o-1', status: 'cancelled' })
+    const shipped = await request(api.url, '/orders/o-2/cancel', writeToken, 'POST')
+    expect(shipped.status).toBe(409)
+    await shipped.json()
   })
 })
