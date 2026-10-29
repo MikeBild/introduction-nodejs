@@ -1,22 +1,31 @@
 import { randomUUID } from 'node:crypto'
-import { createMiddleware } from 'hono/factory'
+import type { RequestHandler } from 'express'
 import type { Logger } from '../src/logger.ts'
 
-export type LoggerVariables = { Variables: { logger: Logger } }
+// res.locals.logger is typed for every handler
+declare global {
+  namespace Express {
+    interface Locals {
+      logger: Logger
+    }
+  }
+}
 
 // one id per request, one child logger, one summary line per request
-export const requestLogger = (logger: Logger) =>
-  createMiddleware<LoggerVariables>(async (c, next) => {
-    const requestId = c.req.header('x-request-id') ?? randomUUID()
-    const requestScopedLogger = logger.child({ request_id: requestId })
-    c.set('logger', requestScopedLogger)
-    c.header('x-request-id', requestId)
+export const requestLogger =
+  (logger: Logger): RequestHandler =>
+  (req, res, next) => {
+    const requestId = req.get('x-request-id') ?? randomUUID()
+    res.set('x-request-id', requestId)
+    res.locals.logger = logger.child({ request_id: requestId })
     const startedAt = performance.now()
-    await next()
-    requestScopedLogger.info('request finished', {
-      method: c.req.method,
-      path: c.req.path,
-      status: c.res.status,
-      duration_ms: Math.round(performance.now() - startedAt),
-    })
-  })
+    res.on('finish', () =>
+      res.locals.logger.info('request finished', {
+        method: req.method,
+        path: req.path,
+        status: res.statusCode,
+        duration_ms: Math.round(performance.now() - startedAt),
+      }),
+    )
+    next()
+  }
