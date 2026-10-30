@@ -25,7 +25,7 @@ export const createOrderApi = (now = () => new Date()) => {
       orders.set(id, updated)
       return structuredClone(updated)
     },
-    // Eine Frage mit Seiteneffekt: Lesen ändert den Zustand.
+    // Eine Frage mit Side Effect: Lesen ändert den Zustand.
     getOrder: (id: string) => {
       const order = orders.get(id)
       if (!order) return undefined

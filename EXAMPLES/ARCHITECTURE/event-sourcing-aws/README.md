@@ -1,6 +1,6 @@
 # Event Sourcing auf AWS: DynamoDB und Lambda
 
-Ein Event Store auf DynamoDB ist eine Table mit `pk` (Stream, zum Beispiel `ORDER#o-1`) und `sk` (Version im Stream). Optimistic Concurrency liefert eine Bedingung beim Schreiben. DynamoDB Streams melden jedes neue Event an eine Lambda-Funktion, die das Read Model fortschreibt.
+Ein Event Store auf DynamoDB ist eine Table mit `pk` (Stream, zum Beispiel `ORDER#o-1`) und `sk` (Version im Stream). Optimistic Concurrency liefert eine Bedingung beim Schreiben. DynamoDB Streams melden jedes neue Event an eine Lambda-Function, die das Read Model fortschreibt.
 
 `src/event-store.ts` schreibt jedes Event mit einem eigenen `PutCommand` und ohne Bedingung. `src/projector.ts` überschreibt den Status mit jedem Event, auch mit einem alten, und wirft den ganzen Batch, wenn ein Record scheitert. Die Tests in `src/event-store.test.ts` zeigen das. Statt einer echten Table nutzen die Tests `src/fake-dynamodb.ts`, das genau die Befehle dieser Übung nachbildet.
 

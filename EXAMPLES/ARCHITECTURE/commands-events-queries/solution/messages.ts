@@ -1,7 +1,7 @@
 // Drei Arten von Nachrichten, jede als Discriminated Union.
 // Command: ein Wunsch im Imperativ, darf abgelehnt werden.
 // Event: eine Tatsache in der Vergangenheitsform, unveränderlich.
-// Query: eine Frage ohne Seiteneffekt.
+// Query: eine Frage ohne Side Effect.
 
 export type OrderItem = { productId: string; quantity: number; priceCents: number }
 

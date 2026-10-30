@@ -17,7 +17,7 @@ npm run typecheck
 
 1. Lies `src/checkout.ts`. Welche Schritte müsste jemand nach einer abgelehnten Zahlung von Hand rückgängig machen?
 2. Modelliere in `checkout-process.ts` die Events, auf die der Prozess reagiert, und die Commands, die er schickt.
-3. Schreib `react(state, event)` als reine Funktion: Sie liefert den neuen Schritt und die Commands. Sie entscheidet nichts über Bestand oder Zahlung, das bleibt in den Aggregaten.
+3. Schreib `react(state, event)` als Pure Function: Sie liefert den neuen Schritt und die Commands. Sie entscheidet nichts über Bestand oder Zahlung, das bleibt in den Aggregaten.
 4. Kompensiere eine gescheiterte Zahlung mit `ReleaseStock` und `CancelOrder`. Fehlt der Bestand, storniere ohne Zahlung.
 5. Ignoriere Events, die doppelt oder zu spät kommen. Ein Test liefert `StockReserved` zweimal.
 6. Überleg: Wo würdest du den Zustand des Prozesses speichern? Was passiert, wenn die Zahlung nie antwortet? Wie sähe derselbe Ablauf in AWS Step Functions aus?

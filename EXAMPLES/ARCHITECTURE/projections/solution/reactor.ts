@@ -1,6 +1,6 @@
 import type { StoredEvent } from '../src/event-store.ts'
 
-// Seiteneffekte gehören in einen Reactor, nicht in die Projektion.
+// Side Effects gehören in einen Reactor, nicht in die Projektion.
 // Er hat einen eigenen Checkpoint und läuft beim Neuaufbau der Read Models nicht mit.
 
 export type Mailer = { send: (to: string, text: string) => void }

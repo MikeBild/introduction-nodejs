@@ -1,7 +1,7 @@
 import type { StoredEvent } from './event-store.ts'
 import type { OrderStatus } from './order.ts'
 
-// Read Models: frei von Seiteneffekten, idempotent, jederzeit aus dem Store neu aufbaubar.
+// Read Models: frei von Side Effects, idempotent, jederzeit aus dem Store neu aufbaubar.
 
 export type OrderListRow = {
   id: string

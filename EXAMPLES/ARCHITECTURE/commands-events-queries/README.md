@@ -1,6 +1,6 @@
 # Commands, Events und Queries
 
-Ein Command ist ein Wunsch und darf abgelehnt werden: `PlaceOrder`. Ein Event ist eine Tatsache, die schon passiert ist: `OrderPlaced`. Eine Query ist eine Frage ohne Seiteneffekt: `ListOpenOrders`.
+Ein Command ist ein Wunsch und darf abgelehnt werden: `PlaceOrder`. Ein Event ist eine Tatsache, die schon passiert ist: `OrderPlaced`. Eine Query ist eine Frage ohne Side Effect: `ListOpenOrders`.
 
 `src/orders.ts` kennt nur `saveOrder`, `updateOrder` und `getOrder`. Die Tests in `src/orders.test.ts` zeigen die Folgen: Eine leere Bestellung lässt sich auf `shipped` setzen, niemand sieht, was jemand wollte, und schon das Lesen ändert den Zustand.
 

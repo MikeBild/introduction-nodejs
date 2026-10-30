@@ -16,7 +16,7 @@ npm run typecheck
 ## Übung
 
 1. Lies `src/orders.ts`. Wo stehen die Regeln der Bestellung? Wer kann sie umgehen?
-2. Schreib das Aggregat `Order` in `order.ts` als Sammlung reiner Funktionen: `start`, `addItem`, `place`, `pay`, `ship`, `cancel`. Jede liefert eine neue Order oder wirft.
+2. Schreib das Aggregat `Order` in `order.ts` als Sammlung von Pure Functions: `start`, `addItem`, `place`, `pay`, `ship`, `cancel`. Jede liefert eine neue Order oder wirft.
 3. Leite die Gesamtsumme aus den Positionen ab, statt sie zu speichern.
 4. Verweise auf andere Aggregate nur per ID: `customerId` statt `Customer`, `productId` statt `Product`.
 5. Mach den Bestand zu einem eigenen Aggregat `Product` mit `reserve` und `release`. Warum gehört er nicht in die Bestellung?
