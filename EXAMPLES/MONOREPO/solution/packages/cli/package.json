@@ -1,0 +1,17 @@
+{
+  "name": "@shop/cli",
+  "version": "1.0.0",
+  "description": "Internal tooling of the workshop shop",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "shop": "src/cli.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shop/domain": "*"
+  }
+}

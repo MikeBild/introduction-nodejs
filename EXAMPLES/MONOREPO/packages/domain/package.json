@@ -1,0 +1,14 @@
+{
+  "name": "@shop/domain",
+  "version": "1.0.0",
+  "description": "Orders of the workshop shop: schemas and pure functions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  }
+}

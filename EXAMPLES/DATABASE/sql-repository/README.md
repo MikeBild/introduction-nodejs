@@ -31,3 +31,30 @@ docker stop orders-db
 4. Set `storesItems: true` in `src/postgres.test.ts` and run the contract against the in-memory adapter and against Postgres – including the test that proves the rollback (two lines for the same product violate the primary key).
 
 A possible solution lives in `solution/` (`npm run migrate:solution`, `npm run test:solution`).
+
+## SQLite as a second adapter
+
+No network between application and database, few concurrent writers, less than a terabyte: then [SQLite](https://sqlite.org/whentouse.html) is often enough. `src/sqlite.ts` is a second adapter for the same port, on `node:sqlite` from Node.js 26.11 (`Database`, the new name of the deprecated `DatabaseSync`; `src/node-sqlite.d.ts` adds the type until `@types/node` knows it). Like the postgres adapter it is not finished: it loses the items, and it still uses the default journal mode, so a reader blocks the commit of a writer. `src/sqlite.test.ts` documents that bug.
+
+1. Add `order_items` and the index on `orders(status)` to the schema in `src/sqlite.ts`, with the same rules as in the postgres migration. `strict` tables keep the types honest.
+2. Implement `saveOrder` as one transaction with `begin immediate`, `commit` and `rollback`. `id` comes from `randomUUID()`, because SQLite has no `gen_random_uuid()`.
+3. Load the items without N+1: one statement with `where order_id in (select value from json_each(?))` serves any number of orders.
+4. Set `storesItems: true` in `src/sqlite.test.ts`. The contract does not change: the same expectations now hold for memory, SQLite and postgres.
+5. Switch to WAL with `pragma journal_mode = wal`. Turn the bug test around: a writer commits while a reader keeps its snapshot. Add a test that a second writer still gets `database is locked` with `timeout: 0`.
+
+Then measure both adapters, with the solution, so your numbers do not depend on your own steps. `solution/measure.ts` seeds 20,000 orders, starts `solution/load-server.ts` and runs [autocannon](https://github.com/mcollina/autocannon) via `npx`: 20 readers alone, then with 2 and with 20 concurrent writers. It prints requests per second, p50 and p99 for reads and writes, plus the p99 of the event loop delay.
+
+```bash
+node solution/measure.ts sqlite
+SYNCHRONOUS=normal node solution/measure.ts sqlite      # no fsync per commit, see the comment in solution/sqlite.ts
+PROCESSES=4 node solution/measure.ts sqlite             # four processes, four connections: writers really compete
+
+docker run -d --rm --name orders-db-perf -e POSTGRES_USER=orders -e POSTGRES_PASSWORD=orders \
+  -e POSTGRES_DB=orders -p 127.0.0.1:55432:5432 postgres:17-alpine
+DATABASE_URL=postgres://orders:orders@localhost:55432/orders node solution/measure.ts postgres
+docker stop orders-db-perf
+```
+
+Before you run it, write down what you expect. Afterwards, compare the read p99 with and without writers. Which adapter loses more, and what does the event loop delay of the SQLite run tell you? Do not copy the numbers of another machine: Postgres in Docker Desktop runs inside a virtual machine, SQLite does not.
+
+The solution runs with `npm run test:solution`. For the full contract against postgres as well, prefix it with `DATABASE_URL=…` and the database from above.

@@ -7,7 +7,7 @@
   "author": "Mike Bild <mike.bild@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=26"
+    "node": ">=26.11"
   },
   "scripts": {
     "start": "node --env-file-if-exists=.env src/main.ts",
