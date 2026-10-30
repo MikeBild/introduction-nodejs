@@ -1,4 +1,4 @@
-// Prozessmanager: reagiert auf Events, merkt sich den Schritt und schickt Commands.
+// Process Manager: reagiert auf Events, merkt sich den Schritt und schickt Commands.
 // Er entscheidet nichts über Bestand oder Zahlung, das bleibt in den Aggregaten.
 
 export type ProcessEvent =

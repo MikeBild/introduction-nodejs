@@ -1,6 +1,6 @@
-# Sagas und Prozessmanager
+# Sagas und Process Manager
 
-Eine Bestellung läuft durch drei Contexts: Lager, Zahlung, Versand. Eine Transaktion über alle drei gibt es nicht. Ein Prozessmanager reagiert auf Events, merkt sich den Schritt und schickt den nächsten Command. Scheitert ein Schritt, gleicht er Erledigtes mit neuen Commands aus: Kompensation.
+Eine Bestellung läuft durch drei Contexts: Lager, Zahlung, Versand. Eine Transaktion über alle drei gibt es nicht. Ein Process Manager reagiert auf Events, merkt sich den Schritt und schickt den nächsten Command. Scheitert ein Schritt, gleicht er Erledigtes mit neuen Commands aus: Kompensation.
 
 `src/checkout.ts` verdrahtet den Ablauf fest: reservieren, abbuchen, versenden. Die Tests in `src/checkout.test.ts` zeigen, was bei einer abgelehnten Zahlung passiert: Der Bestand bleibt reserviert, die Bestellung bleibt offen.
 

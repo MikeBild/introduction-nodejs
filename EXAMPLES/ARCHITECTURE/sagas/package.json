@@ -1,7 +1,7 @@
 {
   "name": "sagas",
   "version": "1.0.0",
-  "description": "Prozessmanager mit Kompensation: Bestellung, Bestand, Zahlung",
+  "description": "Process Manager mit Kompensation: Bestellung, Bestand, Zahlung",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

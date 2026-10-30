@@ -52,7 +52,7 @@ Die Tests in `src/` beschreiben den Startpunkt samt seinen Schwächen, die Tests
 
 | Übung                                              | Thema                                                     |
 | -------------------------------------------------- | --------------------------------------------------------- |
-| [sagas](sagas/README.md)                           | Sagas und Prozessmanager mit Kompensation                 |
+| [sagas](sagas/README.md)                           | Sagas und Process Manager mit Kompensation                |
 | [event-sourcing-aws](event-sourcing-aws/README.md) | Event Store auf DynamoDB, Projektion als Lambda am Stream |
 | [ports-adapters](ports-adapters/README.md)         | Ports and Adapters ohne Klassen                           |
 
