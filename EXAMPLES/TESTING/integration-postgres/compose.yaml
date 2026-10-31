@@ -1,0 +1,21 @@
+# PostgreSQL for the integration tests – start: docker compose up --wait · stop: docker compose down
+# The data directory is a tmpfs: fast, and empty again after every start. Nothing to clean up.
+name: shop-integration-tests
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop
+      POSTGRES_DB: shop_test
+    # 55432 instead of 5432: a local PostgreSQL stays untouched
+    ports: ['127.0.0.1:55432:5432']
+    tmpfs: ['/var/lib/postgresql']
+    healthcheck:
+      # -h 127.0.0.1: the temporary server during init listens on the socket only – TCP means really ready
+      test: ['CMD', 'pg_isready', '-h', '127.0.0.1', '-U', 'shop', '-d', 'shop_test']
+      interval: 2s
+      timeout: 2s
+      retries: 15
+      start_period: 5s

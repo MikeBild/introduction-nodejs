@@ -135,6 +135,7 @@ Runnable starting points with an exercise in each README. Node.js >= 26 runs the
 - [Validation with zod](/EXAMPLES/VALIDATION/zod-api/README.md)
 - [Typed configuration and secrets](/EXAMPLES/CONFIG/typed-config/README.md)
 - [Testing an API with Vitest](/EXAMPLES/TESTING/vitest-api/README.md)
+- [Integration tests against PostgreSQL](/EXAMPLES/TESTING/integration-postgres/README.md) (Docker Compose)
 - [SQL repository with postgres.js and node:sqlite](/EXAMPLES/DATABASE/sql-repository/README.md)
 - [Monorepo with npm workspaces](/EXAMPLES/MONOREPO/README.md)
 - [Structured logs](/EXAMPLES/LOGGING/structured-logs/README.md)

@@ -1,0 +1,34 @@
+{
+  "name": "integration-postgres",
+  "version": "1.0.0",
+  "description": "Integration tests with Vitest against a real PostgreSQL from Docker Compose – route, service and SQL in one run",
+  "private": true,
+  "type": "module",
+  "author": "Mike Bild <mike.bild@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "db:up": "docker compose up --wait",
+    "db:down": "docker compose down",
+    "start": "node --env-file-if-exists=.env src/main.ts",
+    "migrate": "node --env-file-if-exists=.env src/migrate.ts migrations",
+    "test": "vitest run --dir src",
+    "test:solution": "vitest run --dir solution",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src solution README.md"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "postgres": "^3.4.9",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "prettier": "^3.6.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
