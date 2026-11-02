@@ -1,0 +1,11 @@
+{
+  "name": "saga-checkout", "version": "1.0.0", "private": true, "type": "module",
+  "engines": { "node": ">=26" },
+  "scripts": {
+    "start": "tsx src/main.ts", "start:solution": "tsx solution/main.ts",
+    "test": "vitest run", "test:integration": "vitest run tests/integration.test.ts",
+    "typecheck": "tsc --noEmit", "db:up": "docker compose up -d --wait", "db:down": "docker compose down"
+  },
+  "dependencies": { "pg": "^8.16.3", "graphql": "^16.11.0" },
+  "devDependencies": { "@types/node": "^26.6.6", "@types/pg": "^8.15.6", "typescript": "^7.0.2", "vitest": "^5.0.5", "tsx": "^4.23.15" }
+}
