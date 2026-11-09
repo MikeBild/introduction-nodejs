@@ -177,6 +177,7 @@ Kurze englische Notizen zu den Grundlagen, überwiegend aus den Jahren 2017 bis 
 - Workshop: [„Architektur: DDD, CQRS und Event Sourcing“](https://workshops.mikebild.dev/w/architektur-ddd-cqrs/remote/)
 - Workshop: [„Fullstack mit TypeScript, Node.js, GraphQL und React in 6 Tagen“](https://workshops.mikebild.dev/w/fullstack/onsite/)
 - Folien: [slides.mikebild.dev/introduction-nodejs](https://slides.mikebild.dev/introduction-nodejs.html)
+- PDF: [slides.mikebild.dev/introduction-nodejs.pdf](https://slides.mikebild.dev/introduction-nodejs.pdf)
 - Folien: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
 - Beiträge auf mikebild.dev:
   - [Node.js-Training: Vom Event Loop zur Architekturentscheidung](https://www.mikebild.dev/de/blog/nodejs-training-event-loop-architektur/)
