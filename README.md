@@ -172,10 +172,16 @@ Kurze englische Notizen zu den Grundlagen, überwiegend aus den Jahren 2017 bis 
 
 ## Workshop und Folien
 
-- Workshop: [„Node.js Backend, funktional und typsicher“](https://workshops.mikebild.dev/w/nodejs/remote/)
-- Workshop: [„Node.js Core mit Express 5“](https://workshops.mikebild.dev/w/nodejs-kompakt/remote/)
 - Workshop: [„Architektur: DDD, CQRS und Event Sourcing“](https://workshops.mikebild.dev/w/architektur-ddd-cqrs/remote/)
+- Workshop: [„AWS Serverless mit Lambda, CDK und DynamoDB“](https://workshops.mikebild.dev/w/aws-serverless/remote/)
+- Workshop: [„Design Patterns als Funktionen“](https://workshops.mikebild.dev/w/design-patterns/remote/)
 - Workshop: [„Fullstack mit TypeScript, Node.js, GraphQL und React in 6 Tagen“](https://workshops.mikebild.dev/w/fullstack/onsite/)
+- Workshop: [„GraphQL vom Schema bis zur Produktion“](https://workshops.mikebild.dev/w/graphql/onsite/)
+- Workshop: [„Microservices mit Node.js, Express 5 und Docker Compose“](https://workshops.mikebild.dev/w/microservices/remote/)
+- Workshop: [„Node.js Core mit Express 5“](https://workshops.mikebild.dev/w/nodejs-kompakt/remote/)
+- Workshop: [„Node.js Backend, funktional und typsicher“](https://workshops.mikebild.dev/w/nodejs/remote/)
+- Workshop: [„Reactive Programming mit Rx.NET“](https://workshops.mikebild.dev/w/reactive-programming-dotnet/remote/)
+- Workshop: [„Reactive Programming mit RxJS“](https://workshops.mikebild.dev/w/reactive-programming/remote/)
 - Folien: [slides.mikebild.dev/introduction-nodejs](https://slides.mikebild.dev/introduction-nodejs.html)
 - PDF: [slides.mikebild.dev/introduction-nodejs.pdf](https://slides.mikebild.dev/introduction-nodejs.pdf)
 - Folien: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
