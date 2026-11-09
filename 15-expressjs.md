@@ -3,7 +3,7 @@
 ## Overview
 
 - [Basics](#setup)
-- [Environment & Practices](#environment-and-practices)
+- [Environment & Practices](#environment--practices)
 - [Middleware](#middleware)
 - [Render Views with Templates](#render-views-with-templates)
 - [EJS](#ejs)
@@ -17,9 +17,8 @@
 ## Examples
 
 - [Express Server-Side-Render](EXAMPLES/EXPRESSJS/SSR/README.md)
-- [Hypermedia](EXAMPLES/EXPRESSJS/HYPERMEDIA/README.md)
-- [Events / Hooks](EXAMPLES/EXPRESSJS/EVENTS/README.md)
-- [Socket.IO](EXAMPLES/EXPRESSJS/SOCKETS/README.md)
+- [HTTP/2 with Express and SPDY](EXAMPLES/HTTP2/EXPRESSJS-SPDY/README.md)
+- Exercise: [orders-api](EXAMPLES/EXPRESS/orders-api/README.md) – an HTTP API with Express 5 (routes, router, 404 and error handling)
 
 ## Setup
 

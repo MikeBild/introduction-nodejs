@@ -76,9 +76,10 @@ HTTP/AJAX-Request          XML/JSON via NodeJS->ExpressJS Response
 
 ## Hypermedia with ExpressJS
 
-- [RESTful Example](EXAMPLES/ARCHITECTURE/restfule.md)
-- [Hypemedia Example](EXAMPLES/ARCHITECTURE/hypermedia.md)
+- [RESTful routing with Express](15-expressjs.md#restful-routing)
+- Exercise: [orders-api](EXAMPLES/EXPRESS/orders-api/README.md) – an HTTP API with Express 5 (routes, router, 404 and error handling)
 
 ## Web-Sockets
 
-- [WebSocket Example](EXAMPLES/ARCHITECTURE/websockets.md)
+- [Socket.IO with Express](15-expressjs.md#socketio)
+- [Event Streams (Server-Sent Events)](15-expressjs.md#event-streams)

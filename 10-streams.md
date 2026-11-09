@@ -112,14 +112,14 @@ console.log('File Compressed.');
 
 - Readable streams are sources of data that are waiting to be read
 - Readable Stream types
-  - Flowing - doesn’t have to ask for the data [Example](STREAMS/consuming-readable-flowing.js)
-  - Non-flowing - pushes some of it’s data to the read queue and then emits its readable event [Example](STREAMS/consuming-readable-non-flowing.js)
-  - Flow Control (Backpressure) - you can pause and resume streams [Example](STREAMS/consuming-readable-backpressure.js)
+  - Flowing - doesn’t have to ask for the data [Example](EXAMPLES/STREAMS/consuming-readable-flowing.js)
+  - Non-flowing - pushes some of it’s data to the read queue and then emits its readable event [Example](EXAMPLES/STREAMS/consuming-readable-non-flowing.js)
+  - Flow Control (Backpressure) - you can pause and resume streams [Example](EXAMPLES/STREAMS/consuming-readable-backpressure.js)
 
 ## Writeable
 
-- Writable streams are destinations of data [Example](STREAMS/consuming-writable.js)
+- Writable streams are destinations of data [Example](EXAMPLES/STREAMS/consuming-writeable.js)
 
 ## Transform Streams
 
-- Transform streams are intermediaries of readable and writable streams [Example](STREAMS/consuming-transform.js)
+- Transform streams are intermediaries of readable and writable streams [Example](EXAMPLES/STREAMS/consuming-transform.js)
