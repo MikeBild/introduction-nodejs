@@ -1,7 +1,7 @@
 {
   "name": "value-objects",
   "version": "1.0.0",
-  "description": "Entitäten und Value Objects: Money, Quantity und Branded IDs",
+  "description": "Entities and Value Objects: Money, Quantity, and branded IDs",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

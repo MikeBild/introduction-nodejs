@@ -1,7 +1,7 @@
 {
   "name": "domain-language",
   "version": "1.0.0",
-  "description": "Fachsprache und Event Storming: Board als Code, mit Prüfregeln",
+  "description": "Domain language and Event Storming: the board as code, with check rules",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

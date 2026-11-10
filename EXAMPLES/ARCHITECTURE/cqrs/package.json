@@ -1,7 +1,7 @@
 {
   "name": "cqrs",
   "version": "1.0.0",
-  "description": "CQRS: Write Model und Read Model auf einem Store",
+  "description": "CQRS: write model and read model on one store",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

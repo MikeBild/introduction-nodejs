@@ -1,7 +1,7 @@
 {
   "name": "adr",
   "version": "1.0.0",
-  "description": "Architecture Decision Records mit Prüfregeln für Aufbau und Status",
+  "description": "Architecture Decision Records with check rules for structure and status",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

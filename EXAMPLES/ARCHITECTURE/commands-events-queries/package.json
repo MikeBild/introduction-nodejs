@@ -1,7 +1,7 @@
 {
   "name": "commands-events-queries",
   "version": "1.0.0",
-  "description": "Commands, Events und Queries als Discriminated Unions",
+  "description": "Commands, events, and queries as Discriminated Unions",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

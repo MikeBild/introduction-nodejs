@@ -1,7 +1,7 @@
 {
   "name": "bounded-contexts",
   "version": "1.0.0",
-  "description": "Bounded Contexts: Anti-Corruption Layer zwischen Lager und Verkauf",
+  "description": "Bounded Contexts: Anti-Corruption Layer between warehouse and sales",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

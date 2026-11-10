@@ -1,7 +1,7 @@
 {
   "name": "event-sourcing",
   "version": "1.0.0",
-  "description": "Event Sourcing und CQRS: Events als Quelle der Wahrheit, Aggregat mit Versionsprüfung, wegwerfbare Projektionen",
+  "description": "Event Sourcing and CQRS: events as the source of truth, aggregate with version check, disposable projections",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",

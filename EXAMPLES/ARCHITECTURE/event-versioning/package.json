@@ -1,7 +1,7 @@
 {
   "name": "event-versioning",
   "version": "1.0.0",
-  "description": "Event-Versionierung mit Upcasting",
+  "description": "Event versioning with upcasting",
   "private": true,
   "type": "module",
   "author": "Mike Bild <mike.bild@gmail.com>",
