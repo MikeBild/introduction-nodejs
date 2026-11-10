@@ -43,7 +43,7 @@ describe('sales in its own language', () => {
 })
 
 describe('context map', () => {
-  it('protects every context from the legacy model', () => {
+  it('protects every context from the old inventory model', () => {
     expect(checkMap(contextMap)).toEqual([])
     expect(checkMap([{ upstream: 'Lager', downstream: 'Versand', pattern: 'Conformist' }])).toEqual(
       ['Versand übernimmt das Modell von Lager ohne Übersetzung'],

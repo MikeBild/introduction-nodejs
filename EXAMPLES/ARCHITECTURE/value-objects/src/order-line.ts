@@ -1,4 +1,4 @@
-// Primitive Obsession: Alles ist string oder number. Der Compiler hilft nicht.
+// Primitive Obsession: everything is string or number. The compiler does not help.
 
 export type Customer = { id: string; name: string; email: string }
 

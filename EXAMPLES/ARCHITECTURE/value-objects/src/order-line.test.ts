@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createOrderLine, lineTotal, reorder, type Customer } from './order-line.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('order lines from primitives', () => {
   it('accepts a quantity of zero and a price in euros', () => {
     const line = createOrderLine('p-1', 0, 12.9)
@@ -13,7 +13,7 @@ describe('order lines from primitives', () => {
   })
 
   it('lets you swap customer id and product id', () => {
-    expect(reorder('p-1', 'c-1')).toBe('p-1 bestellt c-1 nach') // kompiliert trotzdem
+    expect(reorder('p-1', 'c-1')).toBe('p-1 bestellt c-1 nach') // compiles anyway
   })
 
   it('treats two equal lines as different objects', () => {

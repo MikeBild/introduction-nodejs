@@ -1,7 +1,7 @@
 import type { EventStore } from '../src/event-store.ts'
 import type { OrderStatus } from '../src/order.ts'
 
-// Read Model „Status je Bestellung“, das hinter dem Store herläuft
+// Read Model “status per order” that trails behind the store
 export const statusView = (store: EventStore) => {
   const rows = new Map<string, OrderStatus>()
   let position = 0
@@ -27,7 +27,7 @@ export const statusView = (store: EventStore) => {
 
 export type StatusView = ReturnType<typeof statusView>
 
-// Read-your-writes: Der Command liefert seine Position, die Query wartet, bis die Sicht sie kennt.
+// Read-your-writes: the command returns its position, the query waits until the view knows it.
 export const readAfter = async (
   view: StatusView,
   position: number,

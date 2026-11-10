@@ -1,4 +1,4 @@
-// Ein Repository je Aggregat: lädt und speichert genau ein Aggregat, mit Versionsprüfung.
+// One repository per aggregate: loads and saves exactly one aggregate, with a version check.
 
 export class ConcurrencyError extends Error {
   constructor(id: string) {
@@ -25,7 +25,7 @@ export const inMemoryRepository = <T extends { id: string }>() => {
 
 export type Repository<T extends { id: string }> = ReturnType<typeof inMemoryRepository<T>>
 
-// Eine Transaktion ändert genau ein Aggregat: laden, Regel anwenden, mit Version speichern.
+// One transaction changes exactly one aggregate: load, apply the rule, save with the version.
 export const change = async <T extends { id: string }>(
   repository: Repository<T>,
   id: string,

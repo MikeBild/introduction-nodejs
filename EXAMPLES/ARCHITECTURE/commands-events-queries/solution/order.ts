@@ -9,7 +9,7 @@ const expectStatus = (order: Order, allowed: OrderStatus[], message: string) => 
   if (!allowed.includes(order.status)) throw new Error(message)
 }
 
-// decide: Command + aktueller Zustand → neue Events oder Ablehnung. Kein Event ohne Prüfung.
+// decide: command + current state → new events or rejection. No event without a check.
 export const decide = (order: Order, command: OrderCommand, now = new Date()): OrderEvent[] => {
   const { orderId } = command
   const at = now.toISOString()
@@ -37,7 +37,7 @@ export const decide = (order: Order, command: OrderCommand, now = new Date()): O
   }
 }
 
-// evolve: Zustand + Event → neuer Zustand. Rein, ohne Prüfung: Das Event ist schon passiert.
+// evolve: state + event → new state. Pure, without a check: the event has already happened.
 export const evolve = (order: Order, event: OrderEvent): Order => {
   switch (event.type) {
     case 'OrderCreated':

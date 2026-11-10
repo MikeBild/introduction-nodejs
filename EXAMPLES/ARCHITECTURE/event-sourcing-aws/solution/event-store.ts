@@ -10,9 +10,9 @@ export class ConcurrencyError extends Error {
   }
 }
 
-// Optimistic Concurrency in DynamoDB: pk + sk sind eindeutig. Die Bedingung
-// attribute_not_exists(pk) lässt den Put scheitern, wenn die Version schon existiert.
-// Eine Transaktion schreibt alle Events eines Commands oder keines.
+// Optimistic concurrency in DynamoDB: pk + sk are unique. The condition
+// attribute_not_exists(pk) makes the put fail when the version already exists.
+// One transaction writes all events of a command or none.
 export const appendCommand = (
   table: string,
   orderId: string,

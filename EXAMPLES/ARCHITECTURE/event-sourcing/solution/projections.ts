@@ -1,7 +1,7 @@
 import type { StoredEvent } from './event-store.ts'
 import type { OrderStatus } from './order.ts'
 
-// Read Models: frei von Side Effects, idempotent, jederzeit aus dem Store neu aufbaubar.
+// Read Models: free of Side Effects, idempotent, rebuildable from the store at any time.
 
 export type OrderListRow = {
   id: string
@@ -16,7 +16,7 @@ export const orderListProjection = () => {
   let lastPosition = 0
 
   const apply = ({ position, streamId, event }: StoredEvent) => {
-    // At-least-once-Zustellung: Ein schon gesehenes Event zählt nicht doppelt.
+    // At-least-once delivery: an event seen before does not count twice.
     if (position <= lastPosition) return
     lastPosition = position
     const row = rows.get(streamId)
@@ -59,12 +59,12 @@ export const orderListProjection = () => {
     apply,
     position: () => lastPosition,
     list,
-    // „Offene Bestellungen“: bestellt oder bezahlt, aber noch nicht versandt
+    // “Open orders”: placed or paid, but not shipped yet
     open: () => list().filter((row) => row.status === 'placed' || row.status === 'paid'),
   }
 }
 
-// Umsatz pro Monat der Bezahlung, z. B. { '2026-10': 2580 }
+// Revenue per month of payment, for example { '2026-10': 2580 }
 export const monthlyRevenueProjection = () => {
   const totals = new Map<string, number>()
   const revenue = new Map<string, number>()

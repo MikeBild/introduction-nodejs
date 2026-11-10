@@ -1,5 +1,5 @@
-// Value Objects: nur Werte, keine Identität. Gleich ist, was gleiche Werte hat.
-// Ein Smart Constructor prüft die Regel einmal, danach garantiert der Type sie.
+// Value Objects: only values, no identity. Equal is whatever has equal values.
+// A Smart Constructor checks the rule once, after that the type guarantees it.
 
 type Brand<T, B extends string> = T & { readonly __brand: B }
 
@@ -27,7 +27,7 @@ export const email = (value: string): Email => {
   return normalized as Email
 }
 
-// Value Object aus Value Objects, eingefroren: Ändern heißt neu erzeugen.
+// Value Object made of Value Objects, frozen: changing means creating anew.
 export type OrderItem = Readonly<{ productId: ProductId; quantity: Quantity; priceCents: Cents }>
 
 export const orderItem = (input: { productId: string; quantity: number; priceCents: number }) =>

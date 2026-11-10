@@ -3,7 +3,7 @@ import { flakyBus, shippingQueue } from './bus.ts'
 import { o1, placedOrder } from './fixtures.ts'
 import { payAndPublish } from './shop.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('dual write', () => {
   it('stores the payment but never tells shipping when the bus fails', async () => {
     const store = await placedOrder()
@@ -12,7 +12,7 @@ describe('dual write', () => {
       'Network error',
     )
     expect((await store.readAll()).at(-1)?.event.type).toBe('OrderPaid')
-    expect(shipping.packages()).toEqual([]) // verloren
+    expect(shipping.packages()).toEqual([]) // lost
   })
 
   it('packs twice when the bus delivers twice', async () => {

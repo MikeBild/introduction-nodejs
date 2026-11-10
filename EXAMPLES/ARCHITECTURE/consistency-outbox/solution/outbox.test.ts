@@ -11,9 +11,9 @@ describe('event store as outbox', () => {
     const store = await placedOrder()
     const shipping = shippingQueue()
     const relay = createRelay(store, flakyBus(shipping.receive, 1))
-    await payOrder(store, o1) // nur speichern, kein Publish im Command
+    await payOrder(store, o1) // only store, no publish in the command
     await expect(relay.pump()).rejects.toThrow('Network error')
-    await relay.pump() // nächster Lauf, ab dem alten Checkpoint
+    await relay.pump() // next run, from the old checkpoint
     expect(shipping.packages()).toEqual(['o-1'])
     expect(relay.checkpoint()).toBe((await store.readAll()).length)
   })
@@ -24,7 +24,7 @@ describe('event store as outbox', () => {
     const receive = idempotent(shipping.receive)
     await payOrder(store, o1)
     await createRelay(store, flakyBus(receive)).pump()
-    await createRelay(store, flakyBus(receive)).pump() // Neustart ohne Checkpoint
+    await createRelay(store, flakyBus(receive)).pump() // restart without a checkpoint
     expect(shipping.packages()).toEqual(['o-1'])
   })
 })
@@ -35,7 +35,7 @@ describe('read your writes', () => {
     const view = statusView(store)
     await view.catchUp()
     await payOrder(store, o1)
-    expect(view.status('o-1')).toBe('placed') // Verzug
+    expect(view.status('o-1')).toBe('placed') // lag
   })
 
   it('waits for the position the command returned', async () => {

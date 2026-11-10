@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { evolve, initial, log, naiveRead } from './events.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('reading old events with the new schema', () => {
   it('turns the total into NaN', () => {
     const order = log.slice(0, 1).map(naiveRead).reduce(evolve, initial)

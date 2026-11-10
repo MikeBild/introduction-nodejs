@@ -1,5 +1,5 @@
-// Das Aggregat Order: Konsistenzgrenze des Werkstatt-Shops.
-// Events in der Vergangenheitsform, der Zustand ist ein Left Fold. Geld in ganzen Cent.
+// The aggregate Order: consistency boundary of the workshop shop.
+// Events in the past tense, the state is a left fold. Money in whole cents.
 
 export type OrderId = string & { readonly __brand: 'OrderId' }
 export type CustomerId = string & { readonly __brand: 'CustomerId' }
@@ -20,7 +20,7 @@ export type OrderEvent =
 
 export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
 
-// customerId null: Die Bestellung existiert noch nicht.
+// customerId null: the order does not exist yet.
 export type Order = { customerId: CustomerId | null; status: OrderStatus; items: OrderItem[] }
 
 export const initial: Order = { customerId: null, status: 'draft', items: [] }
@@ -44,11 +44,11 @@ export const evolve = (order: Order, event: OrderEvent): Order => {
   }
 }
 
-// Gesamtsumme = Σ quantity × priceCents
+// Total = Σ quantity × priceCents
 export const totalCents = (order: Pick<Order, 'items'>) =>
   order.items.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
 
-// Entscheidungen: prüfen Invarianten und liefern neue Events – oder werfen.
+// Decisions: check invariants and return new events – or throw.
 const requireExisting = (order: Order) => {
   if (order.customerId === null) throw new Error('Order does not exist')
 }

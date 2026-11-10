@@ -1,13 +1,13 @@
 import type { Envelope, OrderEvent } from '../src/events.ts'
 
-// Upcasting: Alte Events werden beim Lesen ins aktuelle Schema gehoben.
-// Gespeichert bleibt, was passiert ist. Nur evolve muss das alte Schema nie kennen.
+// Upcasting: old events are lifted into the current schema when read.
+// What happened stays stored unchanged. evolve itself never needs to know the old schema.
 
 type Upcaster = (data: Record<string, unknown>) => Record<string, unknown>
 
 export const currentVersion: Record<OrderEvent['type'], number> = { ItemAdded: 2, OrderPlaced: 2 }
 
-// Je Type und Version genau ein Schritt zur nächsten Version
+// Per type and version exactly one step to the next version
 const upcasters: Record<string, Upcaster> = {
   'ItemAdded@1': ({ price, ...rest }) => ({ ...rest, priceCents: Math.round(Number(price) * 100) }),
   'OrderPlaced@1': ({ at, ...rest }) => ({ ...rest, placedAt: at }),
@@ -28,7 +28,7 @@ export const upcast = (envelope: Envelope): OrderEvent => {
   return { type: envelope.type, ...data } as OrderEvent
 }
 
-// Neue Events schreibst du immer im aktuellen Schema.
+// You always write new events in the current schema.
 export const toEnvelope = ({ type, ...data }: OrderEvent): Envelope => ({
   type,
   version: currentVersion[type],

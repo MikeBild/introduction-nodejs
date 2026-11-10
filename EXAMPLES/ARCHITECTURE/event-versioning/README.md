@@ -1,10 +1,12 @@
-# Event-Versionierung mit Upcasting
+*English · [Deutsch](README.de.md)*
 
-Gespeicherte Events änderst du nie. Das Schema deines Codes ändert sich trotzdem. Upcasting hebt alte Events beim Lesen ins aktuelle Schema, Schritt für Schritt, und lässt das Logbuch unverändert.
+# Event versioning with upcasting
 
-`src/events.ts` enthält ein Logbuch aus drei Jahren: 2023 standen Preise in Euro als Kommazahl (`price`) und der Zeitpunkt der Bestellung in `at`, seit 2025 gelten `priceCents` und `placedAt`. Heute liest jeder die Daten so, als wären sie im aktuellen Schema. Die Tests in `src/events.test.ts` zeigen das Ergebnis: Die Summe wird `NaN`, der Zeitpunkt fehlt.
+You never change stored events. The schema of your code changes anyway. Upcasting lifts old events into the current schema on read, step by step, and leaves the logbook unchanged.
 
-Du brauchst Node.js 26 oder neuer.
+`src/events.ts` contains a logbook from three years: in 2023, prices were in euros as decimals (`price`) and the time of the order was in `at`; since 2025, `priceCents` and `placedAt` apply. Today everyone reads the data as if it were in the current schema. The tests in `src/events.test.ts` show the result: the total becomes `NaN`, the timestamp is missing.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,16 +15,16 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/events.ts`. Jedes Event steckt in einem Umschlag `{ type, version, data }`. Warum braucht es die Version?
-2. Leg in `upcast.ts` die aktuelle Version je Event-Type fest und je Type und Version genau einen Upcaster zur nächsten Version.
-3. Schreib `upcast(envelope)`: Er wendet die Upcaster nacheinander an, bis die aktuelle Version erreicht ist. `evolve` kennt danach nur noch das aktuelle Schema.
-4. Lehne Events ab, die neuer sind als dein Code oder deren Type du nicht kennst, statt zu raten.
-5. Beweis per Test, dass das Logbuch nach dem Lesen unverändert ist.
-6. Schreib neue Events immer im aktuellen Schema (`toEnvelope`).
-7. Überleg: Wann reicht ein neues, optionales Feld? Wann brauchst du einen neuen Event-Type statt einer neuen Version?
+1. Read `src/events.ts`. Every event sits in an envelope `{ type, version, data }`. Why does it need the version?
+2. In `upcast.ts`, define the current version per event type and, per type and version, exactly one upcaster to the next version.
+3. Write `upcast(envelope)`: it applies the upcasters one after another until the current version is reached. After that, `evolve` only knows the current schema.
+4. Reject events that are newer than your code or whose type you do not know, instead of guessing.
+5. Prove by test that the logbook is unchanged after reading.
+6. Always write new events in the current schema (`toEnvelope`).
+7. Consider: When is a new, optional field enough? When do you need a new event type instead of a new version?
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Konsistenz, Idempotenz und Outbox](../consistency-outbox/README.md)
+Next: [Consistency, idempotency, and outbox](../consistency-outbox/README.md)

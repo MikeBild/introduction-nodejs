@@ -1,12 +1,12 @@
-// Context Map des Werkstatt-Shops als Code: Wer ist upstream, wer übersetzt?
+// Context map of the workshop shop as code: who is upstream, who translates?
 
 export type Context = 'Verkauf' | 'Lager' | 'Versand' | 'Buchhaltung'
 
 export type Relation = {
   upstream: Context
   downstream: Context
-  // ACL: Downstream übersetzt. PL: Upstream veröffentlicht eine stabile Sprache.
-  // Conformist: Downstream übernimmt das fremde Modell unverändert.
+  // ACL: downstream translates. PL: upstream publishes a stable language.
+  // Conformist: downstream adopts the foreign model unchanged.
   pattern: 'ACL' | 'Published Language' | 'Conformist'
 }
 
@@ -18,7 +18,7 @@ export const contextMap: Relation[] = [
   { upstream: 'Verkauf', downstream: 'Buchhaltung', pattern: 'Published Language' },
 ]
 
-// Regel: Ein Altsystem darf sein Modell nie direkt in einen anderen Context tragen.
+// Rule: an older system must never carry its model directly into another context.
 export const checkMap = (map: Relation[]) =>
   map
     .filter((r) => legacy.includes(r.upstream) && r.pattern !== 'ACL')

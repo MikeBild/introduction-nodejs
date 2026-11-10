@@ -1,6 +1,6 @@
 import type { StoredEvent } from './event-store.ts'
 
-// Ein Message Bus wie SQS oder EventBridge: liefert mindestens einmal, manchmal doppelt.
+// A message bus like SQS or EventBridge: delivers at least once, sometimes twice.
 export type Bus = { publish: (stored: StoredEvent) => Promise<void> }
 
 export const flakyBus = (deliver: (stored: StoredEvent) => void, failures = 0): Bus => {
@@ -16,7 +16,7 @@ export const flakyBus = (deliver: (stored: StoredEvent) => void, failures = 0): 
   }
 }
 
-// Versand: zählt Pakete, die gepackt werden müssen
+// Shipping: counts packages that need to be packed
 export const shippingQueue = () => {
   const packages: string[] = []
   return {

@@ -1,7 +1,7 @@
 import type { EventStore } from './event-store.ts'
 import * as order from './order.ts'
 
-// Command Handler: laden, falten, entscheiden, mit erwarteter Version anhängen.
+// Command handler: load, fold, decide, append with the expected version.
 const handle = async (
   store: EventStore,
   orderId: order.OrderId,

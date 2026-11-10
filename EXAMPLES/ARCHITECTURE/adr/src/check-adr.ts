@@ -1,8 +1,8 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { basename, join } from 'node:path'
 
-// Prüfregeln für ADRs. Sie ersetzen kein Review, aber sie finden fehlende Abschnitte,
-// Entscheidungen ohne „Wir werden …“ und Verweise auf Nachfolger, die es nicht gibt.
+// Check rules for ADRs. They do not replace a review, but they find missing sections,
+// decisions without “Wir werden …” and references to successors that do not exist.
 
 const sections = ['## Status', '## Context', '## Decision', '## Consequences']
 const statuses = /^(Proposed|Accepted|Deprecated|Superseded by \[.+\]\((.+\.md)\))$/m

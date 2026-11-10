@@ -1,6 +1,6 @@
 import type { Store } from './store.ts'
 
-// Leseseite: kein Aggregat, keine Regel, nur die Sicht in der Form der Oberfläche.
+// Read side: no aggregate, no rule, only the view in the shape of the UI.
 
 export const listOpenOrders = (store: Store) =>
   store.read((tables) =>

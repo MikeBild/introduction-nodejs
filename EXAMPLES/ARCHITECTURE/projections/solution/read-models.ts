@@ -1,6 +1,6 @@
 import type { Projection } from './projection.ts'
 
-// Read Models als reine Folds: keine Mails, keine Requests, nur Zustand.
+// Read Models as pure folds: no mails, no requests, only state.
 
 export const paidOrders: Projection<number> = {
   name: 'paid-orders',
@@ -8,7 +8,7 @@ export const paidOrders: Projection<number> = {
   apply: (count, { event }) => (event.type === 'OrderPaid' ? count + 1 : count),
 }
 
-// Eine Sicht, an die beim Bau niemand gedacht hat: Bestseller aus der ganzen Historie
+// A view nobody thought of when building: bestsellers from the whole history
 type Bestsellers = { pending: Record<string, Record<string, number>>; sold: Record<string, number> }
 
 export const bestsellers: Projection<Bestsellers> = {

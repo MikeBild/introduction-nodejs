@@ -1,10 +1,12 @@
-# Wann CQRS und Event Sourcing zu viel sind
+*English · [Deutsch](README.de.md)*
 
-Für die meisten Contexts reicht CRUD. CQRS und Event Sourcing lohnen sich nur unter klaren Bedingungen, und die prüfst du pro Bounded Context, nicht für das ganze System.
+# When CQRS and Event Sourcing are too much
 
-`src/contexts.ts` beschreibt fünf Contexts des Werkstatt-Shops: Katalog, Kunden, Lager, Bestellungen und Retouren. Heute empfiehlt `recommend` für alle dasselbe, weil es im letzten Konferenzvortrag gut klang. Die Tests in `src/contexts.test.ts` zeigen das.
+For most contexts, CRUD is enough. CQRS and Event Sourcing pay off only under clear conditions, and you check them per Bounded Context, not for the whole system.
 
-Du brauchst Node.js 26 oder neuer.
+`src/contexts.ts` describes five contexts of the workshop shop: catalog, customers, inventory, orders, and returns. Today `recommend` suggests the same for all of them because it sounded good in the last conference talk. The tests in `src/contexts.test.ts` show this.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies die Profile in `src/contexts.ts`. Welcher Context hat Regeln, die sich gegenseitig stören? Wo ist die Historie fachlich gefordert?
-2. Schreib den Entscheidungsfluss in `decide.ts`, in dieser Reihenfolge:
-   - Keine kollidierenden Regeln: CRUD.
-   - Weder starke Asymmetrie zwischen Lesen und Schreiben noch geforderte Historie: Commands und Queries trennen, ein Store.
-   - Das Team trägt Eventual Consistency und Versionierung noch nicht: Kompromiss, etwa CRUD mit Audit-Tabelle.
-   - Sonst CQRS, mit Event Sourcing nur, wenn die Historie zählt.
-3. Prüf per Test: Im Werkstatt-Shop landet genau ein Context bei Event Sourcing.
-4. Erzeuge mit `decisionLine` den Satz für den Abschnitt Decision eines ADR und halte die Entscheidung für einen Context aus deinem Projekt fest, siehe [../adr](../adr/README.md).
+1. Read the profiles in `src/contexts.ts`. Which context has rules that interfere with each other? Where does the domain require the history?
+2. Write the decision flow in `decide.ts`, in this order:
+   - No colliding rules: CRUD.
+   - Neither a strong asymmetry between reading and writing nor a required history: separate commands and queries, one store.
+   - The team cannot yet carry eventual consistency and versioning: compromise, for example CRUD with an audit table.
+   - Otherwise CQRS, with Event Sourcing only if the history counts.
+3. Check by test: in the workshop shop, exactly one context ends up with Event Sourcing.
+4. Generate the sentence for the Decision section of an ADR with `decisionLine` and record the decision for a context from your project, see [../adr](../adr/README.md).
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).

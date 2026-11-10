@@ -1,6 +1,6 @@
 import type { OrderId, ProductId } from './order.ts'
 
-// Eigenes Aggregat Product: Der Bestand hat eigene Regeln und ändert sich unabhängig.
+// Separate aggregate Product: the stock has its own rules and changes independently.
 export type Product = Readonly<{
   id: ProductId
   name: string

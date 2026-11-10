@@ -1,11 +1,11 @@
-// Die Bounded Contexts des Werkstatt-Shops, so wie das Team sie beschreibt.
+// The Bounded Contexts of the workshop shop, as the team describes them.
 
 export type ContextProfile = {
   name: string
-  invariantsCollide: boolean // Regeln, die sich gegenseitig stören und ein echtes Modell brauchen
-  readWriteAsymmetry: boolean // viel mehr Lesen als Schreiben, Sichten mit ganz anderer Form
-  historyRequired: boolean // Audit oder Zeitreise sind fachlich gefordert
-  teamReady: boolean // das Team trägt Eventual Consistency und Event-Versionierung
+  invariantsCollide: boolean // rules that interfere with each other and need a real model
+  readWriteAsymmetry: boolean // far more reading than writing, views with a completely different shape
+  historyRequired: boolean // audit or time travel are required by the domain
+  teamReady: boolean // the team can carry Eventual Consistency and event versioning
 }
 
 export type Recommendation = 'crud' | 'cqrs-lite' | 'compromise' | 'cqrs' | 'cqrs-event-sourcing'
@@ -48,5 +48,5 @@ export const shop: ContextProfile[] = [
   },
 ]
 
-// Heute: Was im letzten Konferenzvortrag gut klang, gilt für alle Contexts.
+// Today: what sounded good in the last conference talk applies to all contexts.
 export const recommend = (_context: ContextProfile): Recommendation => 'cqrs-event-sourcing'

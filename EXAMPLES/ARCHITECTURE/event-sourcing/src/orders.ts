@@ -1,4 +1,4 @@
-// CRUD: Jede Änderung überschreibt die Zeile. Was vorher war, ist weg.
+// CRUD: every change overwrites the row. What came before is gone.
 
 export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
 export type OrderItem = { productId: string; quantity: number; priceCents: number }
@@ -12,7 +12,7 @@ export type OrderRow = {
   updatedAt: string
 }
 
-// Simuliert eine Datenbank: Lesen und Schreiben sind asynchron, ohne Versionsprüfung.
+// Simulates a database: reading and writing are asynchronous, without a version check.
 export const createOrderTable = () => {
   const rows = new Map<string, OrderRow>()
   return {
@@ -28,7 +28,7 @@ export const createOrderTable = () => {
 
 export type OrderTable = ReturnType<typeof createOrderTable>
 
-// Geld immer in ganzen Cent: Gesamtsumme = Σ quantity × priceCents
+// Money always in whole cents: total = Σ quantity × priceCents
 const total = (items: OrderItem[]) =>
   items.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
 

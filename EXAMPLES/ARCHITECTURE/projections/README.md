@@ -1,28 +1,30 @@
-# Projektionen: Checkpoint, Neuaufbau und Snapshots
+*English · [Deutsch](README.de.md)*
 
-Ein Read Model ist eine Projektion, also ein Fold über die Events mit einem eigenen Ziel. Es merkt sich, bis zu welcher Position es gelesen hat, und lässt sich jederzeit aus dem Event Store neu aufbauen.
+# Projections: checkpoint, rebuild, and snapshots
 
-`src/` enthält den Event Store und das Aggregat Order aus der Übung [Event Sourcing](../event-sourcing/README.md), dazu eine Projektion in `src/read-models.ts`, die zu viel tut: Sie zählt doppelt zugestellte Events doppelt und verschickt nebenbei Mails. Beim Neuaufbau gehen alle Mails noch einmal raus. Die Tests in `src/read-models.test.ts` zeigen das.
+A Read Model is a projection, that is, a fold over the events with its own purpose. It remembers up to which position it has read and can be rebuilt from the Event Store at any time.
 
-Du brauchst Node.js 26 oder neuer.
+`src/` contains the Event Store and the aggregate Order from the exercise [Event Sourcing](../event-sourcing/README.md), plus a projection in `src/read-models.ts` that does too much: it counts a duplicate delivery twice and sends emails on the side. On a rebuild, all emails go out again. The tests in `src/read-models.test.ts` show this.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
-npm start            # Mails beim Aufbau und beim Neuaufbau
+npm start            # emails during build and rebuild
 npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/read-models.ts`. Was passiert, wenn der Bus ein Event zweimal liefert? Was beim Neuaufbau?
-2. Schreib in `projection.ts` einen generischen Typ `Projection<S>` mit `initial` und `apply` und einen Zustand mit Checkpoint `{ state, position }`.
-3. Schreib `step`: Ein Event mit einer Position bis zum Checkpoint ändert nichts. So wird jede Projektion idempotent.
-4. Schreib `catchUp` (weiterlesen ab dem Checkpoint) und `rebuild` (dieselbe Funktion ab Position null). Ein Test beweist: Weiterlesen und Neuaufbau ergeben dasselbe.
-5. Bau ein Read Model, an das beim Bau niemand gedacht hat: Bestseller pro Produkt, aus der ganzen Historie.
-6. Zieh die Mails in einen Reactor mit eigenem Checkpoint. Er läuft beim Neuaufbau der Read Models nicht mit.
-7. Schreib einen Snapshot als gemerkten Fold `{ version, state }` und lade ab dem Snapshot nur die Events danach. Ein Test vergleicht mit dem vollen Fold.
+1. Read `src/read-models.ts`. What happens when the bus delivers an event twice? What happens on a rebuild?
+2. In `projection.ts`, write a generic type `Projection<S>` with `initial` and `apply` and a state with checkpoint `{ state, position }`.
+3. Write `step`: an event with a position up to the checkpoint changes nothing. That makes every projection idempotent.
+4. Write `catchUp` (continue reading from the checkpoint) and `rebuild` (the same function from position zero). A test proves: catching up and rebuilding yield the same result.
+5. Build a Read Model nobody thought of at build time: bestsellers per product, from the whole history.
+6. Move the emails into a reactor with its own checkpoint. It does not run during a rebuild of the Read Models.
+7. Write a snapshot as a remembered fold `{ version, state }` and load only the events after the snapshot. A test compares with the full fold.
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Event-Versionierung](../event-versioning/README.md)
+Next: [Event versioning](../event-versioning/README.md)

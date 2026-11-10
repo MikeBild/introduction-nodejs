@@ -1,6 +1,6 @@
 import type { EventStore, StoredEvent } from '../src/event-store.ts'
 
-// Eine Projektion ist ein Fold mit Checkpoint: Zustand plus letzte verarbeitete Position.
+// A projection is a fold with a checkpoint: state plus the last processed position.
 export type Projection<S> = {
   name: string
   initial: S
@@ -13,7 +13,7 @@ export const start = <S>(projection: Projection<S>): Checkpointed<S> => ({
   position: 0,
 })
 
-// Idempotent: Was schon verarbeitet ist, ändert nichts mehr.
+// Idempotent: what has already been processed changes nothing anymore.
 export const step = <S>(
   projection: Projection<S>,
   current: Checkpointed<S>,
@@ -23,7 +23,7 @@ export const step = <S>(
     ? current
     : { state: projection.apply(current.state, stored), position: stored.position }
 
-// Weiterlesen ab dem Checkpoint, zum Beispiel nach einem Neustart
+// Continue reading from the checkpoint, for example after a restart
 export const catchUp = async <S>(
   store: EventStore,
   projection: Projection<S>,
@@ -34,6 +34,6 @@ export const catchUp = async <S>(
     current,
   )
 
-// Neuaufbau: dieselbe Funktion, nur ab Position null
+// Rebuild: the same function, just from position zero
 export const rebuild = <S>(store: EventStore, projection: Projection<S>) =>
   catchUp(store, projection, start(projection))

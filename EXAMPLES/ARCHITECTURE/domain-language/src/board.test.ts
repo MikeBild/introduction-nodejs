@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { board } from './board.ts'
 import { lint, terms } from './lint.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('first board (technical names)', () => {
   it('finds CRUD names instead of domain language', () => {
     expect(lint(board)).toEqual(

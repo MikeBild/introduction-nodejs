@@ -1,11 +1,11 @@
 import type { Order, Store, Tables } from './store.ts'
 
-// Schreibseite: Commands prüfen Regeln und geben nichts zurück.
+// Write side: commands check rules and return nothing.
 
 const totalCents = (order: Order) =>
   order.items.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
 
-// Hält die Sicht in derselben Transaktion aktuell.
+// Keeps the view up to date in the same transaction.
 const updateOpenOrders = (tx: Tables, order: Order) => {
   if (order.status !== 'placed' && order.status !== 'paid') {
     tx.openOrders.delete(order.id)

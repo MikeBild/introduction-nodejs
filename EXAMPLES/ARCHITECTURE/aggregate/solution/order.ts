@@ -1,5 +1,5 @@
-// Aggregat Order: Die Root schützt alle Regeln der Bestellung als Einheit.
-// Von außen gibt es nur diese Funktionen. Jede liefert eine neue Order oder wirft.
+// Aggregate Order: the root protects all rules of the order as one unit.
+// From the outside there are only these functions. Each returns a new Order or throws.
 
 export type OrderId = string & { readonly __brand: 'OrderId' }
 export type CustomerId = string & { readonly __brand: 'CustomerId' }
@@ -11,7 +11,7 @@ export const ProductId = (id: string) => id as ProductId
 export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
 export type OrderItem = Readonly<{ productId: ProductId; quantity: number; priceCents: number }>
 
-// Andere Aggregate nur per ID: customerId statt Customer, productId statt Product.
+// Other aggregates only by ID: customerId instead of Customer, productId instead of Product.
 export type Order = Readonly<{
   id: OrderId
   customerId: CustomerId
@@ -26,7 +26,7 @@ export const start = (id: OrderId, customerId: CustomerId): Order => ({
   items: [],
 })
 
-// Abgeleitet statt gespeichert: Die Summe kann nie von den Positionen abweichen.
+// Derived instead of stored: the total can never diverge from the line items.
 export const totalCents = (order: Order) =>
   order.items.reduce((sum, item) => sum + item.quantity * item.priceCents, 0)
 

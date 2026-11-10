@@ -4,7 +4,7 @@ import { createOrderService, createOrderTable } from './orders.ts'
 const hammer = { productId: 'p-1', quantity: 2, priceCents: 1290 }
 const screwdrivers = { productId: 'p-2', quantity: 1, priceCents: 2490 }
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('CRUD order service', () => {
   it('runs an order from draft to shipped', async () => {
     const orders = createOrderService(createOrderTable())
@@ -29,10 +29,10 @@ describe('CRUD order service', () => {
   it('loses an update when two requests change the same order (lost update)', async () => {
     const orders = createOrderService(createOrderTable())
     await orders.createOrder('o-1', 'c-1')
-    // Beide Requests lesen dieselbe Zeile, der zweite save überschreibt den ersten.
+    // Both requests read the same row, the second save overwrites the first.
     await Promise.all([orders.addItem('o-1', hammer), orders.addItem('o-1', screwdrivers)])
     const order = await orders.getOrder('o-1')
-    expect(order.items).toHaveLength(1) // erwartet wären zwei
+    expect(order.items).toHaveLength(1) // two would be expected
   })
 
   it('keeps no history: only the latest state survives', async () => {
@@ -41,7 +41,7 @@ describe('CRUD order service', () => {
     await orders.addItem('o-1', hammer)
     await orders.placeOrder('o-1')
     await orders.payOrder('o-1')
-    // Wann wurde bestellt, wann bezahlt? Die Zeile weiß es nicht mehr.
+    // When was it placed, when was it paid? The row no longer knows.
     expect(Object.keys(await orders.getOrder('o-1')).sort()).toEqual([
       'customerId',
       'id',

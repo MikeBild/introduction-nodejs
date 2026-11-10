@@ -1,7 +1,7 @@
 import type { StoredEvent } from '../src/event-store.ts'
 
-// Side Effects gehören in einen Reactor, nicht in die Projektion.
-// Er hat einen eigenen Checkpoint und läuft beim Neuaufbau der Read Models nicht mit.
+// Side Effects belong in a reactor, not in the projection.
+// It has its own checkpoint and does not run when the Read Models are rebuilt.
 
 export type Mailer = { send: (to: string, text: string) => void }
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { fakeInventory, warehouse } from './inventory.ts'
 import { createSales } from './sales.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('sales speaking the inventory language', () => {
   it('computes money as floating point euros', async () => {
     const sales = createSales(fakeInventory(warehouse))
@@ -11,7 +11,7 @@ describe('sales speaking the inventory language', () => {
 
   it('sells a product whose stock is fully reserved', async () => {
     const sales = createSales(fakeInventory(warehouse))
-    expect(await sales.isAvailable('p-3')).toBe(true) // fachlich falsch
+    expect(await sales.isAvailable('p-3')).toBe(true) // wrong in domain terms
   })
 
   it('breaks when the inventory renames a field', async () => {

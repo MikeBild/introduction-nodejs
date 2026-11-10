@@ -1,10 +1,12 @@
-# Entitäten und Value Objects
+*English · [Deutsch](README.de.md)*
 
-Eine Kundin bleibt dieselbe Kundin, auch wenn sie ihre E-Mail-Adresse ändert: Sie ist eine Entität mit Identität. Zwei Positionen „2 × Hammer zu 12,90 €“ sind dagegen gleich, wenn ihre Werte gleich sind: Sie sind Value Objects.
+# Entities and Value Objects
 
-`src/order-line.ts` baut Positionen aus `string` und `number`. Die Tests in `src/order-line.test.ts` zeigen, was dabei durchrutscht: Menge null, Preise als Kommazahl, vertauschte IDs, nachträglich geänderte Positionen.
+A customer remains the same customer even when they change their email address: they are an entity with identity. Two line items “2 × hammer at €12.90”, on the other hand, are equal when their values are equal: they are Value Objects.
 
-Du brauchst Node.js 26 oder neuer.
+`src/order-line.ts` builds line items from `string` and `number`. The tests in `src/order-line.test.ts` show what slips through: quantity zero, prices as decimals, swapped IDs, line items changed after the fact.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies die Tests in `src/order-line.test.ts`. Welche Fehler könnte der Compiler finden, welche nur eine Prüfung zur Laufzeit?
-2. Leg Branded Types für `CustomerId` und `ProductId` an. Ein Test mit `@ts-expect-error` beweist, dass vertauschte IDs nicht mehr kompilieren.
-3. Schreib Smart Constructors für `Cents` (ganze Zahl, nicht negativ) und `Quantity` (ganze Zahl ab eins). Sie prüfen einmal, danach garantiert der Type die Regel.
-4. Bau `OrderItem` als eingefrorenes Value Object aus diesen Werten. Ändern heißt neu erzeugen: `withQuantity(item, 3)`.
-5. Vergleiche Value Objects über ihre Werte (`sameItem`) und Entitäten über ihre ID (`sameCustomer`).
-6. Überleg: Welche `string`- und `number`-Felder in deinem Code tragen eine fachliche Regel und verdienen einen eigenen Type?
+1. Read the tests in `src/order-line.test.ts`. Which errors could the compiler find, which only a check at runtime?
+2. Create Branded Types for `CustomerId` and `ProductId`. A test with `@ts-expect-error` proves that swapped IDs no longer compile.
+3. Write smart constructors for `Cents` (integer, not negative) and `Quantity` (integer from one). They check once; after that, the type guarantees the rule.
+4. Build `OrderItem` as a frozen Value Object from these values. Changing means creating anew: `withQuantity(item, 3)`.
+5. Compare Value Objects by their values (`sameItem`) and entities by their ID (`sameCustomer`).
+6. Consider: Which `string` and `number` fields in your code carry a domain rule and deserve their own type?
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Das Aggregat als Konsistenzgrenze](../aggregate/README.md)
+Next: [The aggregate as consistency boundary](../aggregate/README.md)

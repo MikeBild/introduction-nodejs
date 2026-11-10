@@ -1,6 +1,6 @@
 import type { Board } from '../src/board.ts'
 
-// Das Board nach Event Storming mit Verkauf, Lager und Versand: Fachsprache statt Tabellennamen.
+// The board after Event Storming with sales, inventory and shipping: domain language instead of table names.
 export const board: Board = {
   timeline: [
     { kind: 'command', name: 'CreateOrder', actor: 'Kundin', emits: ['OrderCreated'] },

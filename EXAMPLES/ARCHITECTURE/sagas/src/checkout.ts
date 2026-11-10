@@ -1,5 +1,5 @@
-// Ein Ablauf über drei Contexts, fest verdrahtet: Lager, dann Zahlung.
-// Scheitert die Zahlung, bleibt der Bestand reserviert und die Bestellung offen.
+// A flow across three contexts, hard-wired: inventory, then payment.
+// If the payment fails, the stock stays reserved and the order stays open.
 
 export type Services = {
   reserveStock: (orderId: string) => Promise<void>
@@ -15,7 +15,7 @@ export const onOrderPlaced = async (services: Services, orderId: string, amountC
   await services.shipOrder(orderId)
 }
 
-// Testhilfe: zeichnet jeden Aufruf auf
+// Test helper: records every call
 export const recordingServices = (failCharge = false) => {
   const calls: string[] = []
   const services: Services = {

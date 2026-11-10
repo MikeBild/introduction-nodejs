@@ -1,10 +1,12 @@
-# Bounded Contexts und Anti-Corruption Layer
+*English · [Deutsch](README.de.md)*
 
-Im Werkstatt-Shop heißt alles „Produkt“, aber nicht überall dasselbe. Für den Verkauf hat ein Produkt einen Namen, einen Preis und ist kaufbar oder nicht. Für das Lager ist es eine SKU mit Bestand und Reservierungen. Wo ein Wort seine Bedeutung wechselt, verläuft eine Grenze: ein Bounded Context.
+# Bounded Contexts and Anti-Corruption Layer
 
-`src/inventory.ts` ist das ältere Lagersystem mit eigener Sprache (`sku`, `price_eur` als Text, `qty_on_hand`). `src/sales.ts` ist der Verkauf und spricht heute direkt die Sprache des Lagers. Die Tests in `src/sales.test.ts` zeigen die Folgen: Geld als Kommazahl, ein voll reserviertes Produkt gilt als verfügbar, und eine Umbenennung im Lager bricht den Verkauf.
+In the workshop shop everything is called “product”, but not everywhere with the same meaning. For sales, a product has a name and a price and is either purchasable or not. For the warehouse, it is a SKU with stock and reservations. Where a word changes its meaning, a boundary runs: a Bounded Context.
 
-Du brauchst Node.js 26 oder neuer.
+`src/inventory.ts` is the older warehouse system with its own language (`sku`, `price_eur` as text, `qty_on_hand`). `src/sales.ts` is sales and today speaks the language of the warehouse directly. The tests in `src/sales.test.ts` show the consequences: money as a decimal, a fully reserved product counts as available, and a rename in the warehouse breaks sales.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/sales.ts`. Welche Felder des Lagers kennt der Verkauf? Was passiert, wenn das Lager `price_eur` umbenennt?
-2. Beschreib das Produkt so, wie der Verkauf es braucht: `Product { id, name, priceCents, available }`. Leg einen Port `Catalog` an, der ein Produkt per ID liefert.
-3. Schreib einen Anti-Corruption Layer (ACL) in `inventory-acl.ts`. Er ist die einzige Stelle, die beide Sprachen kennt: „19,99“ wird zu 1999 Cent, verfügbar ist nur, was nach Reservierungen übrig bleibt.
-4. Bau den Verkauf so um, dass er nur noch `Catalog` kennt. Ein Test mit einem festen Katalog ohne Lager beweist das.
-5. Halte die Context Map als Code fest: Wer ist upstream, wer downstream, wer übersetzt? Prüf per Test, dass kein Context das Modell des Altsystems ungefiltert übernimmt.
-6. Überleg: Welcher Context ist in deinem Projekt Core Domain, welcher Supporting, welcher Generic? Wo lohnt sich ein ACL, wo reicht Conformist?
+1. Read `src/sales.ts`. Which fields of the warehouse does sales know? What happens when the warehouse renames `price_eur`?
+2. Describe the product the way sales needs it: `Product { id, name, priceCents, available }`. Create a port `Catalog` that returns a product by ID.
+3. Write an Anti-Corruption Layer (ACL) in `inventory-acl.ts`. It is the only place that knows both languages: “19,99” becomes 1999 cents, and available is only what is left after reservations.
+4. Rebuild sales so that it only knows `Catalog`. A test with a fixed catalog and no warehouse proves it.
+5. Record the Context Map as code: Who is upstream, who is downstream, who translates? Check by test that no context adopts the model of the older system unfiltered.
+6. Consider: Which context in your project is Core Domain, which is Supporting, which is Generic? Where is an ACL worth it, where is Conformist enough?
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Entitäten und Value Objects](../value-objects/README.md)
+Next: [Entities and Value Objects](../value-objects/README.md)

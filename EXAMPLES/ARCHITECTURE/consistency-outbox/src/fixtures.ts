@@ -4,7 +4,7 @@ import { CustomerId, OrderId, ProductId } from './order.ts'
 
 export const o1 = OrderId('o-1')
 
-// Eine bestellte, noch nicht bezahlte Bestellung
+// A placed order that is not paid yet
 export const placedOrder = async () => {
   const store = inMemoryEventStore()
   await createOrder(store, o1, CustomerId('c-1'))

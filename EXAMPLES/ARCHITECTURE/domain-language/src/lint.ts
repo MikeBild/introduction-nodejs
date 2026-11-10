@@ -1,19 +1,19 @@
 import type { Board, Sticky } from './board.ts'
 
-// Prüfregeln für ein Event-Storming-Board. Sie ersetzen kein Gespräch,
-// aber sie finden technische Namen, lose Enden und fehlende Begriffe.
+// Check rules for an Event Storming board. They do not replace a conversation,
+// but they find technical names, loose ends and missing terms.
 
 type Named = Extract<Sticky, { kind: 'event' | 'command' }>
 
-// Technische Verben verraten CRUD statt Fachsprache.
+// Technical verbs reveal CRUD instead of domain language.
 const technicalVerbs = ['Save', 'Update', 'Set', 'Change', 'Process', 'Handle', 'Manage']
 const technicalPastTense = ['Saved', 'Updated', 'Changed', 'Processed', 'Handled']
 
-// Ein Event steht in der Vergangenheitsform: Placed, Paid, Shipped, Sent, …
+// An event is in the past tense: Placed, Paid, Shipped, Sent, …
 const isPastTense = (name: string) => /(ed|Paid|Sent|Sold)$/.test(name)
 
-// Die Begriffe in einem Namen: ohne Verb vorn (Command) oder Partizip hinten (Event).
-// „PlaceOrder“ → [Order], „StockReserved“ → [Stock]
+// The terms in a name: without the verb in front (command) or the participle at the end (event).
+// “PlaceOrder” → [Order], “StockReserved” → [Stock]
 export const terms = ({ kind, name }: Pick<Named, 'kind' | 'name'>) => {
   const words = name.match(/[A-Z][a-z]+/g) ?? []
   return kind === 'command' ? words.slice(1) : words.slice(0, -1)
@@ -45,12 +45,12 @@ export const lint = ({ timeline, glossary }: Board): string[] => {
     if (!commandNames.has(sticky.then))
       problems.push(`Policy löst unbekannten Command ${sticky.then} aus`)
   }
-  // Jedes Event braucht einen Auslöser: einen Command mit Actor.
+  // Every event needs a trigger: a command with an actor.
   const emitted = new Set(commands.flatMap((c) => c.emits))
   for (const { name } of events)
     if (!emitted.has(name)) problems.push(`Event ${name} hat keinen Command als Auslöser`)
 
-  // Jeder Begriff aus den Namen steht im Glossar, mit einer fachlichen Erklärung.
+  // Every term from the names is in the glossary, with a domain explanation.
   const used = new Set([...events, ...commands].flatMap(terms))
   for (const term of used) if (!glossary[term]) problems.push(`Begriff ${term} fehlt im Glossar`)
   for (const [term, meaning] of Object.entries(glossary))

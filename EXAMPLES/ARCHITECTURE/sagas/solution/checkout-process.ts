@@ -1,5 +1,5 @@
-// Process Manager: reagiert auf Events, merkt sich den Schritt und schickt Commands.
-// Er entscheidet nichts über Bestand oder Zahlung, das bleibt in den Aggregaten.
+// Process Manager: reacts to events, remembers the step and sends commands.
+// It decides nothing about stock or payment, that stays in the aggregates.
 
 export type ProcessEvent =
   | { type: 'OrderPlaced'; orderId: string; totalCents: number }
@@ -22,7 +22,7 @@ export const initial: Checkout = { step: 'idle', totalCents: 0 }
 
 type Reaction = { state: Checkout; commands: ProcessCommand[] }
 
-// Welcher Schritt erwartet welches Event? Alles andere ist doppelt oder zu spät.
+// Which step expects which event? Everything else is a duplicate or too late.
 const expected: Record<ProcessEvent['type'], Step> = {
   OrderPlaced: 'idle',
   StockReserved: 'reserving',
@@ -53,7 +53,7 @@ export const react = (state: Checkout, event: ProcessEvent): Reaction => {
     case 'PaymentSucceeded':
       return { state: { ...state, step: 'shipping' }, commands: [{ type: 'ShipOrder', orderId }] }
     case 'PaymentFailed':
-      // Kompensation: Was schon passiert ist, gleichen neue Commands aus.
+      // Compensation: new commands make up for what has already happened.
       return {
         state: { ...state, step: 'cancelled' },
         commands: [

@@ -1,5 +1,5 @@
-// Event-Storming-Board als Code: jede Haftnotiz hat eine Farbe (kind) und einen Text.
-// Orange: Domain Event, Blau: Command, Gelb: Actor, Lila: Policy, Rot: Hotspot.
+// Event Storming board as code: every sticky note has a color (kind) and a text.
+// Orange: Domain Event, blue: Command, yellow: Actor, purple: Policy, red: Hotspot.
 
 export type Sticky =
   | { kind: 'event'; name: string }
@@ -9,7 +9,7 @@ export type Sticky =
 
 export type Board = { timeline: Sticky[]; glossary: Record<string, string> }
 
-// Erster Stand nach dem Gespräch mit dem Verkauf: so, wie es im Code heißt, nicht in der Fachsprache.
+// First version after the conversation with sales: named as in the code, not in the domain language.
 export const board: Board = {
   timeline: [
     { kind: 'command', name: 'SaveOrder', actor: 'Kundin', emits: ['OrderSaved'] },

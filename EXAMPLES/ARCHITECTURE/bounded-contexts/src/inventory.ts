@@ -1,10 +1,10 @@
-// Upstream-Context Lager: ein älteres System mit eigener Sprache.
-// Für das Lager ist ein Artikel eine SKU mit Bestand und Reservierungen.
+// Upstream context inventory: an older system with its own language.
+// For the inventory, an article is a SKU with stock and reservations.
 
 export type InventoryItemDto = {
   sku: string
   title: string
-  price_eur: string // „19,99“, als Text mit Komma
+  price_eur: string // “19,99”, as text with a comma
   qty_on_hand: number
   qty_reserved: number
 }

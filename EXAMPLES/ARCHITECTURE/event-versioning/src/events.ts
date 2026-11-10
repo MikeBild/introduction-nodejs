@@ -1,9 +1,9 @@
-// Events im Speicher: ein Umschlag mit Type, Schema-Version und Daten.
-// Das Logbuch ist drei Jahre alt. Die ersten Events haben ein anderes Schema als heute.
+// Events in storage: an envelope with type, schema version and data.
+// The log is three years old. The first events have a different schema than today.
 
 export type Envelope = { type: string; version: number; data: Record<string, unknown> }
 
-// Heutiges Schema (Version 2): Geld in Cent, Zeitpunkt als placedAt
+// Current schema (version 2): money in cents, timestamp as placedAt
 export type OrderEvent =
   | { type: 'ItemAdded'; productId: string; quantity: number; priceCents: number }
   | { type: 'OrderPlaced'; placedAt: string }
@@ -16,7 +16,7 @@ export const evolve = (order: Order, event: OrderEvent): Order =>
     ? { ...order, totalCents: order.totalCents + event.quantity * event.priceCents }
     : { ...order, placedAt: event.placedAt }
 
-// Das Logbuch: 2023 in Euro und mit „at“, seit 2025 in Cent und mit „placedAt“
+// The log: in 2023 in euros and with “at”, since 2025 in cents and with “placedAt”
 export const log: readonly Envelope[] = Object.freeze([
   { type: 'ItemAdded', version: 1, data: { productId: 'p-1', quantity: 2, price: 12.9 } },
   { type: 'OrderPlaced', version: 1, data: { at: '2023-05-02T08:00:00.000Z' } },
@@ -24,6 +24,6 @@ export const log: readonly Envelope[] = Object.freeze([
   { type: 'OrderPlaced', version: 2, data: { placedAt: '2026-10-12T10:00:00.000Z' } },
 ])
 
-// Heute: Jeder liest die Daten so, als wären sie im aktuellen Schema.
+// Today: everyone reads the data as if it were in the current schema.
 export const naiveRead = (envelope: Envelope) =>
   ({ type: envelope.type, ...envelope.data }) as OrderEvent

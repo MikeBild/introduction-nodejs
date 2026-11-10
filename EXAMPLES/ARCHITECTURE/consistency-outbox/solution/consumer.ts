@@ -1,7 +1,7 @@
 import type { StoredEvent } from '../src/event-store.ts'
 
-// Idempotenter Consumer: Stream und Version sind der Schlüssel jedes Events.
-// In einer Datenbank stehen Merken und Verarbeiten in einer Transaktion.
+// Idempotent consumer: stream and version are the key of every event.
+// In a database, remembering and processing happen in one transaction.
 export const idempotent = (handle: (stored: StoredEvent) => void) => {
   const seen = new Set<string>()
   return (stored: StoredEvent) => {

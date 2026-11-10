@@ -1,20 +1,20 @@
 import type { OrderCommand, OrderEvent, OrderQuery } from './messages.ts'
 import { type Order, decide, evolve, initial } from './order.ts'
 
-// Command Handler und Query Handler: getrennte Wege, derselbe Speicher.
+// Command handler and query handler: separate paths, the same storage.
 export const createOrderApp = (now = () => new Date()) => {
   const orders = new Map<string, Order>()
   const listeners: ((event: OrderEvent) => void)[] = []
 
   return {
-    // Ein Command liefert keine Daten zurück, nur Erfolg oder Ablehnung.
+    // A command returns no data, only success or rejection.
     send: (command: OrderCommand): void => {
       const order = orders.get(command.orderId) ?? initial
       const events = decide(order, command, now())
       orders.set(command.orderId, events.reduce(evolve, order))
       for (const event of events) for (const listener of listeners) listener(event)
     },
-    // Eine Query liest nur. Zweimal fragen ergibt zweimal dieselbe Antwort.
+    // A query only reads. Asking twice gives the same answer twice.
     ask: (query: OrderQuery) => {
       switch (query.type) {
         case 'GetOrder': {

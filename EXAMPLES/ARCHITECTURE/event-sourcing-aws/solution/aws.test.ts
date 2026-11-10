@@ -67,7 +67,7 @@ describe('stream handler', () => {
     const handle = createHandler(readModel)
     const batch = streamBatch(db.inserted())
     await handle(batch)
-    await handle(batch) // Lambda liefert den Batch noch einmal
+    await handle(batch) // Lambda delivers the batch again
     expect(readModel.get('ORDER#o-1')).toEqual({ status: 'paid', version: 2 })
   })
 })

@@ -1,12 +1,14 @@
-# Event Sourcing auf AWS: DynamoDB und Lambda
+*English · [Deutsch](README.de.md)*
 
-Ein Event Store auf DynamoDB ist eine Table mit `pk` (Stream, zum Beispiel `ORDER#o-1`) und `sk` (Version im Stream). Optimistic Concurrency liefert eine Bedingung beim Schreiben. DynamoDB Streams melden jedes neue Event an eine Lambda-Function, die das Read Model fortschreibt.
+# Event Sourcing on AWS: DynamoDB and Lambda
 
-`src/event-store.ts` schreibt jedes Event mit einem eigenen `PutCommand` und ohne Bedingung. `src/projector.ts` überschreibt den Status mit jedem Event, auch mit einem alten, und wirft den ganzen Batch, wenn ein Record scheitert. Die Tests in `src/event-store.test.ts` zeigen das. Statt einer echten Table nutzen die Tests `src/fake-dynamodb.ts`, das genau die Befehle dieser Übung nachbildet.
+An Event Store on DynamoDB is a table with `pk` (stream, for example `ORDER#o-1`) and `sk` (version within the stream). Optimistic concurrency provides a condition on write. DynamoDB Streams report every new event to a Lambda function that updates the Read Model.
 
-Pakete: `@aws-sdk/client-dynamodb` und `@aws-sdk/lib-dynamodb` für die Befehle, wie sie auch in Lambda laufen, `@aws-sdk/util-dynamodb` für `unmarshall`, `@types/aws-lambda` für die Types der Stream-Events.
+`src/event-store.ts` writes each event with its own `PutCommand` and without a condition. `src/projector.ts` overwrites the status with every event, even an old one, and throws the whole batch when one record fails. The tests in `src/event-store.test.ts` show this. Instead of a real table, the tests use `src/fake-dynamodb.ts`, which mimics exactly the commands of this exercise.
 
-Du brauchst Node.js 26 oder neuer. Ein AWS-Konto brauchst du für die Übung nicht.
+Packages: `@aws-sdk/client-dynamodb` and `@aws-sdk/lib-dynamodb` for the commands as they also run in Lambda, `@aws-sdk/util-dynamodb` for `unmarshall`, `@types/aws-lambda` for the types of the stream events.
+
+You need Node.js 26 or newer. You do not need an AWS account for this exercise.
 
 ```bash
 npm install
@@ -15,15 +17,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/event-store.ts`. Was passiert, wenn zwei Commands gleichzeitig Version zwei schreiben?
-2. Schreib `appendCommand` in `event-store.ts`: ein `TransactWriteCommand` mit einem `Put` je Event und der Bedingung `attribute_not_exists(pk)`. Alle Events eines Commands landen gemeinsam oder gar nicht.
-3. Übersetze `TransactionCanceledException` in einen `ConcurrencyError`. Lies beim Laden mit `ConsistentRead`.
-4. Schreib den Stream-Handler in `projector.ts` neu: Nur eine höhere Version ändert das Read Model. So ist er idempotent und verträgt späte Events.
-5. Melde gescheiterte Records mit `batchItemFailures` (ReportBatchItemFailures), statt den ganzen Batch zu werfen.
-6. Überleg: Welcher Partition Key würde bei einem sehr aktiven Stream heiß? Wie baust du ein Read Model neu auf, wenn der Stream nur 24 Stunden zurückreicht?
+1. Read `src/event-store.ts`. What happens when two commands write version two at the same time?
+2. Write `appendCommand` in `event-store.ts`: a `TransactWriteCommand` with one `Put` per event and the condition `attribute_not_exists(pk)`. All events of a command land together or not at all.
+3. Translate `TransactionCanceledException` into a `ConcurrencyError`. Load with `ConsistentRead`.
+4. Rewrite the stream handler in `projector.ts`: only a higher version changes the Read Model. That makes it idempotent and tolerant of late events.
+5. Report failed records with `batchItemFailures` (ReportBatchItemFailures) instead of throwing the whole batch.
+6. Consider: Which partition key would become hot on a very active stream? How do you rebuild a Read Model when the stream only reaches back 24 hours?
 
-Wie du Table, Stream und Lambda mit AWS CDK anlegst, zeigt der Workshop [„AWS Serverless mit Lambda, CDK und DynamoDB“](https://workshops.mikebild.dev/w/aws-serverless/remote/) mit dem Übungs-Repo [introduction-aws](https://github.com/MikeBild/introduction-aws).
+How to create the table, the stream, and the Lambda function with AWS CDK is shown in the workshop [“AWS serverless with Lambda, CDK, and DynamoDB”](https://workshops.mikebild.dev/w/aws-serverless/remote/) with the exercise repository [introduction-aws](https://github.com/MikeBild/introduction-aws).
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).

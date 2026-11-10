@@ -15,7 +15,7 @@ const seed = () => {
   return db
 }
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('one model for reading and writing', () => {
   it('reads every aggregate and every customer for one overview', () => {
     const db = seed()
@@ -23,7 +23,7 @@ describe('one model for reading and writing', () => {
     for (const id of ['o-1', 'o-2', 'o-3']) orders.placeOrder(id)
     const before = db.reads()
     expect(orders.openOrders()).toHaveLength(3)
-    expect(db.reads() - before).toBe(6) // zwei Reads pro Bestellung
+    expect(db.reads() - before).toBe(6) // two reads per order
   })
 
   it('carries display data in the write model', () => {

@@ -1,48 +1,52 @@
+*English · [Deutsch](README.de.md)*
+
 # Architecture Decision Records
 
-Der Code zeigt, was gebaut wurde. Ein ADR hält fest, warum. Es ist kurz, liegt nummeriert neben dem Code und wird im Pull Request reviewt.
+The code shows what was built. An ADR records why. It is short, sits numbered next to the code, and is reviewed in the pull request.
 
-Ein akzeptiertes ADR änderst du nie. Entscheidet dein Team neu, schreibst du ein neues ADR und setzt das alte auf `Superseded`.
+You never change an accepted ADR. If your team decides differently, you write a new ADR and set the old one to `Superseded`.
 
 ```
 docs/adr/
-  0000-template.md                                       # Vorlage zum Kopieren
+  0000-template.md                                       # template to copy
   0001-crud-mit-postgresql-fuer-den-bestell-context.md   # Superseded by 0002
-  0002-event-sourcing-nur-fuer-orders.md                 # Accepted, löst 0001 ab
+  0002-event-sourcing-nur-fuer-orders.md                 # Accepted, supersedes 0001
 src/
-  check-adr.ts                                           # Prüfregeln für Aufbau und Status
-  draft/0003-projektionen.md                             # Entwurf, der noch kein ADR ist
+  check-adr.ts                                           # check rules for structure and status
+  draft/0003-projektionen.md                             # a draft that is not an ADR yet
 ```
 
-Die Beispiele gehören zur Übung [Event Sourcing und CQRS](../event-sourcing/README.md): 0001 beschreibt den CRUD-Stand aus `src/`, 0002 die Entscheidung für `solution/`.
+The examples belong to the exercise [Event Sourcing and CQRS](../event-sourcing/README.md): 0001 describes the CRUD state from `src/`, 0002 the decision for `solution/`.
 
-Du brauchst Node.js 26 oder neuer.
+The ADR files themselves are written in German. `check-adr.ts` expects the file name pattern `0001-….md` and the German phrases “Wir werden …” (“We will …”) in Decision and “Gut:”, “Schlecht:”, and “Neu entscheiden, wenn” (“Good:”, “Bad:”, “Decide again when”) in Consequences.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
-npm start            # prüft docs/adr
-npm start -- <pfad>  # prüft die ADRs in einem anderen Ordner, zum Beispiel in deinem Repo
+npm start            # checks docs/adr
+npm start -- <path>  # checks the ADRs in another folder, for example in your repository
 npm test
 npm run typecheck
 ```
 
-## Aufbau
+## Structure
 
-- Titel: die Entscheidung, nicht das Thema
-- Date: wann entschieden wurde
-- Status: Proposed, Accepted, Deprecated oder Superseded by …
-- Context: Last, Team und Zwänge zum Zeitpunkt der Entscheidung
-- Decision: ein Satz mit „Wir werden …“
-- Consequences: gut, schlecht und wann du neu entscheidest
+- Title: the decision, not the topic
+- Date: when the decision was made
+- Status: Proposed, Accepted, Deprecated, or Superseded by …
+- Context: load, team, and constraints at the time of the decision
+- Decision: one sentence with “Wir werden …” (“We will …”)
+- Consequences: good, bad, and when you decide again
 
-## Übung
+## Exercise
 
-1. Lies 0001 und 0002. Was hat sich im Kontext geändert, dass 0001 nicht mehr gilt? Warum steht 0001 noch im Repo?
-2. Lies den Entwurf `src/draft/0003-projektionen.md` und die Befunde in `src/adr.test.ts`. Schreib daraus ein vollständiges ADR 0003: Was war die Lage, was hast du verworfen, was kostet die Entscheidung?
-3. Such dir eine offene Architekturentscheidung in deinem Team. Lohnt sich ein ADR? Ja, wenn sie schwer umkehrbar ist, mehrere Teams betrifft oder eine naheliegende Alternative verwirft.
-4. Kopier `0000-template.md` als nächste Nummer nach `docs/adr/` in deinem Repo und füll es aus. Nenn auch die schlechten Konsequenzen und die Bedingung, unter der du neu entscheidest. Prüf es mit `npm start -- <pfad>`.
-5. Öffne einen Pull Request und lass das ADR reviewen. Mit dem Merge wird es `Accepted`.
+1. Read 0001 and 0002. What changed in the context so that 0001 no longer applies? Why is 0001 still in the repository?
+2. Read the draft `src/draft/0003-projektionen.md` and the findings in `src/adr.test.ts`. Turn them into a complete ADR 0003: What was the situation, what did you reject, what does the decision cost?
+3. Pick an open architecture decision in your team. Is an ADR worth it? Yes, if the decision is hard to reverse, affects several teams, or rejects an obvious alternative.
+4. Copy `0000-template.md` as the next number into `docs/adr/` in your repository and fill it in. Name the bad consequences too, and the condition under which you decide again. Check it with `npm start -- <path>`.
+5. Open a pull request and have the ADR reviewed. With the merge it becomes `Accepted`.
 
-Eine mögliche Lösung für ADR 0003 liegt in `solution/` (`npm run start:solution`).
+One possible solution for ADR 0003 is in `solution/` (`npm run start:solution`).
 
-Weiter: [Wann CQRS und Event Sourcing zu viel sind](../when-too-much/README.md)
+Next: [When CQRS and Event Sourcing are too much](../when-too-much/README.md)

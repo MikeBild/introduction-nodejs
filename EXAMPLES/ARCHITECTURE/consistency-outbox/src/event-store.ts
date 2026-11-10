@@ -1,6 +1,6 @@
 import type { OrderEvent } from './order.ts'
 
-// Jedes gespeicherte Event bekommt eine globale Position: Projektionen erkennen daran Duplikate.
+// Every stored event gets a global position: projections use it to detect duplicates.
 export type StoredEvent = {
   position: number
   streamId: string
@@ -10,7 +10,7 @@ export type StoredEvent = {
 
 export type EventStore = {
   load: (id: string) => Promise<{ events: OrderEvent[]; version: number }>
-  append: (id: string, expectedVersion: number, events: OrderEvent[]) => Promise<number> // letzte globale Position
+  append: (id: string, expectedVersion: number, events: OrderEvent[]) => Promise<number> // last global position
   readAll: (fromPosition?: number) => Promise<StoredEvent[]>
 }
 
@@ -35,7 +35,7 @@ export const inMemoryEventStore = (): EventStore => {
   return {
     load: async (id) => {
       const stream = streams.get(id) ?? []
-      // Kopien: Wer geladene Events verändert, ändert nie den Store.
+      // Copies: whoever changes loaded events never changes the store.
       return {
         events: stream.map((stored) => structuredClone(stored.event)),
         version: stream.length,

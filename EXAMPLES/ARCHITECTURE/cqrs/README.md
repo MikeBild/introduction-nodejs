@@ -1,10 +1,12 @@
-# CQRS: Write Model und Read Model auf einem Store
+*English · [Deutsch](README.de.md)*
 
-Command Query Responsibility Segregation, kurz CQRS, trennt das Modell zum Schreiben vom Modell zum Lesen. Das ist eine fachliche Grenze, kein Framework, und braucht keine zweite Datenbank.
+# CQRS: Write Model and Read Model on one store
 
-`src/orders.ts` nutzt ein Modell für alles. Die Übersicht „offene Bestellungen“ lädt jedes Aggregat und jeden Kunden einzeln, und weil die Oberfläche den Kundennamen braucht, steht er jetzt auch in der Bestellung. Die Tests in `src/orders.test.ts` zeigen das.
+Command Query Responsibility Segregation, CQRS for short, separates the model for writing from the model for reading. That is a domain boundary, not a framework, and it needs no second database.
 
-Du brauchst Node.js 26 oder neuer.
+`src/orders.ts` uses one model for everything. The overview “open orders” loads every aggregate and every customer one by one, and because the UI needs the customer name, it now sits in the order too. The tests in `src/orders.test.ts` show this.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/orders.ts`. Welche Felder braucht die Regel „nur mit Positionen bestellen“, welche nur die Anzeige?
-2. Leg in `store.ts` einen Store mit drei Tabellen an: `orders` und `customers` fürs Schreiben, `openOrders` als Sicht fürs Lesen. `transaction` gilt ganz oder gar nicht.
-3. Schreib die Schreibseite in `write.ts`: `placeOrder`, `payOrder`, `shipOrder`. Sie prüfen die Regeln, geben nichts zurück und halten `openOrders` in derselben Transaktion aktuell.
-4. Schreib die Leseseite in `read.ts`: `listOpenOrders` liefert flache Zeilen genau in der Form der Übersicht, ohne Aggregat und ohne Regel.
-5. Beweis per Test: Ein abgelehnter Command ändert weder Write Model noch Sicht, und zweimal fragen ergibt zweimal dieselbe Antwort.
-6. Überleg: Wann würdest du die Sicht asynchron und in einem zweiten Store pflegen? Was kostet dich das?
+1. Read `src/orders.ts`. Which fields does the rule “place only with line items” need, which only the display?
+2. Create a store with three tables in `store.ts`: `orders` and `customers` for writing, `openOrders` as a view for reading. `transaction` applies fully or not at all.
+3. Write the write side in `write.ts`: `placeOrder`, `payOrder`, `shipOrder`. They check the rules, return nothing, and keep `openOrders` up to date in the same transaction.
+4. Write the read side in `read.ts`: `listOpenOrders` returns flat rows exactly in the shape of the overview, without aggregate and without rules.
+5. Prove by test: a rejected command changes neither the Write Model nor the view, and asking twice gives the same answer twice.
+6. Consider: When would you maintain the view asynchronously and in a second store? What does that cost you?
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Event Sourcing](../event-sourcing/README.md)
+Next: [Event Sourcing](../event-sourcing/README.md)

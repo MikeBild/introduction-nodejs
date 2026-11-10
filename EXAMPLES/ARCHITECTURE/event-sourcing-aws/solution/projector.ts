@@ -7,8 +7,8 @@ const statusOf: Record<string, string> = {
   OrderShipped: 'shipped',
 }
 
-// Idempotent und geordnet pro Stream: Nur eine höhere Version ändert das Read Model.
-// In DynamoDB wäre das ein Update mit ConditionExpression „attribute_not_exists(version) OR version < :v“.
+// Idempotent and ordered per stream: only a higher version changes the Read Model.
+// In DynamoDB this would be an update with the ConditionExpression “attribute_not_exists(version) OR version < :v”.
 export const applyIfNewer = (readModel: ReadModel, pk: string, version: number, status: string) => {
   const current = readModel.get(pk)
   if (current && current.version >= version) return false
@@ -16,8 +16,8 @@ export const applyIfNewer = (readModel: ReadModel, pk: string, version: number, 
   return true
 }
 
-// Mit ReportBatchItemFailures meldet der Handler nur die gescheiterten Records.
-// Lambda wiederholt ab dem ersten Fehler, der Rest des Batches bleibt verarbeitet.
+// With ReportBatchItemFailures the handler reports only the failed records.
+// Lambda retries from the first failure, the rest of the batch stays processed.
 export const createHandler =
   (readModel: ReadModel) =>
   async (event: DynamoDBStreamEvent): Promise<DynamoDBBatchResponse> => {

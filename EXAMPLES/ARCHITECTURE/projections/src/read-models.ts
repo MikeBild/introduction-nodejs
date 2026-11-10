@@ -1,7 +1,7 @@
 import type { StoredEvent } from './event-store.ts'
 
-// Ein Read Model, das zu viel tut: Es zählt, ohne Duplikate zu erkennen,
-// und verschickt nebenbei Mails. Beim Neuaufbau passiert beides noch einmal.
+// A Read Model that does too much: it counts without detecting duplicates,
+// and sends mails on the side. On a rebuild, both happen again.
 
 export type Mailer = { send: (to: string, text: string) => void }
 

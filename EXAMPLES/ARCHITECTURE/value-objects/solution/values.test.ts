@@ -46,7 +46,7 @@ describe('value objects', () => {
   })
 
   it('does not compile with swapped ids', () => {
-    // @ts-expect-error ProductId ist keine CustomerId
+    // @ts-expect-error ProductId is not a CustomerId
     reorder(ProductId('p-1'), CustomerId('c-1'))
     expect(reorder(CustomerId('c-1'), ProductId('p-1'))).toBe('c-1 bestellt p-1 nach')
   })

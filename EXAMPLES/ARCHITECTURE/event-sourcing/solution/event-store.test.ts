@@ -30,7 +30,7 @@ describe('event store', () => {
       addItem(store, o1, screwdrivers),
     ])
     expect(results.map((result) => result.status)).toEqual(['fulfilled', 'rejected'])
-    // Der abgelehnte Command lädt neu und versucht es noch einmal.
+    // The rejected command reloads and tries again.
     await addItem(store, o1, screwdrivers)
     const { events } = await store.load(o1)
     expect(events.filter((event) => event.type === 'ItemAdded')).toHaveLength(2)

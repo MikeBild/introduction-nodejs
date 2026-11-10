@@ -10,7 +10,7 @@ describe('ADRs in docs/adr', () => {
   })
 })
 
-// Dieser Test beschreibt den heutigen Stand – auch seine Schwächen.
+// This test describes the current state – including its weaknesses.
 describe('draft ADR 0003', () => {
   it('reads like a ticket, not like a decision', () => {
     expect(checkDirectory(path('./draft'))).toEqual([

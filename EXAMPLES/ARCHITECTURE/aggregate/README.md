@@ -1,10 +1,12 @@
-# Das Aggregat als Konsistenzgrenze
+*English · [Deutsch](README.de.md)*
 
-Eine Bestellung hat Regeln: Positionen nur im Status `draft`, `placed` nur mit mindestens einer Position, keine Abkürzung in der Statusfolge `draft → placed → paid → shipped`, Storno nur aus `draft` oder `placed`. Ein Aggregat schützt solche Regeln als Einheit. Von außen ändert niemand ein Feld direkt.
+# The aggregate as consistency boundary
 
-`src/orders.ts` ist ein anämisches Modell: Daten hier, Regeln verstreut in Services. Die Tests in `src/orders.test.ts` zeigen, wie ein zweiter Service die Regeln umgeht, wie eine leere Bestellung bestellt wird und wie ein halber Checkout den Bestand ändert.
+An order has rules: line items only in status `draft`, `placed` only with at least one line item, no shortcut in the status sequence `draft → placed → paid → shipped`, cancellation only from `draft` or `placed`. An aggregate protects such rules as a unit. From the outside, nobody changes a field directly.
 
-Du brauchst Node.js 26 oder neuer.
+`src/orders.ts` is an anemic model: data here, rules scattered across services. The tests in `src/orders.test.ts` show how a second service bypasses the rules, how an empty order gets placed, and how a half-finished checkout changes the stock.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/orders.ts`. Wo stehen die Regeln der Bestellung? Wer kann sie umgehen?
-2. Schreib das Aggregat `Order` in `order.ts` als Sammlung von Pure Functions: `start`, `addItem`, `place`, `pay`, `ship`, `cancel`. Jede liefert eine neue Order oder wirft.
-3. Leite die Gesamtsumme aus den Positionen ab, statt sie zu speichern.
-4. Verweise auf andere Aggregate nur per ID: `customerId` statt `Customer`, `productId` statt `Product`.
-5. Mach den Bestand zu einem eigenen Aggregat `Product` mit `reserve` und `release`. Warum gehört er nicht in die Bestellung?
-6. Schreib ein Repository mit `load` und `save(value, expectedVersion)`. Eine Transaktion ändert genau ein Aggregat: Bestellung platzieren und Bestand reservieren sind zwei Schritte. Ein Test zeigt, dass ein Lost Update jetzt auffällt.
+1. Read `src/orders.ts`. Where are the rules of the order? Who can bypass them?
+2. Write the aggregate `Order` in `order.ts` as a collection of Pure Functions: `start`, `addItem`, `place`, `pay`, `ship`, `cancel`. Each returns a new order or throws.
+3. Derive the total from the line items instead of storing it.
+4. Reference other aggregates by ID only: `customerId` instead of `Customer`, `productId` instead of `Product`.
+5. Make the stock its own aggregate `Product` with `reserve` and `release`. Why does it not belong in the order?
+6. Write a repository with `load` and `save(value, expectedVersion)`. One transaction changes exactly one aggregate: placing the order and reserving stock are two steps. A test shows that a lost update is now detected.
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [Commands, Events und Queries](../commands-events-queries/README.md)
+Next: [Commands, events, and queries](../commands-events-queries/README.md)

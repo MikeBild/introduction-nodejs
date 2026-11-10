@@ -2,15 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { seededStore } from './fixtures.ts'
 import { paidOrdersCounter } from './read-models.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('read model with side effects', () => {
   it('counts a redelivered event twice', async () => {
     const store = await seededStore()
     const counter = paidOrdersCounter({ send: () => {} })
     const events = await store.readAll()
     const paid = events.findLast((stored) => stored.event.type === 'OrderPaid')!
-    for (const stored of [...events, paid]) counter.apply(stored) // doppelt zugestellt
-    expect(counter.paid()).toBe(3) // bezahlt sind nur zwei
+    for (const stored of [...events, paid]) counter.apply(stored) // delivered twice
+    expect(counter.paid()).toBe(3) // only two are paid
   })
 
   it('sends every mail again on a rebuild', async () => {

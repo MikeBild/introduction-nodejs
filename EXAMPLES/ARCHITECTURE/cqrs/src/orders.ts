@@ -1,11 +1,11 @@
-// Ein Modell für alles: Die Übersicht lädt ganze Aggregate und rechnet in der Query.
-// Und weil die Oberfläche den Kundennamen braucht, wandert er in die Bestellung.
+// One model for everything: the overview loads whole aggregates and calculates in the query.
+// And because the UI needs the customer name, it moves into the order.
 
 export type OrderItem = { productId: string; quantity: number; priceCents: number }
 export type Order = {
   id: string
   customerId: string
-  customerName: string // nur für die Anzeige, muss bei jeder Namensänderung mit
+  customerName: string // only for display, has to follow every name change
   status: 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
   items: OrderItem[]
 }
@@ -33,7 +33,7 @@ export const createDb = () => {
 export type Db = ReturnType<typeof createDb>
 
 export const createOrderService = (db: Db) => ({
-  // Der Command gibt die ganze Bestellung zurück, damit die Oberfläche sie anzeigen kann.
+  // The command returns the whole order so that the UI can display it.
   placeOrder: (id: string) => {
     const order = db.loadOrder(id)
     if (!order) throw new Error(`Order ${id} not found`)
@@ -42,7 +42,7 @@ export const createOrderService = (db: Db) => ({
     db.orders.set(id, placed)
     return placed
   },
-  // Die Übersicht lädt jedes Aggregat und jeden Kunden einzeln.
+  // The overview loads every aggregate and every customer one by one.
   openOrders: () =>
     [...db.orders.keys()]
       .map((id) => db.loadOrder(id)!)

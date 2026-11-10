@@ -3,7 +3,7 @@ import { marshall } from '@aws-sdk/util-dynamodb'
 import type { AttributeValue } from 'aws-lambda'
 import type { Item } from './fake-dynamodb.ts'
 
-// Testhilfe: baut aus Items einen Batch, wie ihn Lambda vom DynamoDB Stream bekommt.
+// Test helper: builds a batch from items, as Lambda receives it from the DynamoDB Stream.
 export const streamBatch = (items: Item[]): DynamoDBStreamEvent => ({
   Records: items.map((item, index) => ({
     eventName: 'INSERT',

@@ -1,4 +1,4 @@
-// Alles heißt „update“: Niemand sieht, was jemand wollte oder was passiert ist.
+// Everything is called “update”: nobody sees what someone wanted or what happened.
 
 export type OrderStatus = 'draft' | 'placed' | 'paid' | 'shipped' | 'cancelled'
 export type OrderItem = { productId: string; quantity: number; priceCents: number }
@@ -17,7 +17,7 @@ export const createOrderApi = (now = () => new Date()) => {
       orders.set(order.id, structuredClone(order))
       return structuredClone(order)
     },
-    // Generischer Setter: Jeder Patch ist erlaubt, auch draft → shipped.
+    // Generic setter: every patch is allowed, even draft → shipped.
     updateOrder: (id: string, patch: Partial<Order>) => {
       const order = orders.get(id)
       if (!order) throw new Error(`Order ${id} not found`)
@@ -25,7 +25,7 @@ export const createOrderApi = (now = () => new Date()) => {
       orders.set(id, updated)
       return structuredClone(updated)
     },
-    // Eine Frage mit Side Effect: Lesen ändert den Zustand.
+    // A question with a Side Effect: reading changes the state.
     getOrder: (id: string) => {
       const order = orders.get(id)
       if (!order) return undefined

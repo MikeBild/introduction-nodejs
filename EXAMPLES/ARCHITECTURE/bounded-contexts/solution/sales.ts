@@ -1,12 +1,12 @@
-// Context Verkauf: eigene Sprache, eigenes Modell. Für den Verkauf ist ein Produkt
-// etwas mit Name, Preis in Cent und der Frage, ob die Kundin es kaufen kann.
+// Sales context: its own language, its own model. For sales, a product is
+// something with a name, a price in cents and the question whether the customer can buy it.
 
 export type ProductId = string & { readonly __brand: 'ProductId' }
 export const ProductId = (id: string) => id as ProductId
 
 export type Product = { id: ProductId; name: string; priceCents: number; available: boolean }
 
-// Port: Der Verkauf sagt, was er braucht. Wer es liefert, ist ihm egal.
+// Port: sales says what it needs. Who delivers it does not matter to sales.
 export type Catalog = (id: ProductId) => Promise<Product | undefined>
 
 export const createSales = (catalog: Catalog) => {

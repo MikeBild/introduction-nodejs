@@ -1,0 +1,72 @@
+*[English](README.md) · Deutsch*
+
+# Übungen: Architektur mit DDD, CQRS und Event Sourcing
+
+Übungen zum Workshop „Architektur: DDD, CQRS und Event Sourcing“. Jede Übung ist ein eigenes Paket mit Startpunkt in `src/`, Lösung in `solution/` und Tests für beides. Das durchgehende Beispiel ist der Werkstatt-Shop: Bestellungen mit Positionen `{ productId, quantity, priceCents }`, Geld in ganzen Cent, Statusfolge `draft → placed → paid → shipped`, `cancelled` nur aus `draft` oder `placed`.
+
+## Was du lernst
+
+- Fachsprache, Bounded Contexts und Aggregate mit Domain-Driven Design (DDD)
+- Commands, Events und Queries trennen: CQRS mit Read Models und Projektionen
+- Event Sourcing mit Upcasting und Outbox – und wann es zu viel ist
+
+## Voraussetzungen
+
+- **Node.js 26** – `nvm use` liest die Version aus der `.nvmrc` der jeweiligen Übung. Node.js führt TypeScript direkt aus, die Tests laufen mit [Vitest](https://vitest.dev).
+
+## Einrichten
+
+```bash
+git clone https://github.com/MikeBild/introduction-nodejs.git
+cd introduction-nodejs/EXAMPLES/ARCHITECTURE/<übung>
+npm install
+npm test             # Tests für src/ und solution/
+npm run typecheck
+```
+
+## So arbeitest du mit einer Übung
+
+```bash
+npm start            # Startpunkt
+npm run start:solution
+```
+
+Die Tests in `src/` beschreiben den Startpunkt samt seinen Schwächen, die Tests in `solution/` das Ziel. Die Aufgaben stehen in der README jeder Übung im Abschnitt „Übung“.
+
+## Übungen
+
+| Nr. | Übung                                                        | Thema                                                   |
+| --: | ------------------------------------------------------------ | ------------------------------------------------------- |
+|   1 | [domain-language](domain-language/README.de.md)                 | Fachsprache und Event Storming                          |
+|   2 | [bounded-contexts](bounded-contexts/README.de.md)               | Bounded Contexts, Context Map, Anti-Corruption Layer    |
+|   3 | [value-objects](value-objects/README.de.md)                     | Entitäten und Value Objects                             |
+|   4 | [aggregate](aggregate/README.de.md)                             | Das Aggregat als Konsistenzgrenze                       |
+|   5 | [commands-events-queries](commands-events-queries/README.de.md) | Commands, Events und Queries                            |
+|   6 | [cqrs](cqrs/README.de.md)                                       | CQRS: Write Model und Read Model auf einem Store        |
+|   7 | [event-sourcing](event-sourcing/README.de.md)                   | Event Sourcing: Event Store, Left Fold, Versionsprüfung |
+|   8 | [projections](projections/README.de.md)                         | Projektionen: Checkpoint, Neuaufbau, Snapshots          |
+|   9 | [event-versioning](event-versioning/README.de.md)               | Event-Versionierung mit Upcasting                       |
+|  10 | [consistency-outbox](consistency-outbox/README.de.md)           | Konsistenz, Idempotenz und Outbox                       |
+|  11 | [adr](adr/README.de.md)                                         | Architecture Decision Records                           |
+|  12 | [when-too-much](when-too-much/README.de.md)                     | Wann CQRS und Event Sourcing zu viel sind               |
+
+### Zusatzkapitel
+
+| Übung                                              | Thema                                                     |
+| -------------------------------------------------- | --------------------------------------------------------- |
+| [sagas](sagas/README.de.md)                           | Sagas und Process Manager mit Kompensation                |
+| [event-sourcing-aws](event-sourcing-aws/README.de.md) | Event Store auf DynamoDB, Projektion als Lambda am Stream |
+| [ports-adapters](ports-adapters/README.md)         | Ports and Adapters ohne Klassen                           |
+
+## Workshop und Folien
+
+- Workshop: [„Architektur: DDD, CQRS und Event Sourcing“](https://workshops.mikebild.dev/w/architektur-ddd-cqrs/remote/)
+- Folien: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
+
+## Archiv
+
+Ältere Beispiele ohne TypeScript liegen unter [`archive/`](archive/).
+
+## Lizenz
+
+[MIT](../../LICENSE)

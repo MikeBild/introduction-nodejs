@@ -2,7 +2,7 @@ import { addItem, createOrder, payOrder, placeOrder } from './commands.ts'
 import { type EventStore, inMemoryEventStore } from './event-store.ts'
 import { CustomerId, OrderId, ProductId } from './order.ts'
 
-// Zwei bezahlte Bestellungen im Oktober, eine offene: das Logbuch für alle Tests.
+// Two paid orders in October, one open: the log for all tests.
 export const seededStore = async (): Promise<EventStore> => {
   const store = inMemoryEventStore()
   const october = new Date('2026-10-12T10:00:00.000Z')

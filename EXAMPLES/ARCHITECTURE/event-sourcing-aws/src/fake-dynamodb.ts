@@ -1,15 +1,15 @@
 import { TransactionCanceledException } from '@aws-sdk/client-dynamodb'
 import { PutCommand, QueryCommand, TransactWriteCommand } from '@aws-sdk/lib-dynamodb'
 
-// Ein Ersatz für DynamoDB im Test: eine Table mit pk und sk und genau den Befehlen,
-// die die Übung braucht. Er kennt nur die Bedingung attribute_not_exists(pk).
+// A stand-in for DynamoDB in tests: a table with pk and sk and exactly the commands
+// the exercise needs. It knows only the condition attribute_not_exists(pk).
 export type Item = { pk: string; sk: number } & Record<string, unknown>
 export type Client = { send: (command: object) => Promise<unknown> }
 
 export const fakeDynamoDb = () => {
   const items = new Map<string, Item>()
   const key = (item: { pk: string; sk: number }) => `${item.pk}|${item.sk}`
-  const inserted: Item[] = [] // wie ein DynamoDB Stream: jedes neue Item in Reihenfolge
+  const inserted: Item[] = [] // like a DynamoDB Stream: every new item in order
 
   const client: Client = {
     send: async (command) => {

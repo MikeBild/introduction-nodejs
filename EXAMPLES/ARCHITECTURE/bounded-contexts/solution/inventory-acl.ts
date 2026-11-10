@@ -1,10 +1,10 @@
 import type { InventoryClient, InventoryItemDto } from '../src/inventory.ts'
 import { type Catalog, type Product, ProductId } from './sales.ts'
 
-// Anti-Corruption Layer: die einzige Stelle, die beide Sprachen kennt.
-// Ändert das Lager sein Format, änderst du nur diese Datei.
+// Anti-Corruption Layer: the only place that knows both languages.
+// If the inventory changes its format, you change only this file.
 
-// „19,99“ → 1999, ohne Kommazahl
+// “19,99” → 1999, without decimals
 export const parseEuroToCents = (text: string) => {
   const match = /^(\d+),(\d{2})$/.exec(text)
   if (!match) throw new Error(`Invalid price ${text}`)

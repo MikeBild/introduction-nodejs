@@ -1,10 +1,12 @@
-# Commands, Events und Queries
+*English · [Deutsch](README.de.md)*
 
-Ein Command ist ein Wunsch und darf abgelehnt werden: `PlaceOrder`. Ein Event ist eine Tatsache, die schon passiert ist: `OrderPlaced`. Eine Query ist eine Frage ohne Side Effect: `ListOpenOrders`.
+# Commands, events, and queries
 
-`src/orders.ts` kennt nur `saveOrder`, `updateOrder` und `getOrder`. Die Tests in `src/orders.test.ts` zeigen die Folgen: Eine leere Bestellung lässt sich auf `shipped` setzen, niemand sieht, was jemand wollte, und schon das Lesen ändert den Zustand.
+A command is a request and may be rejected: `PlaceOrder`. An event is a fact that has already happened: `OrderPlaced`. A query is a question without a Side Effect: `ListOpenOrders`.
 
-Du brauchst Node.js 26 oder neuer.
+`src/orders.ts` only knows `saveOrder`, `updateOrder`, and `getOrder`. The tests in `src/orders.test.ts` show the consequences: an empty order can be set to `shipped`, nobody sees what someone wanted, and even reading changes the state.
+
+You need Node.js 26 or newer.
 
 ```bash
 npm install
@@ -13,15 +15,15 @@ npm test
 npm run typecheck
 ```
 
-## Übung
+## Exercise
 
-1. Lies `src/orders.ts`. Was alles kann `updateOrder` bedeuten?
-2. Modelliere die Nachrichten als Discriminated Unions in `messages.ts`: Commands im Imperativ (`CreateOrder`, `AddItem`, `PlaceOrder`, `PayOrder`, `ShipOrder`, `CancelOrder`), Events in der Vergangenheitsform, zwei Queries.
-3. Schreib `decide(order, command)`: Er prüft die Regeln und liefert neue Events oder wirft. Kein Event ohne bestandene Prüfung.
-4. Schreib `evolve(order, event)`: Er wendet ein Event auf den Zustand an, ohne zu prüfen. Das Event ist schon passiert.
-5. Bau eine kleine App mit `send(command)`, `ask(query)` und `subscribe(listener)`. Ein Command liefert keine Daten zurück, eine Query ändert nichts.
-6. Beweis per Test, dass sich der Zustand allein aus den Events ergibt: `events.reduce(evolve, initial)`. Genau darauf baut Event Sourcing auf.
+1. Read `src/orders.ts`. How many different things can `updateOrder` mean?
+2. Model the messages as Discriminated Unions in `messages.ts`: commands in the imperative (`CreateOrder`, `AddItem`, `PlaceOrder`, `PayOrder`, `ShipOrder`, `CancelOrder`), events in the past tense, two queries.
+3. Write `decide(order, command)`: it checks the rules and returns new events or throws. No event without a passed check.
+4. Write `evolve(order, event)`: it applies an event to the state without checking. The event has already happened.
+5. Build a small app with `send(command)`, `ask(query)`, and `subscribe(listener)`. A command returns no data, a query changes nothing.
+6. Prove by test that the state results from the events alone: `events.reduce(evolve, initial)`. That is exactly what Event Sourcing builds on.
 
-Eine mögliche Lösung liegt in `solution/` (`npm run start:solution`).
+One possible solution is in `solution/` (`npm run start:solution`).
 
-Weiter: [CQRS](../cqrs/README.md)
+Next: [CQRS](../cqrs/README.md)

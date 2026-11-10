@@ -1,8 +1,8 @@
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb'
 import type { Client, Item } from './fake-dynamodb.ts'
 
-// Event Store auf DynamoDB, erster Versuch: ein Put je Event, ohne Bedingung.
-// pk = Stream (ORDER#o-1), sk = Version im Stream
+// Event Store on DynamoDB, first attempt: one put per event, without a condition.
+// pk = stream (ORDER#o-1), sk = version within the stream
 
 export type OrderEvent = { type: string; data: Record<string, unknown> }
 

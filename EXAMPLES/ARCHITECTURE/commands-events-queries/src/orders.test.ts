@@ -3,7 +3,7 @@ import { createOrderApi } from './orders.ts'
 
 const draft = { id: 'o-1', customerId: 'c-1', status: 'draft' as const, items: [] }
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('update-everything API', () => {
   it('ships a draft order without items', () => {
     const api = createOrderApi()
@@ -16,7 +16,7 @@ describe('update-everything API', () => {
     api.saveOrder(draft)
     const before = api.updateOrder('o-1', { customerId: 'c-2' })
     const after = api.updateOrder('o-1', { status: 'placed' })
-    expect(Object.keys(before)).toEqual(Object.keys(after)) // kein Unterschied in der Antwort
+    expect(Object.keys(before)).toEqual(Object.keys(after)) // no difference in the response
   })
 
   it('changes state while reading', () => {

@@ -4,7 +4,7 @@ import { fakeDynamoDb } from './fake-dynamodb.ts'
 import { createHandler, type ReadModel } from './projector.ts'
 import { streamBatch } from './stream.ts'
 
-// Diese Tests beschreiben den heutigen Stand – auch seine Schwächen.
+// These tests describe the current state – including its weaknesses.
 describe('naive DynamoDB event store', () => {
   it('overwrites an event when two commands append the same version', async () => {
     const db = fakeDynamoDb()
@@ -15,7 +15,7 @@ describe('naive DynamoDB event store', () => {
       store.append('o-1', 1, [{ type: 'OrderCancelled', data: {} }]),
     ])
     const { events } = await store.load('o-1')
-    expect(events.map((e) => e.type)).toEqual(['OrderPlaced', 'OrderCancelled']) // OrderPaid ist weg
+    expect(events.map((e) => e.type)).toEqual(['OrderPlaced', 'OrderCancelled']) // OrderPaid is gone
   })
 })
 
@@ -25,7 +25,7 @@ describe('naive stream handler', () => {
     const handle = createHandler(readModel)
     await handle(streamBatch([{ pk: 'ORDER#o-1', sk: 2, type: 'OrderPaid', data: {} }]))
     await handle(streamBatch([{ pk: 'ORDER#o-1', sk: 1, type: 'OrderPlaced', data: {} }]))
-    expect(readModel.get('ORDER#o-1')?.status).toBe('placed') // sollte paid bleiben
+    expect(readModel.get('ORDER#o-1')?.status).toBe('placed') // should stay paid
   })
 
   it('fails the whole batch for one bad record', async () => {
