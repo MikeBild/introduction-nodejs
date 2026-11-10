@@ -185,6 +185,7 @@ Kurze englische Notizen zu den Grundlagen, überwiegend aus den Jahren 2017 bis 
 - Folien: [slides.mikebild.dev/introduction-nodejs](https://slides.mikebild.dev/introduction-nodejs.html)
 - PDF: [slides.mikebild.dev/introduction-nodejs.pdf](https://slides.mikebild.dev/introduction-nodejs.pdf)
 - Folien: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
+- PDF: [slides.mikebild.dev/introduction-cqrs-event-sourcing.pdf](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.pdf)
 - Beiträge auf mikebild.dev:
   - [Node.js-Training: Vom Event Loop zur Architekturentscheidung](https://www.mikebild.dev/de/blog/nodejs-training-event-loop-architektur/)
   - [CQRS ist eine fachliche Grenze, kein Framework](https://www.mikebild.dev/de/blog/cqrs-fachliche-grenze-kein-framework/)
