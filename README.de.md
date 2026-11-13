@@ -189,6 +189,7 @@ Kurze englische Notizen zu den Grundlagen, überwiegend aus den Jahren 2017 bis 
 - Video: [introduction-nodejs.mp4](https://objects.upraft.mikebild.info/site-media/mikebild/decks/introduction-nodejs/introduction-nodejs.mp4)
 - Folien: [slides.mikebild.dev/introduction-cqrs-event-sourcing](https://slides.mikebild.dev/introduction-cqrs-event-sourcing.html)
 - PDF: [introduction-cqrs-event-sourcing.pdf](https://objects.upraft.mikebild.info/site-media/mikebild/decks/introduction-cqrs-event-sourcing/introduction-cqrs-event-sourcing.pdf)
+- Video: [introduction-cqrs-event-sourcing.mp4](https://objects.upraft.mikebild.info/site-media/mikebild/decks/introduction-cqrs-event-sourcing/introduction-cqrs-event-sourcing.mp4)
 - Beiträge auf mikebild.dev:
   - [Node.js-Training: Vom Event Loop zur Architekturentscheidung](https://www.mikebild.dev/de/blog/nodejs-training-event-loop-architektur/)
   - [CQRS ist eine fachliche Grenze, kein Framework](https://www.mikebild.dev/de/blog/cqrs-fachliche-grenze-kein-framework/)
